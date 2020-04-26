@@ -125,7 +125,7 @@ namespace OS.Data_Access_Layer
 			{
 				using (SqlCommand cmd = new SqlCommand(sp_name))
 				{
-					cmd.CommandType = CommandType.StoredPrsocedure;
+					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Connection = con;
 					con.Open();
 					tran = con.BeginTransaction(IsolationLevel.ReadCommitted);

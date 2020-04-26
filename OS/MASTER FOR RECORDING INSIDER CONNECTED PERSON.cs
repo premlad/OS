@@ -401,7 +401,6 @@ namespace OS
 					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				Clear();
-				txtINSCONconnectperson.Enabled = false;
 				btnupdateINSCON.Visible = false;
 				btnaddINSCONdeelete.Visible = false;
 				btncacncelINSCON.Visible = false;
