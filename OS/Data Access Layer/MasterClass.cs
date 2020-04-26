@@ -1,0 +1,479 @@
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using OS.Data_Entity;
+using RSACryptography;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Device.Location;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
+
+namespace OS.Data_Access_Layer
+{
+	internal class MasterClass
+	{
+		public SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
+		public SqlTransaction tran;
+		public DataTable dt = new DataTable();
+		public DataSet ds = new DataSet();
+		private static readonly TimeZoneInfo India_Standard_Time = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+
+		public MasterClass()
+		{
+
+		}
+
+		public string SAVE_LOG(AUDITLOG obj)
+		{
+			Hashtable log = new Hashtable
+			{
+				{ "@NAME", CryptographyHelper.Encrypt(obj.CURRVALUE) },
+				{ "@DESCRIPTION", CryptographyHelper.Encrypt(obj.DESCRIPTION) },
+				{ "@OPERATION", CryptographyHelper.Encrypt("SELECTED") },
+				{ "@TID", obj.ID },
+				{ "@ENTEREDBY", obj.ENTEREDBY},
+				{ "@ENTEREDON", GETIST()},
+				{ "@ACTION", "1" }
+			};
+			return new MasterClass().executeScalar_SP("STP_LOG", log);
+		}
+
+		public string Encrypt(string toEncrypt, bool useHashing)
+		{
+			byte[] keyArray;
+			byte[] toEncryptArray = UTF8Encoding.UTF8.GetBytes(toEncrypt);
+
+			System.Configuration.AppSettingsReader settingsReader = new AppSettingsReader();
+			// Get the key from config file
+			string key = (string)settingsReader.GetValue("SecurityKey", typeof(string));
+			//System.Windows.Forms.MessageBox.Show(key);
+			if (useHashing)
+			{
+				MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+				keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+				hashmd5.Clear();
+			}
+			else
+			{
+				keyArray = UTF8Encoding.UTF8.GetBytes(key);
+			}
+
+			TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider
+			{
+				Key = keyArray,
+				Mode = CipherMode.ECB,
+				Padding = PaddingMode.PKCS7
+			};
+
+			ICryptoTransform cTransform = tdes.CreateEncryptor();
+			byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+			tdes.Clear();
+			return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+		}
+
+		public string Decrypt(string cipherString, bool useHashing)
+		{
+			byte[] keyArray;
+			byte[] toEncryptArray = Convert.FromBase64String(cipherString);
+
+			System.Configuration.AppSettingsReader settingsReader = new AppSettingsReader();
+			//Get your key from config file to open the lock!
+			string key = (string)settingsReader.GetValue("SecurityKey", typeof(string));
+
+			if (useHashing)
+			{
+				MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
+				keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+				hashmd5.Clear();
+			}
+			else
+			{
+				keyArray = UTF8Encoding.UTF8.GetBytes(key);
+			}
+
+			TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider
+			{
+				Key = keyArray,
+				Mode = CipherMode.ECB,
+				Padding = PaddingMode.PKCS7
+			};
+
+			ICryptoTransform cTransform = tdes.CreateDecryptor();
+			byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+			tdes.Clear();
+			return UTF8Encoding.UTF8.GetString(resultArray);
+		}
+
+		public static DateTime GETIST()
+		{
+			DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
+			return dateTime_Indian;
+		}
+
+		public DataSet executeDatable_SP(string sp_name, System.Collections.Hashtable hash)
+		{
+			try
+			{
+				using (SqlCommand cmd = new SqlCommand(sp_name))
+				{
+					cmd.CommandType = CommandType.StoredPrsocedure;
+					cmd.Connection = con;
+					con.Open();
+					tran = con.BeginTransaction(IsolationLevel.ReadCommitted);
+					cmd.Transaction = tran;
+					System.Collections.IDictionaryEnumerator en = hash.GetEnumerator();
+
+					while (en.MoveNext())
+					{
+						SqlParameter p = cmd.CreateParameter();
+						p.ParameterName = en.Key.ToString();
+						p.Value = en.Value;
+						cmd.Parameters.Add(p);
+					}
+					SqlDataAdapter da = new SqlDataAdapter(cmd);
+					da.Fill(ds);
+					tran.Commit();
+					con.Close();
+					return ds;
+				}
+			}
+			catch (Exception ex)
+			{
+				tran.Rollback();
+				con.Close();
+				throw ex;
+			}
+		}
+
+		public string executeScalar_SP(string sp_name, System.Collections.Hashtable hash)
+		{
+			try
+			{
+				using (SqlCommand cmd = new SqlCommand(sp_name))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Connection = con;
+					con.Open();
+					tran = con.BeginTransaction(IsolationLevel.ReadCommitted);
+					cmd.Transaction = tran;
+					System.Collections.IDictionaryEnumerator en = hash.GetEnumerator();
+
+					while (en.MoveNext())
+					{
+						SqlParameter p = cmd.CreateParameter();
+						p.ParameterName = en.Key.ToString();
+						p.Value = en.Value;
+						cmd.Parameters.Add(p);
+					}
+					string obj = cmd.ExecuteScalar().ToString();
+					tran.Commit();
+					con.Close();
+					return obj;
+				}
+			}
+			catch (Exception ex)
+			{
+				tran.Rollback();
+				con.Close();
+				throw ex;
+			}
+		}
+
+		public bool executeQuery(string query)
+		{
+			try
+			{
+				con.Open();
+				SqlCommand cmd = new SqlCommand(query, con);
+				cmd.ExecuteNonQuery();
+				con.Close();
+				return true;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public string ToCsV(DataGridView dGV, string filename)
+		{
+
+			string stOutput = "";
+
+			// Export titles:
+
+			string sHeaders = "";
+
+			for (int j = 0; j < dGV.Columns.Count; j++)
+			{
+				sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+			}
+
+			stOutput += sHeaders + "\r\n";
+
+			// Export data.
+
+			for (int i = 0; i < dGV.RowCount - 1; i++)
+			{
+
+				string stLine = "";
+
+				for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+				{
+					stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+				}
+
+				stOutput += stLine + "\r\n";
+
+			}
+
+			Encoding utf16 = Encoding.GetEncoding(1254);
+
+			byte[] output = utf16.GetBytes(stOutput);
+
+			FileStream fs = new FileStream(filename, FileMode.Create);
+
+			BinaryWriter bw = new BinaryWriter(fs);
+
+			bw.Write(output, 0, output.Length); //write the encoded file
+
+			bw.Flush();
+
+			bw.Close();
+
+			fs.Close();
+			return "";
+
+		}
+
+		public void ToPDF(DataGridView dataGridView1, string filename, bool fileError = false)
+		{
+			if (!fileError)
+			{
+				try
+				{
+					PdfPTable pdfTable = new PdfPTable(dataGridView1.Columns.Count);
+					pdfTable.DefaultCell.Padding = 3;
+					pdfTable.WidthPercentage = 100;
+					pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+
+					foreach (DataGridViewColumn column in dataGridView1.Columns)
+					{
+						PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+						pdfTable.AddCell(cell);
+					}
+
+					foreach (DataGridViewRow row in dataGridView1.Rows)
+					{
+						foreach (DataGridViewCell cell in row.Cells)
+						{
+							pdfTable.AddCell(cell.Value.ToString());
+						}
+					}
+
+					using (FileStream stream = new FileStream(filename, FileMode.Create))
+					{
+						Document pdfDoc = new Document(PageSize.A4.Rotate(), 10f, 20f, 20f, 10f);
+						PdfWriter.GetInstance(pdfDoc, stream);
+						pdfDoc.Open();
+						pdfDoc.Add(pdfTable);
+						pdfDoc.Close();
+						stream.Close();
+					}
+				}
+				catch (Exception)
+				{
+					throw;
+				}
+			}
+		}
+
+		public static string getdate(string date)
+		{
+			string[] dt = date.Split('/');
+			if (dt.Length == 3)
+			{
+				return dt[1] + "/" + dt[0] + "/" + dt[2];
+			}
+			else
+			{
+				return "";
+			}
+		}
+
+		public static string[] getTime(string inputtime)
+		{
+
+			try
+			{
+
+				string hh, mm, ss, ampm;
+				string[] _time1 = inputtime.Split(' ');
+				string[] _time2 = _time1[0].Split(':');
+				ampm = _time1[1];
+				if (_time2.Length == 3)
+				{
+					hh = _time2[0];
+					mm = _time2[1];
+					ss = _time2[2];
+				}
+				else
+				{
+					hh = _time2[0];
+					mm = _time2[1];
+					ss = "00";
+				}
+				string[] outputtime = { hh, mm, ss, ampm };
+				return outputtime;
+			}
+			catch
+			{
+				string[] outputtime = null;
+				return outputtime;
+			}
+		}
+
+		//Send Email To Client...!!!
+		public static bool SendEmail(string mailbody, string email, string subject)
+		{
+			string to = email; //To address    
+			string from = "premlad961@gmail.com"; //From address    
+			MailMessage message = new MailMessage(from, to)
+			{
+				Subject = subject,
+				Body = mailbody,
+				BodyEncoding = Encoding.UTF8,
+				IsBodyHtml = true
+			};
+			SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+			System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("premlad961@gmail.com", "Premlad961@#");
+			//System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("dreal.software.solutions@gmail.com", "DReal@@123");
+			client.EnableSsl = true;
+			client.UseDefaultCredentials = true;
+			client.Credentials = basicCredential1;
+			try
+			{
+				client.Send(message);
+				return true;
+			}
+
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+
+		}
+
+		//Get GEo LOcation of the Client in Latitude and Longitude
+		public static string GetGeoLocation()
+		{
+			try
+			{
+				GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+
+				// Do not suppress prompt, and wait 1000 milliseconds to start.
+				watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+
+				GeoCoordinate coord = watcher.Position.Location;
+
+				if (coord.IsUnknown != true)
+				{
+					return "Lat:" + coord.Latitude + "|Long:" + coord.Longitude;
+					//Console.WriteLine("Lat: {0}, Long: {1}",
+					//	coord.Latitude,
+					//	coord.Longitude);
+				}
+				else
+				{
+					return "Unknown latitude and longitude.";
+					//Console.WriteLine("Unknown latitude and longitude.");
+				}
+				return "Unknown latitude and longitude.";
+			}
+			catch (Exception e)
+			{
+				return "Unknown latitude and longitude with Exception:" + e.ToString();
+			}
+		}
+
+		//Get IP Address of the Client
+		public static string GetIPAdd()
+		{
+			try
+			{
+
+
+				string hostName = Dns.GetHostName(); // Retrive the Name of HOST  
+				Console.WriteLine(hostName);
+				// Get the IP  
+				string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+				return myIP;
+				//Console.WriteLine("My IP Address is :" + myIP);
+				//Console.ReadKey();
+			}
+			catch (Exception e)
+			{
+				return "Unknown IP with Exception:" + e.ToString();
+			}
+		}
+
+		//Encode Value to Base64
+		public static string Base64Encode(string plainText)
+		{
+			byte[] plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+			return System.Convert.ToBase64String(plainTextBytes);
+		}
+
+		//Decode Value to Base64
+		public static string Base64Decode(string base64EncodedData)
+		{
+			byte[] base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+			return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+		}
+
+		//Send Email To Client...!!!
+		public static bool SendEmailOfException(string mailbody, List<string> email, string subject)
+		{
+			List<string> to = email; //To address   
+			string From = "premlad961@gmail.com";
+			MailMessage message = new MailMessage();
+			foreach (string mutiemail in to)
+			{
+				message.To.Add(new MailAddress(mutiemail));
+			}
+			message.From = new MailAddress(From);
+			message.Subject = subject;
+			message.Body = mailbody;
+			message.BodyEncoding = Encoding.UTF8;
+			message.IsBodyHtml = true;
+			SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+			System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("premlad961@gmail.com", "Premlad961@#");
+			//System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("dreal.software.solutions@gmail.com", "DReal@@123");
+			client.EnableSsl = true;
+			client.UseDefaultCredentials = true;
+			client.Credentials = basicCredential1;
+			try
+			{
+				client.Send(message);
+				return true;
+			}
+
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+
+		}
+	}
+}

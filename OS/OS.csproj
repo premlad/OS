@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A8B14DE3-969B-4F58-8740-6C25EFCEF08D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>OS</RootNamespace>
+    <AssemblyName>OS</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data Access Layer\CheckDB.cs" />
+    <Compile Include="Data Access Layer\CryptographyHelper.cs" />
+    <Compile Include="Data Access Layer\MasterClass.cs" />
+    <Compile Include="Data Access Layer\RSACryptographyKeyGenerator.cs" />
+    <Compile Include="Data Entity\AUDITLOG.cs" />
+    <Compile Include="Data Entity\LOGIN.cs" />
+    <Compile Include="Data Entity\SESSIONKEYS.cs" />
+    <Compile Include="Data Entity\T_INS_PER.cs" />
+    <Compile Include="Data Entity\T_INS_PRO.cs" />
+    <Compile Include="Data Entity\T_INS_UPSI.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HOMEPAGE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HOMEPAGE.Designer.cs">
+      <DependentUpon>HOMEPAGE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LIST OF INSIDERS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LIST OF INSIDERS.Designer.cs">
+      <DependentUpon>LIST OF INSIDERS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MASTER DATA OF COMPANY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MASTER DATA OF COMPANY.Designer.cs">
+      <DependentUpon>MASTER DATA OF COMPANY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MASTER FOR RECORDING INSIDER CONNECTED PERSON.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MASTER FOR RECORDING INSIDER CONNECTED PERSON.Designer.cs">
+      <DependentUpon>MASTER FOR RECORDING INSIDER CONNECTED PERSON.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MASTER FOR RECORDING INSIDER PROFILE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MASTER FOR RECORDING INSIDER PROFILE.Designer.cs">
+      <DependentUpon>MASTER FOR RECORDING INSIDER PROFILE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERFORM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MASTERFORM.Designer.cs">
+      <DependentUpon>MASTERFORM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RECORDING OF SHARING OF UPSI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RECORDING OF SHARING OF UPSI.Designer.cs">
+      <DependentUpon>RECORDING OF SHARING OF UPSI.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HOMEPAGE.resx">
+      <DependentUpon>HOMEPAGE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LIST OF INSIDERS.resx">
+      <DependentUpon>LIST OF INSIDERS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MASTER DATA OF COMPANY.resx">
+      <DependentUpon>MASTER DATA OF COMPANY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MASTER FOR RECORDING INSIDER CONNECTED PERSON.resx">
+      <DependentUpon>MASTER FOR RECORDING INSIDER CONNECTED PERSON.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MASTER FOR RECORDING INSIDER PROFILE.resx">
+      <DependentUpon>MASTER FOR RECORDING INSIDER PROFILE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MASTERFORM.resx">
+      <DependentUpon>MASTERFORM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="RECORDING OF SHARING OF UPSI.resx">
+      <DependentUpon>RECORDING OF SHARING OF UPSI.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\icons8-3d-farm.png" />
+    <Content Include="Icons\icons8-add-column.png" />
+    <Content Include="Icons\icons8-add-new.png" />
+    <Content Include="Icons\icons8-add-row.png" />
+    <Content Include="Icons\icons8-administrative-tools.png" />
+    <Content Include="Icons\icons8-calendar-with-clock-2.png" />
+    <Content Include="Icons\icons8-calendar-with-clock.png" />
+    <Content Include="Icons\icons8-circled-thumbs-up-filled.png" />
+    <Content Include="Icons\icons8-circled-thumbs-up.png" />
+    <Content Include="Icons\icons8-clipboard-checklist.png" />
+    <Content Include="Icons\icons8-csv-2.png" />
+    <Content Include="Icons\icons8-csv.png" />
+    <Content Include="Icons\icons8-delete-2.png" />
+    <Content Include="Icons\icons8-delete-button-2.png" />
+    <Content Include="Icons\icons8-delete-button-filled.png" />
+    <Content Include="Icons\icons8-delete-button.png" />
+    <Content Include="Icons\icons8-delete-column.png" />
+    <Content Include="Icons\icons8-delete-row-2.png" />
+    <Content Include="Icons\icons8-delete-row.png" />
+    <Content Include="Icons\icons8-delete.png" />
+    <Content Include="Icons\icons8-doughnut-chart-2.png" />
+    <Content Include="Icons\icons8-doughnut-chart-3.png" />
+    <Content Include="Icons\icons8-doughnut-chart.png" />
+    <Content Include="Icons\icons8-edit-file-2.png" />
+    <Content Include="Icons\icons8-edit-file-3.png" />
+    <Content Include="Icons\icons8-edit-file.png" />
+    <Content Include="Icons\icons8-event-2.png" />
+    <Content Include="Icons\icons8-event-3.png" />
+    <Content Include="Icons\icons8-event.png" />
+    <Content Include="Icons\icons8-gmail-filled.png" />
+    <Content Include="Icons\icons8-gmail-login.png" />
+    <Content Include="Icons\icons8-gmail.png" />
+    <Content Include="Icons\icons8-google-web-search-2.png" />
+    <Content Include="Icons\icons8-google-web-search-filled.png" />
+    <Content Include="Icons\icons8-google-web-search.png" />
+    <Content Include="Icons\icons8-graduation-cap-2.png" />
+    <Content Include="Icons\icons8-graduation-cap.png" />
+    <Content Include="Icons\icons8-help-2.png" />
+    <Content Include="Icons\icons8-help-filled.png" />
+    <Content Include="Icons\icons8-help.png" />
+    <Content Include="Icons\icons8-info-2.png" />
+    <Content Include="Icons\icons8-info-filled.png" />
+    <Content Include="Icons\icons8-info.png" />
+    <Content Include="Icons\icons8-location-marker.png" />
+    <Content Include="Icons\icons8-lock-outline-filled.png" />
+    <Content Include="Icons\icons8-menu-2.png" />
+    <Content Include="Icons\icons8-menu-filled.png" />
+    <Content Include="Icons\icons8-menu.png" />
+    <Content Include="Icons\icons8-message-2.png" />
+    <Content Include="Icons\icons8-message-3.png" />
+    <Content Include="Icons\icons8-message-4.png" />
+    <Content Include="Icons\icons8-message.png" />
+    <Content Include="Icons\icons8-microsoft-excel-2.png" />
+    <Content Include="Icons\icons8-microsoft-excel.png" />
+    <Content Include="Icons\icons8-microsoft-word-2.png" />
+    <Content Include="Icons\icons8-microsoft-word.png" />
+    <Content Include="Icons\icons8-money-2.png" />
+    <Content Include="Icons\icons8-money.png" />
+    <Content Include="Icons\icons8-music-note-outline.png" />
+    <Content Include="Icons\icons8-new.png" />
+    <Content Include="Icons\icons8-note-2.png" />
+    <Content Include="Icons\icons8-note-filled.png" />
+    <Content Include="Icons\icons8-note.png" />
+    <Content Include="Icons\icons8-notification.png" />
+    <Content Include="Icons\icons8-open-2.png" />
+    <Content Include="Icons\icons8-open-filled.png" />
+    <Content Include="Icons\icons8-open.png" />
+    <Content Include="Icons\icons8-package-filled.png" />
+    <Content Include="Icons\icons8-package.png" />
+    <Content Include="Icons\icons8-paste-special.png" />
+    <Content Include="Icons\icons8-pdf-2.png" />
+    <Content Include="Icons\icons8-pdf-3.png" />
+    <Content Include="Icons\icons8-pdf.png" />
+    <Content Include="Icons\icons8-pencil-2.png" />
+    <Content Include="Icons\icons8-pencil.png" />
+    <Content Include="Icons\icons8-phone-2.png" />
+    <Content Include="Icons\icons8-phone-3.png" />
+    <Content Include="Icons\icons8-phone-filled.png" />
+    <Content Include="Icons\icons8-phone.png" />
+    <Content Include="Icons\icons8-photos-2.png" />
+    <Content Include="Icons\icons8-photos-filled.png" />
+    <Content Include="Icons\icons8-photos.png" />
+    <Content Include="Icons\icons8-print-filled.png" />
+    <Content Include="Icons\icons8-profile-picture-2.png" />
+    <Content Include="Icons\icons8-profile-picture-filled.png" />
+    <Content Include="Icons\icons8-profile-picture.png" />
+    <Content Include="Icons\icons8-raw.png" />
+    <Content Include="Icons\icons8-refresh-2.png" />
+    <Content Include="Icons\icons8-refresh-filled.png" />
+    <Content Include="Icons\icons8-refresh.png" />
+    <Content Include="Icons\icons8-scissors-outline.png" />
+    <Content Include="Icons\icons8-security-2.png" />
+    <Content Include="Icons\icons8-security.png" />
+    <Content Include="Icons\icons8-settings-filled.png" />
+    <Content Include="Icons\icons8-settings.png" />
+    <Content Include="Icons\icons8-sort-by-modified-date.png" />
+    <Content Include="Icons\icons8-sort-by-recently-viewed-2.png" />
+    <Content Include="Icons\icons8-sort-by-recently-viewed.png" />
+    <Content Include="Icons\icons8-sort-by-start-date.png" />
+    <Content Include="Icons\icons8-text-align-left.png" />
+    <Content Include="Icons\icons8-text-justify.png" />
+    <Content Include="Icons\icons8-timeline-2.png" />
+    <Content Include="Icons\icons8-timeline.png" />
+    <Content Include="Icons\icons8-tool-symbol.png" />
+    <Content Include="Icons\icons8-warn.png" />
+    <Content Include="Icons\icons8-warning.png" />
+    <Content Include="Icons\icons8-word.png" />
+    <Content Include="Icons\icons8-work-2.png" />
+    <Content Include="Icons\icons8-work-3.png" />
+    <Content Include="Icons\icons8-work-4.png" />
+    <Content Include="Icons\icons8-work-in-progress-filled.png" />
+    <Content Include="Icons\icons8-work.png" />
+    <Content Include="Icons\icons8-xls.png" />
+    <Content Include="Resources\download.jpg" />
+    <Content Include="Resources\houde.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
