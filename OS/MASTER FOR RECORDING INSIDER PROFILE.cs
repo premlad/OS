@@ -76,6 +76,33 @@ namespace OS
 			txtINSPROreceipeitnID.AutoCompleteCustomSource = MyCollection;
 		}
 
+		private void cmbINSPROcategoryofreceipt_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar < 32 || e.KeyChar > 126)
+			{
+				return;
+			}
+			string t = cmbINSPROcategoryofreceipt.Text;
+			string typedT = t.Substring(0, cmbINSPROcategoryofreceipt.SelectionStart);
+			string newT = typedT + e.KeyChar;
+
+			int i = cmbINSPROcategoryofreceipt.FindString(newT);
+			if (i == -1)
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void cmbINSPROcategoryofreceipt_Leave(object sender, EventArgs e)
+		{
+			string t = cmbINSPROcategoryofreceipt.Text;
+
+			if (cmbINSPROcategoryofreceipt.SelectedItem == null)
+			{
+				cmbINSPROcategoryofreceipt.Text = "";
+			}
+		}
+
 		public class ComboboxItem
 		{
 			public string NAME { get; set; }
@@ -91,19 +118,24 @@ namespace OS
 		{
 			if (txtINSPROreceipeitnID.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (txtINSPROnameofinsider.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (txtINSPROpannomaster.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Pan No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else if (txtMobileINSPRONumber.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Mobile No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Mobile No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
+			{
+				DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -148,11 +180,11 @@ namespace OS
 				string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
 				if (Convert.ToInt32(ds) > 0)
 				{
-					DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				else
 				{
-					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				InitializeComponent();
 				FillConnectPersonID();
@@ -228,7 +260,8 @@ namespace OS
 								}
 								else
 								{
-									cmdINSPROcategoryothers.SelectedText = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString());
+									string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString());
+									cmbINSPROcategoryofreceipt.SelectedText = a;
 								}
 								txtINSPROreceipeitnID.ReadOnly = true;
 								btnupdateINSCON.Visible = true;
@@ -278,30 +311,53 @@ namespace OS
 
 		private void btnupdateINSCON_Click(object sender, EventArgs e)
 		{
-			T_INS_PRO PRO = new T_INS_PRO
+			if (txtINSPROreceipeitnID.Text == "")
 			{
-				ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
-				NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
-				RECEPIENT_ID = txtINSPROreceipeitnID.Text,
-				ADDRESS = txtINSPROaddressmaster.Text,
-				PAN_NO = txtINSPROpannomaster.Text,
-				AADHAR_NO = txtINSPROaadhar.Text,
-				PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
-				MOBILE_NO = txtMobileINSPRONumber.Text,
-				LANDLINE_NO = txtlandlineINSPRONumber.Text,
-				EMAIL_ID = txtEmailINSPRONumber.Text
-			};
-			if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+				DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (txtINSPROnameofinsider.Text == "")
 			{
-				PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+				DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (txtINSPROpannomaster.Text == "")
+			{
+				DialogResult dialog = MessageBox.Show("Enter Pan No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (txtMobileINSPRONumber.Text == "")
+			{
+				DialogResult dialog = MessageBox.Show("Enter Mobile No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
+			{
+				DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
-				PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
-			}
-			PRO.ID = "";
-			PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-			Hashtable hstmst = new Hashtable
+				T_INS_PRO PRO = new T_INS_PRO
+				{
+					ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
+					NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
+					RECEPIENT_ID = txtINSPROreceipeitnID.Text,
+					ADDRESS = txtINSPROaddressmaster.Text,
+					PAN_NO = txtINSPROpannomaster.Text,
+					AADHAR_NO = txtINSPROaadhar.Text,
+					PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
+					MOBILE_NO = txtMobileINSPRONumber.Text,
+					LANDLINE_NO = txtlandlineINSPRONumber.Text,
+					EMAIL_ID = txtEmailINSPRONumber.Text
+				};
+				if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+				{
+					PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+				}
+				else
+				{
+					PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
+				}
+				PRO.ID = "";
+				PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				Hashtable hstmst = new Hashtable
 				{
 					{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() },
 					{ "@RECEPIENTID", CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) },
@@ -318,16 +374,17 @@ namespace OS
 					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
 					{ "@ACTION", "4" }
 				};
-			string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
-			if (Convert.ToInt32(ds) > 0)
-			{
-				DialogResult dialog = MessageBox.Show("Updated Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				InitializeComponent();
-				FillConnectPersonID();
-			}
-			else
-			{
-				DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
+				if (Convert.ToInt32(ds) > 0)
+				{
+					DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					InitializeComponent();
+					FillConnectPersonID();
+				}
+				else
+				{
+					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
 			}
 		}
 
@@ -346,17 +403,26 @@ namespace OS
 				string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
 				if (Convert.ToInt32(ds) > 0)
 				{
-					DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					InitializeComponent();
 					FillConnectPersonID();
 				}
 				else
 				{
-					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
 		}
 
+		private void button1_Click(object sender, EventArgs e)
+		{
+			HOMEPAGE h = new HOMEPAGE();
+			h.Show();
+			Hide();
+		}
+
 		#endregion
+
+
 	}
 }

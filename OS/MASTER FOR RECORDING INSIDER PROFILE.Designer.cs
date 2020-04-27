@@ -60,12 +60,14 @@
 			this.txtINSPROreceipeitnID = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.btnaddINSCON);
 			this.groupBox1.Controls.Add(this.btnaddINSCONdeelete);
 			this.groupBox1.Controls.Add(this.btnupdateINSCON);
@@ -109,7 +111,7 @@
 			// 
 			this.btnaddINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCON.Location = new System.Drawing.Point(167, 494);
+			this.btnaddINSCON.Location = new System.Drawing.Point(25, 490);
 			this.btnaddINSCON.Name = "btnaddINSCON";
 			this.btnaddINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCON.TabIndex = 12;
@@ -121,7 +123,7 @@
 			// 
 			this.btnaddINSCONdeelete.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCONdeelete.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(941, 494);
+			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(799, 490);
 			this.btnaddINSCONdeelete.Name = "btnaddINSCONdeelete";
 			this.btnaddINSCONdeelete.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCONdeelete.TabIndex = 15;
@@ -134,7 +136,7 @@
 			// 
 			this.btnupdateINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnupdateINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnupdateINSCON.Location = new System.Drawing.Point(425, 494);
+			this.btnupdateINSCON.Location = new System.Drawing.Point(283, 490);
 			this.btnupdateINSCON.Name = "btnupdateINSCON";
 			this.btnupdateINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnupdateINSCON.TabIndex = 13;
@@ -147,7 +149,7 @@
 			// 
 			this.btncacncelINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btncacncelINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btncacncelINSCON.Location = new System.Drawing.Point(683, 494);
+			this.btncacncelINSCON.Location = new System.Drawing.Point(541, 490);
 			this.btncacncelINSCON.Name = "btncacncelINSCON";
 			this.btncacncelINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btncacncelINSCON.TabIndex = 14;
@@ -268,6 +270,8 @@
 			this.cmbINSPROcategoryofreceipt.Size = new System.Drawing.Size(329, 27);
 			this.cmbINSPROcategoryofreceipt.TabIndex = 8;
 			this.cmbINSPROcategoryofreceipt.SelectedIndexChanged += new System.EventHandler(this.cmbINSPROcategoryofreceipt_SelectedIndexChanged);
+			this.cmbINSPROcategoryofreceipt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbINSPROcategoryofreceipt_KeyPress);
+			this.cmbINSPROcategoryofreceipt.Leave += new System.EventHandler(this.cmbINSPROcategoryofreceipt_Leave);
 			// 
 			// label8
 			// 
@@ -469,6 +473,18 @@
 			this.label1.TabIndex = 10;
 			this.label1.Text = "*";
 			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(1057, 490);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(252, 40);
+			this.button1.TabIndex = 59;
+			this.button1.Text = "CLOSE";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// MASTER_FOR_RECORDING_INSIDER_PROFILE
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,5 +537,6 @@
 		private System.Windows.Forms.Button btnaddINSCONdeelete;
 		private System.Windows.Forms.Button btnupdateINSCON;
 		private System.Windows.Forms.Button btncacncelINSCON;
+		private System.Windows.Forms.Button button1;
 	}
 }

@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace OS.Data_Access_Layer
@@ -119,6 +120,28 @@ namespace OS.Data_Access_Layer
 			return dateTime_Indian;
 		}
 
+		public static DateTime GETISTI()
+		{
+			DateTime dateTime = DateTime.MinValue;
+			System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
+			request.Method = "GET";
+			request.Accept = "text/html, application/xhtml+xml, */*";
+			request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
+			request.ContentType = "application/x-www-form-urlencoded";
+			request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+			System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
+			if (response.StatusCode == System.Net.HttpStatusCode.OK)
+			{
+				string todaysDates = response.Headers["date"];
+
+				dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+					System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
+			}
+			return dateTime;
+			//DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
+			//return dateTime_Indian;
+		}
+
 		public DataSet executeDatable_SP(string sp_name, System.Collections.Hashtable hash)
 		{
 			try
@@ -140,6 +163,7 @@ namespace OS.Data_Access_Layer
 						cmd.Parameters.Add(p);
 					}
 					SqlDataAdapter da = new SqlDataAdapter(cmd);
+					cmd.ExecuteNonQuery();
 					da.Fill(ds);
 					tran.Commit();
 					con.Close();
@@ -295,6 +319,13 @@ namespace OS.Data_Access_Layer
 					throw;
 				}
 			}
+		}
+
+		public bool IsValidEmail(string email)
+		{
+			Regex rx = new Regex(
+			@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
+			return rx.IsMatch(email);
 		}
 
 		public static string getdate(string date)

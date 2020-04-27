@@ -40,12 +40,15 @@
 			this.lISTOFSHARINGOFUPSIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.lISTOFAUDITTRAILOFINFORMATIONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.lOGOUTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
 			// 
+			this.menuStrip1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
             this.toolStripMenuItem1,
             this.mASTERToolStripMenuItem,
             this.rEPORTSToolStripMenuItem,
@@ -53,7 +56,7 @@
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-			this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(800, 27);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -135,9 +138,16 @@
 			// lOGOUTToolStripMenuItem
 			// 
 			this.lOGOUTToolStripMenuItem.Name = "lOGOUTToolStripMenuItem";
-			this.lOGOUTToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+			this.lOGOUTToolStripMenuItem.Size = new System.Drawing.Size(85, 23);
 			this.lOGOUTToolStripMenuItem.Text = "LOGOUT";
 			this.lOGOUTToolStripMenuItem.Click += new System.EventHandler(this.lOGOUTToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(106, 23);
+			this.toolStripMenuItem2.Text = "HOMEPAGE";
+			this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
 			// 
 			// MASTERFORM
 			// 
@@ -173,5 +183,6 @@
 		private System.Windows.Forms.ToolStripMenuItem lISTOFAUDITTRAILOFINFORMATIONToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem lOGOUTToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 	}
 }

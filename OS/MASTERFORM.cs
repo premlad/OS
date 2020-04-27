@@ -16,15 +16,21 @@ namespace OS
 
 		private void listOfConnectedPersonToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-
+			LIST_OF_CONNECTED_PERSON c = new LIST_OF_CONNECTED_PERSON();
+			c.Show();
+			Hide();
 		}
 
 		private void MASTERFORM_Load(object sender, EventArgs e)
 		{
-			//if (SESSIONKEYS.Role.ToString() == "Y")
-			//{
-			//	toolStripMenuItem1.Enabled = true;
-			//}
+			if (SESSIONKEYS.Role.ToString() == "Y")
+			{
+				toolStripMenuItem1.Visible = true;
+			}
+			else
+			{
+				toolStripMenuItem1.Visible = false;
+			}
 			WindowState = FormWindowState.Maximized;
 		}
 
@@ -84,6 +90,13 @@ namespace OS
 		{
 			MASTER_DATA_OF_COMPANY c = new MASTER_DATA_OF_COMPANY();
 			c.Show();
+			Hide();
+		}
+
+		private void toolStripMenuItem2_Click(object sender, EventArgs e)
+		{
+			HOMEPAGE h = new HOMEPAGE();
+			h.Show();
 			Hide();
 		}
 	}

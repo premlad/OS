@@ -111,6 +111,7 @@
 			this.btnaddINSCONdeelete = new System.Windows.Forms.Button();
 			this.btnupdateINSCON = new System.Windows.Forms.Button();
 			this.btncacncelINSCON = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewmaterialfinancial)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -126,7 +127,7 @@
 			// 
 			this.btnaddINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCON.Location = new System.Drawing.Point(172, 653);
+			this.btnaddINSCON.Location = new System.Drawing.Point(43, 653);
 			this.btnaddINSCON.Name = "btnaddINSCON";
 			this.btnaddINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCON.TabIndex = 32;
@@ -173,7 +174,6 @@
             this.Financialaddress});
 			this.dataGridViewmaterialfinancial.Location = new System.Drawing.Point(7, 129);
 			this.dataGridViewmaterialfinancial.Name = "dataGridViewmaterialfinancial";
-			this.dataGridViewmaterialfinancial.ReadOnly = true;
 			this.dataGridViewmaterialfinancial.Size = new System.Drawing.Size(641, 199);
 			this.dataGridViewmaterialfinancial.TabIndex = 40;
 			this.dataGridViewmaterialfinancial.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewmaterialfinancial_CellMouseDoubleClick);
@@ -183,42 +183,36 @@
 			this.financilaFullName.Frozen = true;
 			this.financilaFullName.HeaderText = "Full Name";
 			this.financilaFullName.Name = "financilaFullName";
-			this.financilaFullName.ReadOnly = true;
 			// 
 			// financilaMobileNo
 			// 
 			this.financilaMobileNo.Frozen = true;
 			this.financilaMobileNo.HeaderText = "Mobile No";
 			this.financilaMobileNo.Name = "financilaMobileNo";
-			this.financilaMobileNo.ReadOnly = true;
 			// 
 			// FinancialPanno
 			// 
 			this.FinancialPanno.Frozen = true;
 			this.FinancialPanno.HeaderText = "PAN No";
 			this.FinancialPanno.Name = "FinancialPanno";
-			this.FinancialPanno.ReadOnly = true;
 			// 
 			// FinancialDemaAcno
 			// 
 			this.FinancialDemaAcno.Frozen = true;
 			this.FinancialDemaAcno.HeaderText = "Demat A.c No";
 			this.FinancialDemaAcno.Name = "FinancialDemaAcno";
-			this.FinancialDemaAcno.ReadOnly = true;
 			// 
 			// FinancialRelationship
 			// 
 			this.FinancialRelationship.Frozen = true;
 			this.FinancialRelationship.HeaderText = "Relationship";
 			this.FinancialRelationship.Name = "FinancialRelationship";
-			this.FinancialRelationship.ReadOnly = true;
 			// 
 			// Financialaddress
 			// 
 			this.Financialaddress.Frozen = true;
 			this.Financialaddress.HeaderText = "Address";
 			this.Financialaddress.Name = "Financialaddress";
-			this.Financialaddress.ReadOnly = true;
 			// 
 			// btnmaterial
 			// 
@@ -398,7 +392,6 @@
             this.Address});
 			this.dataGridViewISNCONrelativetable.Location = new System.Drawing.Point(7, 129);
 			this.dataGridViewISNCONrelativetable.Name = "dataGridViewISNCONrelativetable";
-			this.dataGridViewISNCONrelativetable.ReadOnly = true;
 			this.dataGridViewISNCONrelativetable.Size = new System.Drawing.Size(641, 199);
 			this.dataGridViewISNCONrelativetable.TabIndex = 39;
 			this.dataGridViewISNCONrelativetable.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewISNCONrelativetable_CellMouseDoubleClick);
@@ -408,42 +401,36 @@
 			this.FullName.Frozen = true;
 			this.FullName.HeaderText = "Full Name";
 			this.FullName.Name = "FullName";
-			this.FullName.ReadOnly = true;
 			// 
 			// MobileNo
 			// 
 			this.MobileNo.Frozen = true;
 			this.MobileNo.HeaderText = "Mobile No";
 			this.MobileNo.Name = "MobileNo";
-			this.MobileNo.ReadOnly = true;
 			// 
 			// PANNo
 			// 
 			this.PANNo.Frozen = true;
 			this.PANNo.HeaderText = "PAN No";
 			this.PANNo.Name = "PANNo";
-			this.PANNo.ReadOnly = true;
 			// 
 			// DematAcNo
 			// 
 			this.DematAcNo.Frozen = true;
 			this.DematAcNo.HeaderText = "Demat A.c No";
 			this.DematAcNo.Name = "DematAcNo";
-			this.DematAcNo.ReadOnly = true;
 			// 
 			// Relationship
 			// 
 			this.Relationship.Frozen = true;
 			this.Relationship.HeaderText = "Relationship";
 			this.Relationship.Name = "Relationship";
-			this.Relationship.ReadOnly = true;
 			// 
 			// Address
 			// 
 			this.Address.Frozen = true;
 			this.Address.HeaderText = "Address";
 			this.Address.Name = "Address";
-			this.Address.ReadOnly = true;
 			// 
 			// btnddrelative
 			// 
@@ -644,7 +631,6 @@
             this.pastemployeegridview});
 			this.dataGridViewPastEmployee.Location = new System.Drawing.Point(1030, 132);
 			this.dataGridViewPastEmployee.Name = "dataGridViewPastEmployee";
-			this.dataGridViewPastEmployee.ReadOnly = true;
 			this.dataGridViewPastEmployee.Size = new System.Drawing.Size(299, 125);
 			this.dataGridViewPastEmployee.TabIndex = 41;
 			this.dataGridViewPastEmployee.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPastEmployee_CellMouseDoubleClick);
@@ -654,7 +640,6 @@
 			this.pastemployeegridview.Frozen = true;
 			this.pastemployeegridview.HeaderText = "Past Employees";
 			this.pastemployeegridview.Name = "pastemployeegridview";
-			this.pastemployeegridview.ReadOnly = true;
 			this.pastemployeegridview.Width = 200;
 			// 
 			// dataGridViewGraduationInstitution
@@ -666,7 +651,6 @@
             this.graduationinstiytuiondatagridview});
 			this.dataGridViewGraduationInstitution.Location = new System.Drawing.Point(682, 132);
 			this.dataGridViewGraduationInstitution.Name = "dataGridViewGraduationInstitution";
-			this.dataGridViewGraduationInstitution.ReadOnly = true;
 			this.dataGridViewGraduationInstitution.Size = new System.Drawing.Size(299, 125);
 			this.dataGridViewGraduationInstitution.TabIndex = 40;
 			this.dataGridViewGraduationInstitution.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewGraduationInstitution_CellMouseDoubleClick);
@@ -676,7 +660,6 @@
 			this.graduationinstiytuiondatagridview.Frozen = true;
 			this.graduationinstiytuiondatagridview.HeaderText = "Graduation Institutions";
 			this.graduationinstiytuiondatagridview.Name = "graduationinstiytuiondatagridview";
-			this.graduationinstiytuiondatagridview.ReadOnly = true;
 			this.graduationinstiytuiondatagridview.Width = 300;
 			// 
 			// dataGridViewDematAcoount
@@ -688,7 +671,6 @@
             this.datagridviewdematacno});
 			this.dataGridViewDematAcoount.Location = new System.Drawing.Point(340, 132);
 			this.dataGridViewDematAcoount.Name = "dataGridViewDematAcoount";
-			this.dataGridViewDematAcoount.ReadOnly = true;
 			this.dataGridViewDematAcoount.Size = new System.Drawing.Size(299, 125);
 			this.dataGridViewDematAcoount.TabIndex = 39;
 			this.dataGridViewDematAcoount.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewDematAcoount_CellMouseDoubleClick);
@@ -698,7 +680,6 @@
 			this.datagridviewdematacno.Frozen = true;
 			this.datagridviewdematacno.HeaderText = "Demat A.C No";
 			this.datagridviewdematacno.Name = "datagridviewdematacno";
-			this.datagridviewdematacno.ReadOnly = true;
 			this.datagridviewdematacno.Width = 200;
 			// 
 			// dataGridViewPhonemobile
@@ -710,7 +691,6 @@
             this.PhoneNo});
 			this.dataGridViewPhonemobile.Location = new System.Drawing.Point(7, 132);
 			this.dataGridViewPhonemobile.Name = "dataGridViewPhonemobile";
-			this.dataGridViewPhonemobile.ReadOnly = true;
 			this.dataGridViewPhonemobile.Size = new System.Drawing.Size(299, 125);
 			this.dataGridViewPhonemobile.TabIndex = 38;
 			this.dataGridViewPhonemobile.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPhonemobile_CellMouseDoubleClick);
@@ -720,7 +700,6 @@
 			this.PhoneNo.Frozen = true;
 			this.PhoneNo.HeaderText = "Phone No";
 			this.PhoneNo.Name = "PhoneNo";
-			this.PhoneNo.ReadOnly = true;
 			// 
 			// btnINSCONpastemployees
 			// 
@@ -1009,7 +988,7 @@
 			// 
 			this.btnaddINSCONdeelete.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCONdeelete.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(945, 653);
+			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(816, 653);
 			this.btnaddINSCONdeelete.Name = "btnaddINSCONdeelete";
 			this.btnaddINSCONdeelete.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCONdeelete.TabIndex = 35;
@@ -1022,7 +1001,7 @@
 			// 
 			this.btnupdateINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnupdateINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnupdateINSCON.Location = new System.Drawing.Point(429, 653);
+			this.btnupdateINSCON.Location = new System.Drawing.Point(300, 653);
 			this.btnupdateINSCON.Name = "btnupdateINSCON";
 			this.btnupdateINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnupdateINSCON.TabIndex = 33;
@@ -1035,7 +1014,7 @@
 			// 
 			this.btncacncelINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btncacncelINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btncacncelINSCON.Location = new System.Drawing.Point(687, 653);
+			this.btncacncelINSCON.Location = new System.Drawing.Point(558, 653);
 			this.btncacncelINSCON.Name = "btncacncelINSCON";
 			this.btncacncelINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btncacncelINSCON.TabIndex = 34;
@@ -1044,6 +1023,18 @@
 			this.btncacncelINSCON.Visible = false;
 			this.btncacncelINSCON.Click += new System.EventHandler(this.btncacncelINSCON_Click);
 			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(1074, 653);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(252, 40);
+			this.button1.TabIndex = 41;
+			this.button1.Text = "CLOSE";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click_2);
+			// 
 			// MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1051,6 +1042,7 @@
 			this.BackColor = System.Drawing.SystemColors.Control;
 			this.BackgroundImage = global::OS.Properties.Resources.download;
 			this.ClientSize = new System.Drawing.Size(1370, 730);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.btnaddINSCONdeelete);
 			this.Controls.Add(this.btnupdateINSCON);
 			this.Controls.Add(this.btncacncelINSCON);
@@ -1071,6 +1063,7 @@
 			this.Controls.SetChildIndex(this.btncacncelINSCON, 0);
 			this.Controls.SetChildIndex(this.btnupdateINSCON, 0);
 			this.Controls.SetChildIndex(this.btnaddINSCONdeelete, 0);
+			this.Controls.SetChildIndex(this.button1, 0);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewmaterialfinancial)).EndInit();
@@ -1171,5 +1164,6 @@
 		private System.Windows.Forms.Button btnaddINSCONdeelete;
 		private System.Windows.Forms.Button btnupdateINSCON;
 		private System.Windows.Forms.Button btncacncelINSCON;
+		private System.Windows.Forms.Button button1;
 	}
 }

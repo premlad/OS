@@ -20,7 +20,23 @@ namespace OS
 		{
 			try
 			{
-				if (new CheckDB().CreateDbForFirstInstance() == "EXISTS")
+				DateTime IST = MasterClass.GETISTI();
+				DateTime currentDateTime = DateTime.Now;
+				DateTime dt = IST.AddMinutes(-IST.Minute).AddSeconds(-IST.Second);
+				DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
+				if (txtusername.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (txtpassword.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+				{
+					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (new CheckDB().CreateDbForFirstInstance() == "EXISTS")
 				{
 					LOGIN a = new LOGIN
 					{
@@ -30,12 +46,12 @@ namespace OS
 					};
 
 					Hashtable hstmst = new Hashtable
-					{
-						{ "@EMAIL", a.EMAIL },
-						{ "@PASSWORD", a.PASSWORD },
-						{ "@ACTIVE", a.ACTIVE },
-						{ "@ACTION", "1" }
-					};
+						{
+							{ "@EMAIL", a.EMAIL },
+							{ "@PASSWORD", a.PASSWORD },
+							{ "@ACTIVE", a.ACTIVE },
+							{ "@ACTION", "1" }
+						};
 					DataSet ds = new MasterClass().executeDatable_SP("STP_LOGIN", hstmst);
 					if (ds.Tables[0].Rows.Count > 0)
 					{

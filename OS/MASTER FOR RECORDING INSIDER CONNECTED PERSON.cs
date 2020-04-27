@@ -109,7 +109,7 @@ namespace OS
 		{
 			if (txtMobileINSCONNumber.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Mobile/Phone No.", "Insider Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Mobile/Phone No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -124,7 +124,7 @@ namespace OS
 		{
 			if (txtINSCONdemataccountno.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Demat A.c No.", "Insider Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -139,7 +139,7 @@ namespace OS
 		{
 			if (txtINSCONgraduationinstitution.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Graduation Institution", "Insider Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Graduation Institution", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -154,7 +154,7 @@ namespace OS
 		{
 			if (txtINSCONpastemployee.Text == "")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Past Employee.", "Insider Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Past Employee.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -167,56 +167,94 @@ namespace OS
 
 		private void dataGridViewPhonemobile_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			dataGridViewPhonemobile.Rows.RemoveAt(e.RowIndex);
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.Yes)
+			{
+				dataGridViewPhonemobile.Rows.RemoveAt(e.RowIndex);
+			}
 		}
 
 		private void dataGridViewDematAcoount_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			dataGridViewDematAcoount.Rows.RemoveAt(e.RowIndex);
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.Yes)
+			{
+				dataGridViewDematAcoount.Rows.RemoveAt(e.RowIndex);
+			}
 		}
 
 		private void dataGridViewGraduationInstitution_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			dataGridViewGraduationInstitution.Rows.RemoveAt(e.RowIndex);
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.Yes)
+			{
+				dataGridViewGraduationInstitution.Rows.RemoveAt(e.RowIndex);
+			}
 		}
 
 		private void dataGridViewPastEmployee_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			dataGridViewPastEmployee.Rows.RemoveAt(e.RowIndex);
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.Yes)
+			{
+				dataGridViewPastEmployee.Rows.RemoveAt(e.RowIndex);
+			}
 		}
 
 		private void button1_Click_1(object sender, EventArgs e)
 		{
-			string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text };
-			dataGridViewISNCONrelativetable.Rows.Add(row);
-			txtINSCONrelativefullnam.Text = "";
-			txtINSCONrelativemobileno.Text = "";
-			txtINSCONrelativepanno.Text = "";
-			txtINSCONrelativedematacno.Text = "";
-			txtINSCONrelativerelationship.Text = "";
-			txtINSCONrelativeaddress.Text = "";
+			if (txtINSCONrelativefullnam.Text == "" && txtINSCONrelativemobileno.Text == "" && txtINSCONrelativepanno.Text == "" && txtINSCONrelativedematacno.Text == "" && txtINSCONrelativerelationship.Text == "" && txtINSCONrelativeaddress.Text == "")
+			{
+				DialogResult dialog = MessageBox.Show("Enter Values.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			{
+				string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text };
+				dataGridViewISNCONrelativetable.Rows.Add(row);
+				txtINSCONrelativefullnam.Text = "";
+				txtINSCONrelativemobileno.Text = "";
+				txtINSCONrelativepanno.Text = "";
+				txtINSCONrelativedematacno.Text = "";
+				txtINSCONrelativerelationship.Text = "";
+				txtINSCONrelativeaddress.Text = "";
+			}
 		}
 
 		private void btnmaterial_Click(object sender, EventArgs e)
 		{
-			string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text };
-			dataGridViewmaterialfinancial.Rows.Add(row);
-			txtINSCONfinancialfullname.Text = "";
-			txtINSCONfinancialmobileno.Text = "";
-			txtINSCONfinancialpanno.Text = "";
-			txtINSCONfinancialdematacno.Text = "";
-			txtINSCONfinancialrelationship.Text = "";
-			txtINSCONfinancialaddress.Text = "";
+			if (txtINSCONfinancialfullname.Text == "" && txtINSCONfinancialmobileno.Text == "" && txtINSCONfinancialpanno.Text == "" && txtINSCONfinancialdematacno.Text == "" && txtINSCONfinancialrelationship.Text == "" && txtINSCONfinancialaddress.Text == "")
+			{
+				DialogResult dialog = MessageBox.Show("Enter Values.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			{
+				string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text };
+				dataGridViewmaterialfinancial.Rows.Add(row);
+				txtINSCONfinancialfullname.Text = "";
+				txtINSCONfinancialmobileno.Text = "";
+				txtINSCONfinancialpanno.Text = "";
+				txtINSCONfinancialdematacno.Text = "";
+				txtINSCONfinancialrelationship.Text = "";
+				txtINSCONfinancialaddress.Text = "";
+			}
 		}
 
 		private void dataGridViewmaterialfinancial_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			dataGridViewmaterialfinancial.Rows.RemoveAt(e.RowIndex);
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.Yes)
+			{
+				dataGridViewmaterialfinancial.Rows.RemoveAt(e.RowIndex);
+			}
 		}
 
 		private void dataGridViewISNCONrelativetable_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			dataGridViewISNCONrelativetable.Rows.RemoveAt(e.RowIndex);
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.Yes)
+			{
+				dataGridViewISNCONrelativetable.Rows.RemoveAt(e.RowIndex);
+			}
 		}
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
@@ -235,7 +273,7 @@ namespace OS
 			}
 			else if (dataGridViewPhonemobile.Rows.Count <= 0)
 			{
-				DialogResult dialog = MessageBox.Show("Enter Cureent De.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Phone No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -558,6 +596,14 @@ namespace OS
 								btnaddINSCON.Visible = true;
 							}
 						}
+						else
+						{
+							Clear();
+							btnupdateINSCON.Visible = false;
+							btnaddINSCONdeelete.Visible = false;
+							btncacncelINSCON.Visible = false;
+							btnaddINSCON.Visible = true;
+						}
 					}
 				}
 
@@ -628,7 +674,7 @@ namespace OS
 			}
 			else if (dataGridViewPhonemobile.Rows.Count <= 0)
 			{
-				DialogResult dialog = MessageBox.Show("Enter Cureent De.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Enter Phone No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -845,6 +891,12 @@ namespace OS
 			}
 		}
 
+		private void button1_Click_2(object sender, EventArgs e)
+		{
+			HOMEPAGE H = new HOMEPAGE();
+			H.Show();
+			Hide();
+		}
 
 		#endregion
 

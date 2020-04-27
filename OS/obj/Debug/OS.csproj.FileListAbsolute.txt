@@ -20,3 +20,5 @@ C:\Users\MAULI\source\repos\OS\OS\obj\Debug\OS.csproj.CoreCompileInputs.cache
 C:\Users\MAULI\source\repos\OS\OS\obj\Debug\OS.csproj.CopyComplete
 C:\Users\MAULI\source\repos\OS\OS\obj\Debug\OS.exe
 C:\Users\MAULI\source\repos\OS\OS\obj\Debug\OS.pdb
+C:\Users\MAULI\source\repos\OS\OS\obj\Debug\OS.REPORTS_OF_SHARING_OF_UPSI.resources
+C:\Users\MAULI\source\repos\OS\OS\obj\Debug\OS.LIST_OF_CONNECTED_PERSON.resources

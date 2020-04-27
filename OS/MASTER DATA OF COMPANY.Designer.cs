@@ -36,6 +36,7 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtCorporateOffice = new System.Windows.Forms.TextBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.txtID = new System.Windows.Forms.TextBox();
 			this.txtDesignation = new System.Windows.Forms.TextBox();
 			this.label9 = new System.Windows.Forms.Label();
@@ -100,16 +101,16 @@
 			this.txtregisteredOffice.MaxLength = 200;
 			this.txtregisteredOffice.Name = "txtregisteredOffice";
 			this.txtregisteredOffice.Size = new System.Drawing.Size(329, 26);
-			this.txtregisteredOffice.TabIndex = 5;
+			this.txtregisteredOffice.TabIndex = 2;
 			// 
 			// btnaddINSCON
 			// 
 			this.btnaddINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCON.Location = new System.Drawing.Point(552, 530);
+			this.btnaddINSCON.Location = new System.Drawing.Point(426, 528);
 			this.btnaddINSCON.Name = "btnaddINSCON";
 			this.btnaddINSCON.Size = new System.Drawing.Size(252, 40);
-			this.btnaddINSCON.TabIndex = 15;
+			this.btnaddINSCON.TabIndex = 13;
 			this.btnaddINSCON.Text = "SAVE";
 			this.btnaddINSCON.UseVisualStyleBackColor = false;
 			this.btnaddINSCON.Click += new System.EventHandler(this.btnaddINSCON_Click);
@@ -133,11 +134,12 @@
 			this.txtCorporateOffice.MaxLength = 200;
 			this.txtCorporateOffice.Name = "txtCorporateOffice";
 			this.txtCorporateOffice.Size = new System.Drawing.Size(329, 26);
-			this.txtCorporateOffice.TabIndex = 8;
+			this.txtCorporateOffice.TabIndex = 3;
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.txtID);
 			this.groupBox1.Controls.Add(this.txtDesignation);
 			this.groupBox1.Controls.Add(this.label9);
@@ -170,7 +172,19 @@
 			this.groupBox1.Size = new System.Drawing.Size(1346, 646);
 			this.groupBox1.TabIndex = 32;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Master Data of Company";
+			this.groupBox1.Text = "Company Data";
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(684, 528);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(252, 40);
+			this.button1.TabIndex = 14;
+			this.button1.Text = "CLOSE";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// txtID
 			// 
@@ -193,7 +207,7 @@
 			this.txtDesignation.MaxLength = 100;
 			this.txtDesignation.Name = "txtDesignation";
 			this.txtDesignation.Size = new System.Drawing.Size(329, 26);
-			this.txtDesignation.TabIndex = 69;
+			this.txtDesignation.TabIndex = 12;
 			// 
 			// label9
 			// 
@@ -214,7 +228,7 @@
 			this.txtOfficerName.MaxLength = 50;
 			this.txtOfficerName.Name = "txtOfficerName";
 			this.txtOfficerName.Size = new System.Drawing.Size(329, 26);
-			this.txtOfficerName.TabIndex = 68;
+			this.txtOfficerName.TabIndex = 11;
 			// 
 			// label10
 			// 
@@ -237,7 +251,7 @@
 			this.txtISIN.MaxLength = 50;
 			this.txtISIN.Name = "txtISIN";
 			this.txtISIN.Size = new System.Drawing.Size(329, 26);
-			this.txtISIN.TabIndex = 67;
+			this.txtISIN.TabIndex = 10;
 			// 
 			// label11
 			// 
@@ -258,7 +272,7 @@
 			this.txtNSE.MaxLength = 50;
 			this.txtNSE.Name = "txtNSE";
 			this.txtNSE.Size = new System.Drawing.Size(329, 26);
-			this.txtNSE.TabIndex = 63;
+			this.txtNSE.TabIndex = 9;
 			// 
 			// label5
 			// 
@@ -279,7 +293,7 @@
 			this.txtBSE.MaxLength = 50;
 			this.txtBSE.Name = "txtBSE";
 			this.txtBSE.Size = new System.Drawing.Size(329, 26);
-			this.txtBSE.TabIndex = 62;
+			this.txtBSE.TabIndex = 8;
 			// 
 			// label7
 			// 
@@ -302,7 +316,7 @@
 			this.txtCIN.MaxLength = 50;
 			this.txtCIN.Name = "txtCIN";
 			this.txtCIN.Size = new System.Drawing.Size(329, 26);
-			this.txtCIN.TabIndex = 61;
+			this.txtCIN.TabIndex = 7;
 			// 
 			// label8
 			// 
@@ -323,7 +337,7 @@
 			this.txtEmailID.MaxLength = 50;
 			this.txtEmailID.Name = "txtEmailID";
 			this.txtEmailID.Size = new System.Drawing.Size(329, 26);
-			this.txtEmailID.TabIndex = 57;
+			this.txtEmailID.TabIndex = 6;
 			// 
 			// label1
 			// 
@@ -344,7 +358,7 @@
 			this.txtLandLineNo.MaxLength = 12;
 			this.txtLandLineNo.Name = "txtLandLineNo";
 			this.txtLandLineNo.Size = new System.Drawing.Size(329, 26);
-			this.txtLandLineNo.TabIndex = 56;
+			this.txtLandLineNo.TabIndex = 5;
 			// 
 			// label3
 			// 
@@ -367,7 +381,7 @@
 			this.txtMobileNo.MaxLength = 12;
 			this.txtMobileNo.Name = "txtMobileNo";
 			this.txtMobileNo.Size = new System.Drawing.Size(329, 26);
-			this.txtMobileNo.TabIndex = 55;
+			this.txtMobileNo.TabIndex = 4;
 			// 
 			// label4
 			// 
@@ -387,7 +401,7 @@
 			this.ClientSize = new System.Drawing.Size(1370, 730);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "MASTER_DATA_OF_COMPANY";
-			this.Text = "MASTER_DATA_OF_COMPANY";
+			this.Text = "MASTER DATA OF COMPANY";
 			this.Load += new System.EventHandler(this.MASTER_DATA_OF_COMPANY_Load);
 			this.Controls.SetChildIndex(this.groupBox1, 0);
 			this.groupBox1.ResumeLayout(false);
@@ -426,5 +440,6 @@
 		public System.Windows.Forms.TextBox txtISIN;
 		private System.Windows.Forms.Label label11;
 		public System.Windows.Forms.TextBox txtID;
+		private System.Windows.Forms.Button button1;
 	}
 }

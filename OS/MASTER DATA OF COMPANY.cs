@@ -36,6 +36,8 @@ namespace OS
 			FIllData();
 		}
 
+		#region MASTER DATA OF COMPANY
+
 		public void FIllData()
 		{
 			Hashtable hstmst = new Hashtable
@@ -63,7 +65,13 @@ namespace OS
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
 		{
-			Hashtable hstmst = new Hashtable
+			if (!new MasterClass().IsValidEmail(txtEmailID.Text))
+			{
+				DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			{
+				Hashtable hstmst = new Hashtable
 				{
 					{ "@ID", "1" },
 					{ "@COMPANYNAME", CryptographyHelper.Encrypt(txtCompanyName.Text)},
@@ -82,17 +90,28 @@ namespace OS
 					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
 					{ "@ACTION", "1" }
 				};
-			string ds = new MasterClass().executeScalar_SP("STP_INS_COMPANY", hstmst);
-			if (Convert.ToInt32(ds) > 0)
-			{
-				DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				string ds = new MasterClass().executeScalar_SP("STP_INS_COMPANY", hstmst);
+				if (Convert.ToInt32(ds) > 0)
+				{
+					DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				else
+				{
+					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				InitializeComponent();
+				FIllData();
 			}
-			else
-			{
-				DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-			InitializeComponent();
-			FIllData();
 		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			HOMEPAGE H = new HOMEPAGE();
+			H.Show();
+			Hide();
+		}
+
+		#endregion
+
 	}
 }

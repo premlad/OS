@@ -124,6 +124,10 @@ namespace OS
 			{
 				DialogResult dialog = MessageBox.Show("Enter Recepeint Name.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+			//else if (Convert.ToDateTime(txtUPSIDateofsharing.Text) < Convert.ToDateTime(txtUPSIEffctiveUpto.Text))
+			//{
+			//	DialogResult dialog = MessageBox.Show("Date of Sharing can't be less than Effective Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			//}
 			else
 			{
 				T_INS_UPSI PRO = new T_INS_UPSI
@@ -441,6 +445,41 @@ namespace OS
 			}
 		}
 
+		private void txtUPSINAME_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar < 32 || e.KeyChar > 126)
+			{
+				return;
+			}
+			string t = txtUPSINAME.Text;
+			string typedT = t.Substring(0, txtUPSINAME.SelectionStart);
+			string newT = typedT + e.KeyChar;
+
+			int i = txtUPSINAME.FindString(newT);
+			if (i == -1)
+			{
+				e.Handled = true;
+			}
+		}
+
+		private void txtUPSINAME_Leave(object sender, EventArgs e)
+		{
+			string t = txtUPSINAME.Text;
+
+			if (txtUPSINAME.SelectedItem == null)
+			{
+				txtUPSINAME.Text = "";
+			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			HOMEPAGE h = new HOMEPAGE();
+			h.Show();
+			Hide();
+		}
+
 		#endregion
+
 	}
 }

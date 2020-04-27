@@ -63,12 +63,14 @@
 			this.txtUPSIID = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
+			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.txtUPSIPanno);
 			this.groupBox1.Controls.Add(this.label15);
 			this.groupBox1.Controls.Add(this.txtUPSINAME);
@@ -114,6 +116,7 @@
 			// txtUPSIPanno
 			// 
 			this.txtUPSIPanno.BackColor = System.Drawing.Color.MintCream;
+			this.txtUPSIPanno.Enabled = false;
 			this.txtUPSIPanno.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtUPSIPanno.Location = new System.Drawing.Point(91, 224);
 			this.txtUPSIPanno.MaxLength = 20;
@@ -142,6 +145,8 @@
 			this.txtUPSINAME.Size = new System.Drawing.Size(329, 27);
 			this.txtUPSINAME.TabIndex = 2;
 			this.txtUPSINAME.SelectedIndexChanged += new System.EventHandler(this.txtUPSINAME_SelectedIndexChanged);
+			this.txtUPSINAME.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUPSINAME_KeyPress);
+			this.txtUPSINAME.Leave += new System.EventHandler(this.txtUPSINAME_Leave);
 			// 
 			// txtUPSIUPSIavaailabe
 			// 
@@ -281,7 +286,7 @@
 			// 
 			this.btnaddINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCON.Location = new System.Drawing.Point(170, 531);
+			this.btnaddINSCON.Location = new System.Drawing.Point(33, 543);
 			this.btnaddINSCON.Name = "btnaddINSCON";
 			this.btnaddINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCON.TabIndex = 15;
@@ -293,7 +298,7 @@
 			// 
 			this.btnaddINSCONdeelete.BackColor = System.Drawing.Color.Transparent;
 			this.btnaddINSCONdeelete.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(944, 531);
+			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(807, 543);
 			this.btnaddINSCONdeelete.Name = "btnaddINSCONdeelete";
 			this.btnaddINSCONdeelete.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCONdeelete.TabIndex = 18;
@@ -306,7 +311,7 @@
 			// 
 			this.btnupdateINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btnupdateINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnupdateINSCON.Location = new System.Drawing.Point(428, 531);
+			this.btnupdateINSCON.Location = new System.Drawing.Point(291, 543);
 			this.btnupdateINSCON.Name = "btnupdateINSCON";
 			this.btnupdateINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnupdateINSCON.TabIndex = 16;
@@ -319,7 +324,7 @@
 			// 
 			this.btncacncelINSCON.BackColor = System.Drawing.Color.Transparent;
 			this.btncacncelINSCON.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btncacncelINSCON.Location = new System.Drawing.Point(686, 531);
+			this.btncacncelINSCON.Location = new System.Drawing.Point(549, 543);
 			this.btncacncelINSCON.Name = "btncacncelINSCON";
 			this.btncacncelINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btncacncelINSCON.TabIndex = 17;
@@ -331,6 +336,7 @@
 			// txtUPSIOthercategory
 			// 
 			this.txtUPSIOthercategory.BackColor = System.Drawing.Color.MintCream;
+			this.txtUPSIOthercategory.Enabled = false;
 			this.txtUPSIOthercategory.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtUPSIOthercategory.Location = new System.Drawing.Point(504, 139);
 			this.txtUPSIOthercategory.MaxLength = 50;
@@ -355,6 +361,7 @@
 			// 
 			this.txtUPSIcategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.txtUPSIcategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.txtUPSIcategory.Enabled = false;
 			this.txtUPSIcategory.FormattingEnabled = true;
 			this.txtUPSIcategory.Items.AddRange(new object[] {
             "PARTNERS",
@@ -389,6 +396,7 @@
 			// txtUPSIAdress
 			// 
 			this.txtUPSIAdress.BackColor = System.Drawing.Color.MintCream;
+			this.txtUPSIAdress.Enabled = false;
 			this.txtUPSIAdress.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtUPSIAdress.Location = new System.Drawing.Point(912, 56);
 			this.txtUPSIAdress.MaxLength = 500;
@@ -455,7 +463,7 @@
 			this.label4.BackColor = System.Drawing.Color.Transparent;
 			this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.ForeColor = System.Drawing.Color.Red;
-			this.label4.Location = new System.Drawing.Point(607, 34);
+			this.label4.Location = new System.Drawing.Point(598, 34);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(17, 19);
 			this.label4.TabIndex = 13;
@@ -491,11 +499,23 @@
 			this.label1.BackColor = System.Drawing.Color.Transparent;
 			this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.ForeColor = System.Drawing.Color.Red;
-			this.label1.Location = new System.Drawing.Point(156, 34);
+			this.label1.Location = new System.Drawing.Point(150, 34);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(17, 19);
 			this.label1.TabIndex = 10;
 			this.label1.Text = "*";
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(1065, 543);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(252, 40);
+			this.button1.TabIndex = 70;
+			this.button1.Text = "CLOSE";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// RECORDING_OF_SHARING_OF_UPSI
 			// 
@@ -551,5 +571,6 @@
 		private System.Windows.Forms.ComboBox txtUPSINAME;
 		public System.Windows.Forms.TextBox txtUPSIPanno;
 		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Button button1;
 	}
 }

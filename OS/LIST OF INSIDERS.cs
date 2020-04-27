@@ -35,6 +35,8 @@ namespace OS
 				Hide();
 				l.Show();
 			}
+			txtFromDate.CustomFormat = "dd-MM-yyyy";
+			txtToDate.CustomFormat = "dd-MM-yyyy";
 			FillDataGrid();
 		}
 
@@ -51,10 +53,15 @@ namespace OS
 
 		#region LIST OF INSIDERS
 
-		public void FillDataGrid()
+		public void FillDataGrid(string text, string From, string To)
 		{
+
+			dataGridViewTable.Rows.Clear();
+			dataGridViewTable.Refresh();
 			Hashtable hstmst = new Hashtable
 				{
+					{ "@FROM", From},
+					{ "@TO", To },
 					{ "@ACTION", "6" }
 				};
 			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_PRO", hstmst);
@@ -72,7 +79,6 @@ namespace OS
 					}
 					else
 					{
-
 						cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
 					}
 
@@ -146,11 +152,9 @@ namespace OS
 			e.Graphics.DrawImage(bitmap, 0, 0);
 		}
 
-		#endregion
-
 		private void btnSearch_Click(object sender, EventArgs e)
 		{
-			FillDataGrid();
+
 			try
 			{
 				if (txtInsiderID.Text != "")
@@ -161,7 +165,7 @@ namespace OS
 						if (row.Cells[0].Value.ToString().Equals(txtInsiderID.Text))
 						{
 							rowIndex = row.Index;
-							dataGridViewTable.Rows[rowIndex].Selected = true;
+							//dataGridViewTable.Rows[rowIndex].Selected = true;
 						}
 						else
 						{
@@ -169,17 +173,55 @@ namespace OS
 						}
 					}
 				}
+				else
+				{
+					FillDataGrid(txtInsiderID.Text, txtFromDate.Value.ToString(), txtToDate.Value.ToString());
+				}
 			}
 			catch (Exception)
 			{
 				DialogResult dialog = MessageBox.Show("Following Value doesnt Match Any Records.", "List of Insider", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
 			FillDataGrid();
 		}
+
+		private void FillDataGrid()
+		{
+			dataGridViewTable.Rows.Clear();
+			dataGridViewTable.Refresh();
+			Hashtable hstmst = new Hashtable
+				{
+					{ "@ACTION", "6" }
+				};
+			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_PRO", hstmst);
+			if (ds.Tables[0].Rows.Count > 0)
+			{
+				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+				{
+					string cat = "";
+
+					if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Contains("|"))
+					{
+
+						string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Split('|');
+						cat = abc[0] + " - " + abc[1];
+					}
+					else
+					{
+						cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
+					}
+
+					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), ds.Tables[0].Rows[i]["ENTEREDON"].ToString() };
+					dataGridViewTable.Rows.Add(row);
+				}
+			}
+		}
+
+		#endregion
+
 	}
 }

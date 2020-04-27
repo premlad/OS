@@ -78,6 +78,12 @@
     <Compile Include="HOMEPAGE.Designer.cs">
       <DependentUpon>HOMEPAGE.cs</DependentUpon>
     </Compile>
+    <Compile Include="LIST OF CONNECTED PERSON.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LIST OF CONNECTED PERSON.Designer.cs">
+      <DependentUpon>LIST OF CONNECTED PERSON.cs</DependentUpon>
+    </Compile>
     <Compile Include="LIST OF INSIDERS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,11 +128,20 @@
     <Compile Include="RECORDING OF SHARING OF UPSI.Designer.cs">
       <DependentUpon>RECORDING OF SHARING OF UPSI.cs</DependentUpon>
     </Compile>
+    <Compile Include="REPORTS OF SHARING OF UPSI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="REPORTS OF SHARING OF UPSI.Designer.cs">
+      <DependentUpon>REPORTS OF SHARING OF UPSI.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HOMEPAGE.resx">
       <DependentUpon>HOMEPAGE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LIST OF CONNECTED PERSON.resx">
+      <DependentUpon>LIST OF CONNECTED PERSON.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LIST OF INSIDERS.resx">
       <DependentUpon>LIST OF INSIDERS.cs</DependentUpon>
@@ -158,6 +173,9 @@
     </Compile>
     <EmbeddedResource Include="RECORDING OF SHARING OF UPSI.resx">
       <DependentUpon>RECORDING OF SHARING OF UPSI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REPORTS OF SHARING OF UPSI.resx">
+      <DependentUpon>REPORTS OF SHARING OF UPSI.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
