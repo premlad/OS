@@ -14,12 +14,18 @@ namespace RSACryptography
 
 		public static string Encrypt(string plainText)
 		{
+			if (plainText == "" || plainText == null)
+			{
+				return "";
+			}
+			else
+			{
+				GetKeyFromEncryptionString(PublicKey, out int keySize, out string publicKeyXml);
 
-			GetKeyFromEncryptionString(PublicKey, out int keySize, out string publicKeyXml);
+				byte[] encrypted = Encrypt(Encoding.UTF8.GetBytes(plainText), keySize, publicKeyXml);
 
-			byte[] encrypted = Encrypt(Encoding.UTF8.GetBytes(plainText), keySize, publicKeyXml);
-
-			return Convert.ToBase64String(encrypted);
+				return Convert.ToBase64String(encrypted);
+			}
 		}
 
 		private static byte[] Encrypt(byte[] data, int keySize, string publicKeyXml)
@@ -32,7 +38,7 @@ namespace RSACryptography
 			int maxLength = GetMaxDataLength(keySize);
 			if (data.Length > maxLength)
 			{
-				throw new ArgumentException(string.Format("Maximum data length is {0}", maxLength), "data");
+				//throw new ArgumentException(string.Format("Maximum data length is {0}", maxLength), "data");
 			}
 
 			if (!IsKeySizeValid(keySize))
@@ -54,12 +60,19 @@ namespace RSACryptography
 
 		public static string Decrypt(string encryptedText)
 		{
+			if (encryptedText == "" || encryptedText == null)
+			{
+				return "";
+			}
+			else
+			{
 
-			GetKeyFromEncryptionString(PrivateKey, out int keySize, out string publicAndPrivateKeyXml);
+				GetKeyFromEncryptionString(PrivateKey, out int keySize, out string publicAndPrivateKeyXml);
 
-			byte[] decrypted = Decrypt(Convert.FromBase64String(encryptedText), keySize, publicAndPrivateKeyXml);
+				byte[] decrypted = Decrypt(Convert.FromBase64String(encryptedText), keySize, publicAndPrivateKeyXml);
 
-			return Encoding.UTF8.GetString(decrypted);
+				return Encoding.UTF8.GetString(decrypted);
+			}
 		}
 
 		private static byte[] Decrypt(byte[] data, int keySize, string publicAndPrivateKeyXml)

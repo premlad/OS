@@ -23,14 +23,14 @@ namespace OS
 
 		private void MASTERFORM_Load(object sender, EventArgs e)
 		{
-			if (SESSIONKEYS.Role.ToString() == "Y")
-			{
-				toolStripMenuItem1.Visible = true;
-			}
-			else
-			{
-				toolStripMenuItem1.Visible = false;
-			}
+			//if (SESSIONKEYS.Role.ToString() == "Y")
+			//{
+			//	toolStripMenuItem1.Visible = true;
+			//}
+			//else
+			//{
+			//	toolStripMenuItem1.Visible = false;
+			//}
 			WindowState = FormWindowState.Maximized;
 		}
 

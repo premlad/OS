@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button1 = new System.Windows.Forms.Button();
 			this.btnaddINSCON = new System.Windows.Forms.Button();
 			this.btnaddINSCONdeelete = new System.Windows.Forms.Button();
 			this.btnupdateINSCON = new System.Windows.Forms.Button();
@@ -59,8 +60,6 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtINSPROreceipeitnID = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -98,7 +97,6 @@
 			this.groupBox1.Controls.Add(this.label4);
 			this.groupBox1.Controls.Add(this.txtINSPROreceipeitnID);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(12, 38);
 			this.groupBox1.Name = "groupBox1";
@@ -106,6 +104,18 @@
 			this.groupBox1.TabIndex = 30;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Insider Profile";
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(1057, 490);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(252, 40);
+			this.button1.TabIndex = 59;
+			this.button1.Text = "CLOSE";
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// btnaddINSCON
 			// 
@@ -461,30 +471,6 @@
 			this.label2.TabIndex = 8;
 			this.label2.Text = "Recipient ID";
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.BackColor = System.Drawing.Color.Transparent;
-			this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.Color.Red;
-			this.label1.Location = new System.Drawing.Point(167, 34);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(17, 19);
-			this.label1.TabIndex = 10;
-			this.label1.Text = "*";
-			// 
-			// button1
-			// 
-			this.button1.BackColor = System.Drawing.Color.Transparent;
-			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(1057, 490);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(252, 40);
-			this.button1.TabIndex = 59;
-			this.button1.Text = "CLOSE";
-			this.button1.UseVisualStyleBackColor = false;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
 			// MASTER_FOR_RECORDING_INSIDER_PROFILE
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -495,11 +481,9 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MASTER FOR RECORDING INSIDER PROFILE";
 			this.Load += new System.EventHandler(this.MASTER_FOR_RECORDING_INSIDER_PROFILE_Load);
-			this.Controls.SetChildIndex(this.groupBox1, 0);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -515,7 +499,6 @@
 		private System.Windows.Forms.Label label4;
 		public System.Windows.Forms.TextBox txtINSPROreceipeitnID;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
 		public System.Windows.Forms.TextBox txtINSPROaddressmaster;
 		private System.Windows.Forms.Label label9;
 		public System.Windows.Forms.TextBox txtINSPROaadhar;

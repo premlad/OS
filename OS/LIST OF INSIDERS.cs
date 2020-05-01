@@ -11,6 +11,7 @@ namespace OS
 {
 	public partial class LIST_OF_INSIDERS : MASTERFORM
 	{
+		AUDITLOG lg = new AUDITLOG();
 		private Bitmap bitmap;
 		public LIST_OF_INSIDERS()
 		{
@@ -92,6 +93,13 @@ namespace OS
 		{
 			if (dataGridViewTable.Rows.Count > 0)
 			{
+				lg.CURRVALUE = "INSIDER PROFILE TAB";
+				lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+
 				SaveFileDialog sfd = new SaveFileDialog
 				{
 					Filter = "Excel Documents (*.xls)|*.xls",
@@ -110,6 +118,14 @@ namespace OS
 		{
 			if (dataGridViewTable.Rows.Count > 0)
 			{
+				lg.CURRVALUE = "INSIDER PROFILE TAB";
+				lg.DESCRIPTION = "DOWNLOADED PDF FILE";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+
+
 				SaveFileDialog sfd = new SaveFileDialog
 				{
 					Filter = "PDF (*.pdf)|*.pdf",
@@ -129,6 +145,13 @@ namespace OS
 
 		private void btnDownloadPrinter_Click(object sender, EventArgs e)
 		{
+			lg.CURRVALUE = "INSIDER PROFILE TAB";
+			lg.DESCRIPTION = "PRINT FILE";
+			lg.TYPE = "SELECTED";
+			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+			lg.ID = SESSIONKEYS.UserID.ToString();
+			string json = new MasterClass().SAVE_LOG(lg);
+
 			//Resize DataGridView to full height.
 			int height = dataGridViewTable.Height;
 			dataGridViewTable.Height = dataGridViewTable.RowCount * dataGridViewTable.RowTemplate.Height;
@@ -193,11 +216,7 @@ namespace OS
 		{
 			dataGridViewTable.Rows.Clear();
 			dataGridViewTable.Refresh();
-			Hashtable hstmst = new Hashtable
-				{
-					{ "@ACTION", "6" }
-				};
-			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_PRO", hstmst);
+			DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO P INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE P.ACTIVE = 'Y' AND L.ACTIVE = 'Y'");
 			if (ds.Tables[0].Rows.Count > 0)
 			{
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -215,7 +234,7 @@ namespace OS
 						cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
 					}
 
-					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), ds.Tables[0].Rows[i]["ENTEREDON"].ToString() };
+					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
 					dataGridViewTable.Rows.Add(row);
 				}
 			}
@@ -223,5 +242,11 @@ namespace OS
 
 		#endregion
 
+		private void button2_Click(object sender, EventArgs e)
+		{
+			HOMEPAGE h = new HOMEPAGE();
+			h.Show();
+			Hide();
+		}
 	}
 }

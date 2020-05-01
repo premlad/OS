@@ -11,6 +11,7 @@ namespace OS
 {
 	public partial class REPORTS_OF_SHARING_OF_UPSI : MASTERFORM
 	{
+		AUDITLOG lg = new AUDITLOG();
 		private Bitmap bitmap;
 		public REPORTS_OF_SHARING_OF_UPSI()
 		{
@@ -35,8 +36,8 @@ namespace OS
 				Hide();
 				l.Show();
 			}
-			txtFromDate.CustomFormat = "dd-MM-yyyy";
-			txtToDate.CustomFormat = "dd-MM-yyyy";
+			//txtFromDate.CustomFormat = "dd-MM-yyyy";
+			//txtToDate.CustomFormat = "dd-MM-yyyy";
 			FillDataGrid();
 		}
 
@@ -44,29 +45,34 @@ namespace OS
 		{
 			dataGridViewTable.Rows.Clear();
 			dataGridViewTable.Refresh();
-			Hashtable hstmst = new Hashtable
-				{
-					{ "@ACTION", "6" }
-				};
-			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_PRO", hstmst);
+			DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_UPSI P INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE P.ACTIVE = 'Y' AND L.ACTIVE = 'Y'");
 			if (ds.Tables[0].Rows.Count > 0)
 			{
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 				{
 					string cat = "";
-
-					if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Contains("|"))
+					if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECIPIENTCAT"].ToString()).Contains("|"))
 					{
-
-						string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Split('|');
+						string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECIPIENTCAT"].ToString()).Split('|');
 						cat = abc[0] + " - " + abc[1];
 					}
 					else
 					{
-						cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
+						cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECIPIENTCAT"].ToString());
+					}
+					string[] vabc = { };
+					if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECIPIENTNAME"].ToString()).Contains("-"))
+					{
+						vabc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECIPIENTNAME"].ToString()).Split('-');
 					}
 
-					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), ds.Tables[0].Rows[i]["ENTEREDON"].ToString() };
+					string[] nda = { };
+					if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NDASIGNED"].ToString()).Contains("|"))
+					{
+						nda = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NDASIGNED"].ToString()).Split('|');
+					}
+
+					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), nda[1], CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString()), nda[0], (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "", CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
 					dataGridViewTable.Rows.Add(row);
 				}
 			}
@@ -94,7 +100,7 @@ namespace OS
 				}
 				else
 				{
-					FillDataGrid(txtInsiderID.Text, txtFromDate.Value.ToString(), txtToDate.Value.ToString());
+					//FillDataGrid(txtInsiderID.Text, txtFromDate.Value.ToString(), txtToDate.Value.ToString());
 				}
 			}
 			catch (Exception)
@@ -132,7 +138,7 @@ namespace OS
 						cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
 					}
 
-					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), ds.Tables[0].Rows[i]["ENTEREDON"].ToString() };
+					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString()) };
 					dataGridViewTable.Rows.Add(row);
 				}
 			}
@@ -142,6 +148,13 @@ namespace OS
 		{
 			if (dataGridViewTable.Rows.Count > 0)
 			{
+				lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
+				lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+
 				SaveFileDialog sfd = new SaveFileDialog
 				{
 					Filter = "Excel Documents (*.xls)|*.xls",
@@ -160,6 +173,13 @@ namespace OS
 		{
 			if (dataGridViewTable.Rows.Count > 0)
 			{
+				lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
+				lg.DESCRIPTION = "DOWNLOADED PDF FILE";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+
 				SaveFileDialog sfd = new SaveFileDialog
 				{
 					Filter = "PDF (*.pdf)|*.pdf",
@@ -179,6 +199,13 @@ namespace OS
 
 		private void btnDownloadPrinter_Click(object sender, EventArgs e)
 		{
+			lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
+			lg.DESCRIPTION = "PRINT FILE";
+			lg.TYPE = "SELECTED";
+			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+			lg.ID = SESSIONKEYS.UserID.ToString();
+			string json = new MasterClass().SAVE_LOG(lg);
+
 			//Resize DataGridView to full height.
 			int height = dataGridViewTable.Height;
 			dataGridViewTable.Height = dataGridViewTable.RowCount * dataGridViewTable.RowTemplate.Height;
@@ -205,6 +232,13 @@ namespace OS
 		private void button1_Click(object sender, EventArgs e)
 		{
 			FillDataGrid();
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			HOMEPAGE h = new HOMEPAGE();
+			h.Show();
+			Hide();
 		}
 	}
 }

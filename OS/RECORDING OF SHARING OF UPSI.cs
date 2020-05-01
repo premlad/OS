@@ -2,7 +2,6 @@
 using OS.Data_Entity;
 using RSACryptography;
 using System;
-using System.Collections;
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
@@ -11,6 +10,7 @@ namespace OS
 {
 	public partial class RECORDING_OF_SHARING_OF_UPSI : MASTERFORM
 	{
+		private AUDITLOG lg = new AUDITLOG();
 		public RECORDING_OF_SHARING_OF_UPSI()
 		{
 			InitializeComponent();
@@ -56,11 +56,7 @@ namespace OS
 			txtUPSIDateofsharing.CustomFormat = "dd-MM-yyyy";
 			txtUPSIEffctiveUpto.CustomFormat = "dd-MM-yyyy";
 			txtUPSIUPSIavaailabe.CustomFormat = "dd-MM-yyyy";
-			Hashtable hstmst = new Hashtable
-				{
-					{ "@ACTION", "2" }
-				};
-			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_UPSI", hstmst);
+			DataSet ds = new MasterClass().getDataSet("SELECT ID,UPSIID FROM T_INS_UPSI WHERE ACTIVE = 'Y' AND LOCK = 'N'");
 			AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
@@ -78,13 +74,28 @@ namespace OS
 				}
 			}
 			txtUPSIID.AutoCompleteCustomSource = MyCollection;
+			txtUPSINAME.Items.Clear();
+			DataSet ds1 = new MasterClass().getDataSet("SELECT ID,NAMEINSIDER,RECEPIENTID FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N'");
+			DataSet ds2 = new MasterClass().getDataSet("SELECT ID,EMPNAME,CONNECTPERSONID FROM T_INS_PER WHERE ACTIVE = 'Y' AND LOCK = 'N'");
 
-			for (int i = 0; i < ds.Tables[1].Rows.Count; i++)
+			for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
 			{
 				ComboboxItem1 item = new ComboboxItem1
 				{
-					NAMEINSIDER = CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["NAMEINSIDER"].ToString()),
-					UPSIID = ds.Tables[1].Rows[i]["ID"].ToString()
+					NAMEINSIDER = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["NAMEINSIDER"].ToString()) + " - " + CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["RECEPIENTID"].ToString()),
+					UPSIID = ds1.Tables[0].Rows[i]["ID"].ToString()
+				};
+				txtUPSINAME.Items.Add(item);
+				txtUPSINAME.DisplayMember = "NAMEINSIDER";
+				txtUPSINAME.ValueMember = "UPSIID";
+			}
+
+			for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+			{
+				ComboboxItem1 item = new ComboboxItem1
+				{
+					NAMEINSIDER = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["EMPNAME"].ToString()) + " - " + CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()),
+					UPSIID = ds2.Tables[0].Rows[i]["ID"].ToString()
 				};
 				txtUPSINAME.Items.Add(item);
 				txtUPSINAME.DisplayMember = "NAMEINSIDER";
@@ -116,18 +127,41 @@ namespace OS
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
 		{
-			if (txtUPSIID.Text == "")
+			int val = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
+			int val2 = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIUPSIavaailabe.Value);
+			if (MasterClass.GETISTI() == "TEMP")
 			{
-				DialogResult dialog = MessageBox.Show("Enter UPSI ID.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Login l = new Login();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+				l.Show();
+				Hide();
 			}
-			else if (txtUPSINAME.Text == "")
+			//if (txtUPSIID.Text == "")
+			//{
+			//	DialogResult dialog = MessageBox.Show("Enter UPSI ID.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			//}
+			else
+			if (txtUPSINAME.Text == "")
 			{
 				DialogResult dialog = MessageBox.Show("Enter Recepeint Name.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			//else if (Convert.ToDateTime(txtUPSIDateofsharing.Text) < Convert.ToDateTime(txtUPSIEffctiveUpto.Text))
-			//{
-			//	DialogResult dialog = MessageBox.Show("Date of Sharing can't be less than Effective Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//}
+			else if (val > 0)
+			{
+				DialogResult dialog = MessageBox.Show("Date of Sharing can't be more than Effective Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (val2 > 0)
+			{
+				DialogResult dialog = MessageBox.Show("Date of Sharing can't be more than UPSI available Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 			else
 			{
 				T_INS_UPSI PRO = new T_INS_UPSI
@@ -145,15 +179,15 @@ namespace OS
 				};
 				if (radioButtonNDAYES.Checked == true)
 				{
-					PRO.NDASIGNED = "YES";
+					PRO.NDASIGNED = "YES|" + lblnNDS.Text;
 				}
 				else if (radioButtonNDANo.Checked == true)
 				{
-					PRO.NDASIGNED = "NO";
+					PRO.NDASIGNED = "NO|" + lblnNDS.Text;
 				}
 				else
 				{
-					PRO.NDASIGNED = "";
+					PRO.NDASIGNED = "|" + lblnNDS.Text;
 				}
 
 				if (txtUPSIcategory.Text == "OTHERS")
@@ -166,25 +200,17 @@ namespace OS
 				}
 				PRO.ID = "";
 				PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-				Hashtable hstmst = new Hashtable
-				{
-					{ "@UPSIID", CryptographyHelper.Encrypt(PRO.UPSIID) },
-					{ "@RECIPIENTNAME", CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) },
-					{ "@RECIPIENTCAT", CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) },
-					{ "@PANNO", CryptographyHelper.Encrypt(PRO.PANNO) },
-					{ "@ADDRESS", CryptographyHelper.Encrypt(PRO.ADDRESS) },
-					{ "@UPSINATURE", CryptographyHelper.Encrypt(PRO.UPSINATURE) },
-					{ "@SHARINGPURPOSE", CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) },
-					{ "@SHARINGDATE", CryptographyHelper.Encrypt(PRO.SHARINGDATE) },
-					{ "@EFFECTIVEUPTO", CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) },
-					{ "@REMARKS", CryptographyHelper.Encrypt(PRO.REMARKS) },
-					{ "@NDASIGNED", CryptographyHelper.Encrypt(PRO.NDASIGNED) },
-					{ "@UPSIAVAILABLE", CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) },
-					{ "@ENTEREDON", MasterClass.GETIST() },
-					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
-					{ "@ACTION", "1" }
-				};
-				string ds = new MasterClass().executeScalar_SP("STP_INS_UPSI", hstmst);
+
+				string CPID = "UPSI" + new MasterClass().GETUPSIID();
+				string ds = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI(UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N') ;").ToString();
+				string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
+
+				lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
+				lg.TYPE = "INSERTED";
+				lg.ID = perlogid;
+				lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
+				new MasterClass().SAVE_LOG(lg);
+
 				if (Convert.ToInt32(ds) > 0)
 				{
 					DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -193,40 +219,70 @@ namespace OS
 				{
 					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
-				InitializeComponent();
+				Clear();
 				FillConnectPersonID();
+
 			}
 		}
 
 		private void txtUPSINAME_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			Hashtable hstmst = new Hashtable
+			string[] a = txtUPSINAME.SelectedItem.ToString().Split('-');
+
+			DataSet ds1 = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N' AND ID = '" + ((ComboboxItem1)txtUPSINAME.SelectedItem).UPSIID + "'");
+			DataSet ds2 = new MasterClass().getDataSet("SELECT * FROM T_INS_PER WHERE ACTIVE = 'Y' AND LOCK = 'N' AND ID = '" + ((ComboboxItem1)txtUPSINAME.SelectedItem).UPSIID + "'");
+
+			if (ds1.Tables[0].Rows.Count > 0)
 			{
-				{ "@ACTION", "6" },
-				{ "@ID", ((ComboboxItem1)txtUPSINAME.SelectedItem).UPSIID }
-			};
-			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_UPSI", hstmst);
-			if (ds.Tables[0].Rows.Count > 0)
-			{
-				txtUPSIAdress.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["ADDRESS"].ToString());
-				txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PANNO"].ToString());
-				txtUPSIcategory.Text = "";
-				if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Contains("OTHERS"))
+				if (CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["RECEPIENTID"].ToString()) == a[1].Trim())
 				{
-					string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Split('|');
-					txtUPSIcategory.SelectedText = abc[0];
-					txtUPSIOthercategory.Text = abc[1];
-					label12.Visible = true;
-					txtUPSIOthercategory.Visible = true;
-				}
-				else
-				{
-					txtUPSIOthercategory.Text = "";
-					txtUPSIcategory.SelectedText = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString());
-					label12.Visible = false;
-					txtUPSIOthercategory.Visible = false;
+					txtUPSIAdress.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["ADDRESS"].ToString());
+					txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["PANNO"].ToString());
+					lblnNDS.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["PANNOAFFILIATES"].ToString());
+					txtUPSIcategory.Text = "";
+					if (CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Contains("OTHERS"))
+					{
+						string[] abc = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Split('|');
+						txtUPSIcategory.SelectedText = abc[0];
+						txtUPSIOthercategory.Text = abc[1];
+						label12.Visible = true;
+						txtUPSIOthercategory.Visible = true;
+					}
+					else
+					{
+						txtUPSIOthercategory.Text = "";
+						txtUPSIcategory.SelectedText = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString());
+						label12.Visible = false;
+						txtUPSIOthercategory.Visible = false;
+					}
 				}
 			}
+
+			if (ds2.Tables[0].Rows.Count > 0)
+			{
+				if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CONNECTPERSONID"].ToString()) == a[1].Trim())
+				{
+					txtUPSIAdress.Text = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["ADDRESS"].ToString());
+					txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["PANNO"].ToString());
+					txtUPSIcategory.Text = "";
+					//if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Contains("OTHERS"))
+					//{
+					//	string[] abc = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Split('|');
+					//	txtUPSIcategory.SelectedText = abc[0];
+					//	txtUPSIOthercategory.Text = abc[1];
+					//	label12.Visible = true;
+					//	txtUPSIOthercategory.Visible = true;
+					//}
+					//else
+					//{
+					//	txtUPSIOthercategory.Text = "";
+					//	txtUPSIcategory.SelectedText = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString());
+					//	label12.Visible = false;
+					//	txtUPSIOthercategory.Visible = false;
+					//}
+				}
+			}
+
 		}
 
 		private void txtUPSIID_Leave(object sender, EventArgs e)
@@ -248,12 +304,7 @@ namespace OS
 						if (txtUPSIID.Text == cmdINSCONSAVEID.GetItemText(cmdINSCONSAVEID.Items[i]))
 						{
 							cmdINSCONSAVEID.SelectedIndex = i;
-							Hashtable hstmst = new Hashtable
-							{
-								{ "@ACTION", "3" },
-								{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID }
-							};
-							DataSet ds = new MasterClass().executeDatable_SP("STP_INS_UPSI", hstmst);
+							DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_UPSI WHERE ACTIVE = 'Y' AND LOCK = 'N'  AND ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID + "'");
 							if (ds.Tables[0].Rows.Count > 0)
 							{
 								txtUPSINAME.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["RECIPIENTNAME"].ToString());
@@ -282,14 +333,20 @@ namespace OS
 								{
 									txtUPSIcategory.SelectedText = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["RECIPIENTCAT"].ToString());
 								}
-								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["REMARKS"].ToString()) == "YES")
+								string[] yes = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["NDASIGNED"].ToString()).Split('|');
+								if (yes.Length > 1)
 								{
-									radioButtonNDAYES.Checked = true;
+									if (yes[0] == "YES")
+									{
+										radioButtonNDAYES.Checked = true;
+									}
+									else
+									{
+										radioButtonNDANo.Checked = true;
+									}
+									lblnNDS.Text = yes[1];
 								}
-								else
-								{
-									radioButtonNDANo.Checked = true;
-								}
+
 								txtUPSIID.ReadOnly = true;
 								btnupdateINSCON.Visible = true;
 								btnaddINSCONdeelete.Visible = true;
@@ -334,12 +391,36 @@ namespace OS
 
 		private void btncacncelINSCON_Click(object sender, EventArgs e)
 		{
-			InitializeComponent();
+			Clear();
+			txtUPSIID.ReadOnly = false;
+			btnupdateINSCON.Visible = false;
+			btnaddINSCONdeelete.Visible = false;
+			btncacncelINSCON.Visible = false;
+			btnaddINSCON.Visible = true;
 			FillConnectPersonID();
 		}
 
 		private void btnupdateINSCON_Click(object sender, EventArgs e)
 		{
+			int val = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
+			int val2 = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIUPSIavaailabe.Value);
+			if (MasterClass.GETISTI() == "TEMP")
+			{
+				DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Login l = new Login();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+				l.Show();
+				Hide();
+			}
+			else
 			if (txtUPSIID.Text == "")
 			{
 				DialogResult dialog = MessageBox.Show("Enter UPSI ID.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -347,6 +428,14 @@ namespace OS
 			else if (txtUPSINAME.Text == "")
 			{
 				DialogResult dialog = MessageBox.Show("Enter Recepeint Name.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (val > 0)
+			{
+				DialogResult dialog = MessageBox.Show("Date of Sharing can't be more than Effective Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else if (val2 > 0)
+			{
+				DialogResult dialog = MessageBox.Show("Date of Sharing can't be more than UPSI available Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 			else
 			{
@@ -365,15 +454,15 @@ namespace OS
 				};
 				if (radioButtonNDAYES.Checked == true)
 				{
-					PRO.NDASIGNED = "YES";
+					PRO.NDASIGNED = "YES|" + lblnNDS.Text;
 				}
 				else if (radioButtonNDANo.Checked == true)
 				{
-					PRO.NDASIGNED = "NO";
+					PRO.NDASIGNED = "NO|" + lblnNDS.Text;
 				}
 				else
 				{
-					PRO.NDASIGNED = "";
+					PRO.NDASIGNED = "|" + lblnNDS.Text;
 				}
 
 				if (txtUPSIcategory.Text == "OTHERS")
@@ -386,26 +475,17 @@ namespace OS
 				}
 				PRO.ID = "";
 				PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-				Hashtable hstmst = new Hashtable
-				{
-					{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() },
-					{ "@UPSIID", CryptographyHelper.Encrypt(PRO.UPSIID) },
-					{ "@RECIPIENTNAME", CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) },
-					{ "@RECIPIENTCAT", CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) },
-					{ "@PANNO", CryptographyHelper.Encrypt(PRO.PANNO) },
-					{ "@ADDRESS", CryptographyHelper.Encrypt(PRO.ADDRESS) },
-					{ "@UPSINATURE", CryptographyHelper.Encrypt(PRO.UPSINATURE) },
-					{ "@SHARINGPURPOSE", CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) },
-					{ "@SHARINGDATE", CryptographyHelper.Encrypt(PRO.SHARINGDATE) },
-					{ "@EFFECTIVEUPTO", CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) },
-					{ "@REMARKS", CryptographyHelper.Encrypt(PRO.REMARKS) },
-					{ "@NDASIGNED", CryptographyHelper.Encrypt(PRO.NDASIGNED) },
-					{ "@UPSIAVAILABLE", CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) },
-					{ "@ENTEREDON", MasterClass.GETIST() },
-					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
-					{ "@ACTION", "4" }
-				};
-				string ds = new MasterClass().executeScalar_SP("STP_INS_UPSI", hstmst);
+
+				string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_UPSI SET UPSIID = '" + CryptographyHelper.Encrypt(PRO.UPSIID) + "',RECIPIENTNAME = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "',RECIPIENTCAT = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PANNO) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',UPSINATURE = '" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "',SHARINGPURPOSE = '" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "',SHARINGDATE = '" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "',EFFECTIVEUPTO = '" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "',REMARKS = '" + CryptographyHelper.Encrypt(PRO.REMARKS) + "',NDASIGNED = '" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "',UPSIAVAILABLE = '" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+
+				string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.UPSIID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
+
+				lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
+				lg.TYPE = "UPDATED";
+				lg.ID = perlogid;
+				lg.DESCRIPTION = "UPDATED VALUE :- " + PRO.UPSIID;
+				new MasterClass().SAVE_LOG(lg);
+
 				if (Convert.ToInt32(ds) > 0)
 				{
 					DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -414,33 +494,101 @@ namespace OS
 				{
 					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
-				InitializeComponent();
+				Clear();
+				txtUPSIID.ReadOnly = false;
+				btnupdateINSCON.Visible = false;
+				btnaddINSCONdeelete.Visible = false;
+				btncacncelINSCON.Visible = false;
+				btnaddINSCON.Visible = true;
 				FillConnectPersonID();
 			}
 		}
 
 		private void btnaddINSCONdeelete_Click(object sender, EventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Sharing of UPSI", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			if (MasterClass.GETISTI() == "TEMP")
 			{
-				Hashtable hstmst = new Hashtable
+				DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Login l = new Login();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+				l.Show();
+				Hide();
+			}
+			else
+			{
+				T_INS_UPSI PRO = new T_INS_UPSI
 				{
-					{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() },
-					{ "@ENTEREDON", MasterClass.GETIST() },
-					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
-					{ "@ACTION", "5" }
+					UPSIID = txtUPSIID.Text,
+					RECIPIENTNAME = txtUPSINAME.Text,
+					PANNO = txtUPSIPanno.Text,
+					ADDRESS = txtUPSIAdress.Text,
+					UPSINATURE = txtUPSINatureUPSI.Text,
+					SHARINGPURPOSE = txtUPSIpurposesharing.Text,
+					SHARINGDATE = txtUPSIDateofsharing.Text,
+					EFFECTIVEUPTO = txtUPSIEffctiveUpto.Text,
+					REMARKS = txtUPSIremarks.Text,
+					UPSIAVAILABLE = txtUPSIUPSIavaailabe.Text,
 				};
-				string ds = new MasterClass().executeScalar_SP("STP_INS_UPSI", hstmst);
-				if (Convert.ToInt32(ds) > 0)
+				if (radioButtonNDAYES.Checked == true)
 				{
-					DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					InitializeComponent();
-					FillConnectPersonID();
+					PRO.NDASIGNED = "YES|" + lblnNDS.Text;
+				}
+				else if (radioButtonNDANo.Checked == true)
+				{
+					PRO.NDASIGNED = "NO|" + lblnNDS.Text;
 				}
 				else
 				{
-					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					PRO.NDASIGNED = "|" + lblnNDS.Text;
+				}
+
+				if (txtUPSIcategory.Text == "OTHERS")
+				{
+					PRO.RECIPIENTCAT = "OTHERS|" + txtUPSIOthercategory.Text;
+				}
+				else
+				{
+					PRO.RECIPIENTCAT = txtUPSIcategory.Text;
+				}
+				PRO.ID = "";
+				PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Sharing of UPSI", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_UPSI  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+
+					string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.UPSIID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N') ;").ToString();
+
+					lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
+					lg.TYPE = "DELETED";
+					lg.ID = perlogid;
+					lg.DESCRIPTION = "DELETED VALUE :- " + PRO.UPSIID;
+					new MasterClass().SAVE_LOG(lg);
+
+					if (Convert.ToInt32(ds) > 0)
+					{
+						DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						Clear();
+						txtUPSIID.ReadOnly = false;
+						btnupdateINSCON.Visible = false;
+						btnaddINSCONdeelete.Visible = false;
+						btncacncelINSCON.Visible = false;
+						btnaddINSCON.Visible = true;
+						FillConnectPersonID();
+					}
+					else
+					{
+						DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
 				}
 			}
 		}

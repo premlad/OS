@@ -3,13 +3,13 @@ using iTextSharp.text.pdf;
 using OS.Data_Entity;
 using RSACryptography;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 using System.Device.Location;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -21,8 +21,10 @@ namespace OS.Data_Access_Layer
 {
 	internal class MasterClass
 	{
-		public SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
-		public SqlTransaction tran;
+		public SqlCeConnection con = new SqlCeConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
+		//Data Source=(localdb)\MSSqlCeLocalDB;AttachDbFilename=C:\Users\MAULI\source\repos\OS\OS\OS.mdf;Initial Catalog=OS;Integrated Security=True
+		//public SqlCeConnection con = new SqlCeConnection(@"Data Source=(localdb)\MSSqlCeLocalDB;AttachDbFilename=|DataDirectory|\OS.mdf;Integrated Security=True;Connect Timeout=10000;User Instance=True");
+		public SqlCeTransaction tran;
 		public DataTable dt = new DataTable();
 		public DataSet ds = new DataSet();
 		private static readonly TimeZoneInfo India_Standard_Time = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
@@ -34,17 +36,71 @@ namespace OS.Data_Access_Layer
 
 		public string SAVE_LOG(AUDITLOG obj)
 		{
-			Hashtable log = new Hashtable
+
+			return new MasterClass().executeQuery("INSERT INTO M_LOG_AUDIT(NAME,OPERATION,DESCRIPTION,TID,ENTEREDBY,ENTEREDON) VALUES ('" + CryptographyHelper.Encrypt(obj.CURRVALUE) + "', '" + CryptographyHelper.Encrypt(obj.TYPE) + "', '" + CryptographyHelper.Encrypt(obj.DESCRIPTION) + "', '" + obj.ID + "', '" + obj.ENTEREDBY + "', '" + GETIST() + "'); ").ToString();
+		}
+
+		public string GETCPID()
+		{
+			DataSet ds = new MasterClass().getDataSet("select CONNECTPERSONID from T_INS_PER WHERE ACTIVE = 'Y'");
+			List<string> termsList = new List<string>();
+			if (ds.Tables[0].Rows.Count > 0)
 			{
-				{ "@NAME", CryptographyHelper.Encrypt(obj.CURRVALUE) },
-				{ "@DESCRIPTION", CryptographyHelper.Encrypt(obj.DESCRIPTION) },
-				{ "@OPERATION", CryptographyHelper.Encrypt("SELECTED") },
-				{ "@TID", obj.ID },
-				{ "@ENTEREDBY", obj.ENTEREDBY},
-				{ "@ENTEREDON", GETIST()},
-				{ "@ACTION", "1" }
-			};
-			return new MasterClass().executeScalar_SP("STP_LOG", log);
+				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+				{
+					string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString());
+					termsList.Add(a.Substring(2));
+				}
+				string[] b = termsList.ToArray();
+				int val = Convert.ToInt32(b.Max()) + Convert.ToInt32(1);
+				return val.ToString();
+			}
+			else
+			{
+				return "1";
+			}
+		}
+
+		public string GETIPID()
+		{
+			DataSet ds = new MasterClass().getDataSet("select RECEPIENTID from T_INS_PRO WHERE ACTIVE = 'Y'");
+			List<string> termsList = new List<string>();
+			if (ds.Tables[0].Rows.Count > 0)
+			{
+				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+				{
+					string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString());
+					termsList.Add(a.Substring(2));
+				}
+				string[] b = termsList.ToArray();
+				int val = Convert.ToInt32(b.Max()) + Convert.ToInt32(1);
+				return val.ToString();
+			}
+			else
+			{
+				return "1";
+			}
+		}
+
+		public string GETUPSIID()
+		{
+			DataSet ds = new MasterClass().getDataSet("select UPSIID from T_INS_UPSI WHERE ACTIVE = 'Y'");
+			List<string> termsList = new List<string>();
+			if (ds.Tables[0].Rows.Count > 0)
+			{
+				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+				{
+					string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString());
+					termsList.Add(a.Substring(4));
+				}
+				string[] b = termsList.ToArray();
+				int val = Convert.ToInt32(b.Max()) + Convert.ToInt32(1);
+				return val.ToString();
+			}
+			else
+			{
+				return "1";
+			}
 		}
 
 		public string Encrypt(string toEncrypt, bool useHashing)
@@ -120,7 +176,7 @@ namespace OS.Data_Access_Layer
 			return dateTime_Indian;
 		}
 
-		public static DateTime GETISTI()
+		public static string GETISTI()
 		{
 			DateTime dateTime = DateTime.MinValue;
 			System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
@@ -137,7 +193,18 @@ namespace OS.Data_Access_Layer
 				dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
 					System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
 			}
-			return dateTime;
+
+			DateTime currentDateTime = DateTime.Now;
+			DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
+			DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
+			if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+			{
+				return "TEMP";
+			}
+			else
+			{
+				return "ALLOW";
+			}
 			//DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
 			//return dateTime_Indian;
 		}
@@ -146,7 +213,7 @@ namespace OS.Data_Access_Layer
 		{
 			try
 			{
-				using (SqlCommand cmd = new SqlCommand(sp_name))
+				using (SqlCeCommand cmd = new SqlCeCommand(sp_name))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Connection = con;
@@ -157,12 +224,12 @@ namespace OS.Data_Access_Layer
 
 					while (en.MoveNext())
 					{
-						SqlParameter p = cmd.CreateParameter();
+						SqlCeParameter p = cmd.CreateParameter();
 						p.ParameterName = en.Key.ToString();
 						p.Value = en.Value;
 						cmd.Parameters.Add(p);
 					}
-					SqlDataAdapter da = new SqlDataAdapter(cmd);
+					SqlCeDataAdapter da = new SqlCeDataAdapter(cmd);
 					cmd.ExecuteNonQuery();
 					da.Fill(ds);
 					tran.Commit();
@@ -182,7 +249,7 @@ namespace OS.Data_Access_Layer
 		{
 			try
 			{
-				using (SqlCommand cmd = new SqlCommand(sp_name))
+				using (SqlCeCommand cmd = new SqlCeCommand(sp_name))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Connection = con;
@@ -193,7 +260,7 @@ namespace OS.Data_Access_Layer
 
 					while (en.MoveNext())
 					{
-						SqlParameter p = cmd.CreateParameter();
+						SqlCeParameter p = cmd.CreateParameter();
 						p.ParameterName = en.Key.ToString();
 						p.Value = en.Value;
 						cmd.Parameters.Add(p);
@@ -212,15 +279,77 @@ namespace OS.Data_Access_Layer
 			}
 		}
 
-		public bool executeQuery(string query)
+		public DataTable getDataTable(string query)
 		{
 			try
 			{
 				con.Open();
-				SqlCommand cmd = new SqlCommand(query, con);
-				cmd.ExecuteNonQuery();
+				SqlCeDataAdapter da = new SqlCeDataAdapter(query, con);
+				DataTable dt = new DataTable();
+				da.Fill(dt);
+				return dt;
+			}
+			catch (Exception ex)
+			{
 				con.Close();
-				return true;
+				throw ex;
+			}
+			finally
+			{
+				con.Close();
+			}
+
+		}
+
+		public DataSet getDataSet(string query)
+		{
+			try
+			{
+				con.Open();
+				SqlCeDataAdapter da = new SqlCeDataAdapter(query, con);
+				DataSet dt = new DataSet();
+				da.Fill(dt);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				con.Close();
+				throw ex;
+			}
+			finally
+			{
+				con.Close();
+			}
+		}
+
+		public string executeQuery(string query)
+		{
+			try
+			{
+				con.Open();
+				SqlCeCommand cmd = new SqlCeCommand(query, con);
+				int i = cmd.ExecuteNonQuery();
+				cmd.CommandText = "SELECT @@IDENTITY";
+				object id = cmd.ExecuteScalar();
+				con.Close();
+				return id.ToString();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public int executeQueryForDB(string query)
+		{
+			try
+			{
+				con.Open();
+				SqlCeCommand cmd = new SqlCeCommand(query, con);
+				int i = cmd.ExecuteNonQuery();
+				//int i = (int)cmd.ExecuteScalar();
+				con.Close();
+				return i;
 			}
 			catch (Exception ex)
 			{

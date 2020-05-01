@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LIST_OF_INSIDERS));
 			this.label15 = new System.Windows.Forms.Label();
 			this.txtFromDate = new System.Windows.Forms.DateTimePicker();
@@ -62,6 +62,7 @@
 			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -76,6 +77,7 @@
 			this.label15.Size = new System.Drawing.Size(75, 19);
 			this.label15.TabIndex = 71;
 			this.label15.Text = "From Date";
+			this.label15.Visible = false;
 			// 
 			// txtFromDate
 			// 
@@ -86,6 +88,7 @@
 			this.txtFromDate.Name = "txtFromDate";
 			this.txtFromDate.Size = new System.Drawing.Size(218, 26);
 			this.txtFromDate.TabIndex = 73;
+			this.txtFromDate.Visible = false;
 			// 
 			// txtToDate
 			// 
@@ -96,6 +99,7 @@
 			this.txtToDate.Name = "txtToDate";
 			this.txtToDate.Size = new System.Drawing.Size(218, 26);
 			this.txtToDate.TabIndex = 76;
+			this.txtToDate.Visible = false;
 			// 
 			// label2
 			// 
@@ -107,6 +111,7 @@
 			this.label2.Size = new System.Drawing.Size(58, 19);
 			this.label2.TabIndex = 74;
 			this.label2.Text = "To Date";
+			this.label2.Visible = false;
 			// 
 			// label1
 			// 
@@ -118,6 +123,7 @@
 			this.label1.Size = new System.Drawing.Size(23, 31);
 			this.label1.TabIndex = 77;
 			this.label1.Text = "-";
+			this.label1.Visible = false;
 			// 
 			// label3
 			// 
@@ -129,12 +135,13 @@
 			this.label3.Size = new System.Drawing.Size(55, 31);
 			this.label3.TabIndex = 78;
 			this.label3.Text = "OR";
+			this.label3.Visible = false;
 			// 
 			// txtInsiderID
 			// 
 			this.txtInsiderID.BackColor = System.Drawing.Color.MintCream;
 			this.txtInsiderID.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtInsiderID.Location = new System.Drawing.Point(578, 62);
+			this.txtInsiderID.Location = new System.Drawing.Point(69, 62);
 			this.txtInsiderID.MaxLength = 20;
 			this.txtInsiderID.Name = "txtInsiderID";
 			this.txtInsiderID.Size = new System.Drawing.Size(217, 26);
@@ -145,7 +152,7 @@
 			this.label4.AutoSize = true;
 			this.label4.BackColor = System.Drawing.Color.Transparent;
 			this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(574, 40);
+			this.label4.Location = new System.Drawing.Point(65, 40);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(70, 19);
 			this.label4.TabIndex = 80;
@@ -155,7 +162,7 @@
 			// 
 			this.btnSearch.BackColor = System.Drawing.Color.Transparent;
 			this.btnSearch.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnSearch.Location = new System.Drawing.Point(817, 54);
+			this.btnSearch.Location = new System.Drawing.Point(308, 54);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(112, 40);
 			this.btnSearch.TabIndex = 81;
@@ -168,7 +175,7 @@
 			this.label5.AutoSize = true;
 			this.label5.BackColor = System.Drawing.Color.Transparent;
 			this.label5.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(994, 55);
+			this.label5.Location = new System.Drawing.Point(771, 54);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(20, 31);
 			this.label5.TabIndex = 82;
@@ -222,6 +229,7 @@
 			this.btnDownloadPrinter.Size = new System.Drawing.Size(46, 40);
 			this.btnDownloadPrinter.TabIndex = 86;
 			this.btnDownloadPrinter.UseVisualStyleBackColor = false;
+			this.btnDownloadPrinter.Visible = false;
 			this.btnDownloadPrinter.Click += new System.EventHandler(this.btnDownloadPrinter_Click);
 			// 
 			// panel1
@@ -238,18 +246,18 @@
 			this.dataGridViewTable.AllowUserToAddRows = false;
 			this.dataGridViewTable.AllowUserToDeleteRows = false;
 			this.dataGridViewTable.AllowUserToOrderColumns = true;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.dataGridViewTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.InsiderId,
@@ -263,14 +271,14 @@
             this.LandlineNo,
             this.EmailId,
             this.Dateofentryusername});
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
@@ -382,18 +390,31 @@
 			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
 			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(942, 54);
+			this.button1.Location = new System.Drawing.Point(433, 54);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(46, 40);
 			this.button1.TabIndex = 88;
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.Transparent;
+			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(622, 53);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(94, 40);
+			this.button2.TabIndex = 105;
+			this.button2.Text = "CLOSE";
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
 			// LIST_OF_INSIDERS
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1370, 730);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.btnDownloadPrinter);
@@ -413,22 +434,6 @@
 			this.Name = "LIST_OF_INSIDERS";
 			this.Text = "LIST OF INSIDERS";
 			this.Load += new System.EventHandler(this.LIST_OF_INSIDERS_Load);
-			this.Controls.SetChildIndex(this.label15, 0);
-			this.Controls.SetChildIndex(this.txtFromDate, 0);
-			this.Controls.SetChildIndex(this.label2, 0);
-			this.Controls.SetChildIndex(this.txtToDate, 0);
-			this.Controls.SetChildIndex(this.label1, 0);
-			this.Controls.SetChildIndex(this.label3, 0);
-			this.Controls.SetChildIndex(this.label4, 0);
-			this.Controls.SetChildIndex(this.txtInsiderID, 0);
-			this.Controls.SetChildIndex(this.btnSearch, 0);
-			this.Controls.SetChildIndex(this.label5, 0);
-			this.Controls.SetChildIndex(this.label6, 0);
-			this.Controls.SetChildIndex(this.btnDownloadexcel, 0);
-			this.Controls.SetChildIndex(this.btnDownloadPDF, 0);
-			this.Controls.SetChildIndex(this.btnDownloadPrinter, 0);
-			this.Controls.SetChildIndex(this.panel1, 0);
-			this.Controls.SetChildIndex(this.button1, 0);
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
 			this.ResumeLayout(false);
@@ -467,5 +472,6 @@
 		private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
 		private System.Drawing.Printing.PrintDocument printDocument1;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
 	}
 }

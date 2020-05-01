@@ -2,14 +2,17 @@
 using OS.Data_Entity;
 using RSACryptography;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace OS
 {
 	public partial class MASTER_FOR_RECORDING_INSIDER_PROFILE : MASTERFORM
 	{
+		private AUDITLOG lg = new AUDITLOG();
+		private string PANO = "";
 		public MASTER_FOR_RECORDING_INSIDER_PROFILE()
 		{
 			InitializeComponent();
@@ -51,11 +54,7 @@ namespace OS
 
 		public void FillConnectPersonID()
 		{
-			Hashtable hstmst = new Hashtable
-				{
-					{ "@ACTION", "2" }
-				};
-			DataSet ds = new MasterClass().executeDatable_SP("STP_INS_PRO", hstmst);
+			DataSet ds = new MasterClass().getDataSet("SELECT ID,RECEPIENTID FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N'");
 			AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
@@ -116,10 +115,26 @@ namespace OS
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
 		{
-			if (txtINSPROreceipeitnID.Text == "")
+			if (MasterClass.GETISTI() == "TEMP")
 			{
-				DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Login l = new Login();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+				l.Show();
+				Hide();
 			}
+			//else if (txtINSPROreceipeitnID.Text == "")
+			//{
+			//	DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			//}
 			else if (txtINSPROnameofinsider.Text == "")
 			{
 				DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -139,55 +154,77 @@ namespace OS
 			}
 			else
 			{
-				T_INS_PRO PRO = new T_INS_PRO
+				DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
+				DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
+				List<string> termsList = new List<string>();
+				string[] b = { };
+				if (ds1.Tables[0].Rows.Count > 0)
 				{
-					NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
-					RECEPIENT_ID = txtINSPROreceipeitnID.Text,
-					ADDRESS = txtINSPROaddressmaster.Text,
-					PAN_NO = txtINSPROpannomaster.Text,
-					AADHAR_NO = txtINSPROaadhar.Text,
-					PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
-					MOBILE_NO = txtMobileINSPRONumber.Text,
-					LANDLINE_NO = txtlandlineINSPRONumber.Text,
-					EMAIL_ID = txtEmailINSPRONumber.Text
-				};
-				if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+					for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+					{
+						string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
+						termsList.Add(a);
+					}
+					b = termsList.ToArray();
+				}
+				if (ds2.Tables[0].Rows.Count > 0)
 				{
-					PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+					for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+					{
+						string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
+						termsList.Add(a);
+					}
+					b = termsList.ToArray();
+				}
+				if (b.Contains(txtINSPROpannomaster.Text))
+				{
+					DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				else
 				{
-					PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
+					T_INS_PRO PRO = new T_INS_PRO
+					{
+						NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
+						RECEPIENT_ID = txtINSPROreceipeitnID.Text,
+						ADDRESS = txtINSPROaddressmaster.Text,
+						PAN_NO = txtINSPROpannomaster.Text,
+						AADHAR_NO = txtINSPROaadhar.Text,
+						PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
+						MOBILE_NO = txtMobileINSPRONumber.Text,
+						LANDLINE_NO = txtlandlineINSPRONumber.Text,
+						EMAIL_ID = txtEmailINSPRONumber.Text
+					};
+					if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+					{
+						PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+					}
+					else
+					{
+						PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
+					}
+					PRO.ID = "";
+					PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+
+					string CPID = "IP" + new MasterClass().GETIPID();
+					string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PRO (RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N') ;").ToString();
+					string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
+
+					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.TYPE = "INSERTED";
+					lg.ID = perlogid;
+					lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
+					new MasterClass().SAVE_LOG(lg);
+					if (Convert.ToInt32(ds) > 0)
+					{
+						DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					else
+					{
+						DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					InitializeComponent();
+					FillConnectPersonID();
 				}
-				PRO.ID = "";
-				PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-				Hashtable hstmst = new Hashtable
-				{
-					{ "@RECEPIENTID", CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) },
-					{ "@NAMEINSIDER", CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) },
-					{ "@CATEGORYRECEIPT", CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) },
-					{ "@ADDRESS", CryptographyHelper.Encrypt(PRO.ADDRESS) },
-					{ "@PANNO", CryptographyHelper.Encrypt(PRO.PAN_NO) },
-					{ "@AADHARNO", CryptographyHelper.Encrypt(PRO.AADHAR_NO) },
-					{ "@MOBILENO", CryptographyHelper.Encrypt(PRO.MOBILE_NO) },
-					{ "@LANDLINENO", CryptographyHelper.Encrypt(PRO.LANDLINE_NO) },
-					{ "@EMAILID", CryptographyHelper.Encrypt(PRO.EMAIL_ID) },
-					{ "@PANNOAFFILIATES", CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) },
-					{ "@ENTEREDON", MasterClass.GETIST() },
-					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
-					{ "@ACTION", "1" }
-				};
-				string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
-				if (Convert.ToInt32(ds) > 0)
-				{
-					DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-				else
-				{
-					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-				InitializeComponent();
-				FillConnectPersonID();
 			}
 		}
 
@@ -233,18 +270,15 @@ namespace OS
 						if (txtINSPROreceipeitnID.Text == cmdINSCONSAVEID.GetItemText(cmdINSCONSAVEID.Items[i]))
 						{
 							cmdINSCONSAVEID.SelectedIndex = i;
-							Hashtable hstmst = new Hashtable
-							{
-								{ "@ACTION", "3" },
-								{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID }
-							};
-							DataSet ds = new MasterClass().executeDatable_SP("STP_INS_PRO", hstmst);
+
+							DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N'  AND ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID + "'");
 							if (ds.Tables[0].Rows.Count > 0)
 							{
 								txtINSPROnameofinsider.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["NAMEINSIDER"].ToString());
 								txtINSPROreceipeitnID.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["RECEPIENTID"].ToString());
 								txtINSPROaddressmaster.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["ADDRESS"].ToString());
 								txtINSPROpannomaster.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PANNO"].ToString());
+								PANO = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PANNO"].ToString());
 								txtINSPROaadhar.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["AADHARNO"].ToString());
 								txtPANNOINSPRONumber.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PANNOAFFILIATES"].ToString());
 								txtMobileINSPRONumber.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["MOBILENO"].ToString());
@@ -304,14 +338,34 @@ namespace OS
 
 		private void btncacncelINSCON_Click(object sender, EventArgs e)
 		{
-			InitializeComponent();
+			Clear();
 			FillConnectPersonID();
-
+			txtINSPROreceipeitnID.ReadOnly = false;
+			btnupdateINSCON.Visible = false;
+			btnaddINSCONdeelete.Visible = false;
+			btncacncelINSCON.Visible = false;
+			btnaddINSCON.Visible = true;
 		}
 
 		private void btnupdateINSCON_Click(object sender, EventArgs e)
 		{
-			if (txtINSPROreceipeitnID.Text == "")
+			if (MasterClass.GETISTI() == "TEMP")
+			{
+				DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Login l = new Login();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+				l.Show();
+				Hide();
+			}
+			else if (txtINSPROreceipeitnID.Text == "")
 			{
 				DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
@@ -331,6 +385,106 @@ namespace OS
 			if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
 			{
 				DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			{
+				DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
+				DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
+				List<string> termsList = new List<string>();
+				string[] b = { };
+				if (PANO != txtINSPROpannomaster.Text)
+				{
+					if (ds1.Tables[0].Rows.Count > 0)
+					{
+						for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+						{
+							string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
+							termsList.Add(a);
+						}
+						b = termsList.ToArray();
+					}
+					if (ds2.Tables[0].Rows.Count > 0)
+					{
+						for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+						{
+							string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
+							termsList.Add(a);
+						}
+						b = termsList.ToArray();
+					}
+				}
+
+				if (b.Contains(txtINSPROpannomaster.Text))
+				{
+					DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				{
+					T_INS_PRO PRO = new T_INS_PRO
+					{
+						ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
+						NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
+						RECEPIENT_ID = txtINSPROreceipeitnID.Text,
+						ADDRESS = txtINSPROaddressmaster.Text,
+						PAN_NO = txtINSPROpannomaster.Text,
+						AADHAR_NO = txtINSPROaadhar.Text,
+						PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
+						MOBILE_NO = txtMobileINSPRONumber.Text,
+						LANDLINE_NO = txtlandlineINSPRONumber.Text,
+						EMAIL_ID = txtEmailINSPRONumber.Text
+					};
+					if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+					{
+						PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+					}
+					else
+					{
+						PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
+					}
+					PRO.ID = "";
+					PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+
+					string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+
+					string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
+
+					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.TYPE = "UPDATED";
+					lg.ID = perlogid;
+					lg.DESCRIPTION = "UPDATED VALUE :- " + PRO.RECEPIENT_ID;
+					new MasterClass().SAVE_LOG(lg);
+
+					if (Convert.ToInt32(ds) > 0)
+					{
+						DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						InitializeComponent();
+						FillConnectPersonID();
+					}
+					else
+					{
+						DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+				}
+			}
+		}
+
+		private void btnaddINSCONdeelete_Click(object sender, EventArgs e)
+		{
+			if (MasterClass.GETISTI() == "TEMP")
+			{
+				DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Login l = new Login();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
+				l.Show();
+				Hide();
 			}
 			else
 			{
@@ -357,61 +511,33 @@ namespace OS
 				}
 				PRO.ID = "";
 				PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-				Hashtable hstmst = new Hashtable
-				{
-					{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() },
-					{ "@RECEPIENTID", CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) },
-					{ "@NAMEINSIDER", CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) },
-					{ "@CATEGORYRECEIPT", CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) },
-					{ "@ADDRESS", CryptographyHelper.Encrypt(PRO.ADDRESS) },
-					{ "@PANNO", CryptographyHelper.Encrypt(PRO.PAN_NO) },
-					{ "@AADHARNO", CryptographyHelper.Encrypt(PRO.AADHAR_NO) },
-					{ "@MOBILENO", CryptographyHelper.Encrypt(PRO.MOBILE_NO) },
-					{ "@LANDLINENO", CryptographyHelper.Encrypt(PRO.LANDLINE_NO) },
-					{ "@EMAILID", CryptographyHelper.Encrypt(PRO.EMAIL_ID) },
-					{ "@PANNOAFFILIATES", CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) },
-					{ "@ENTEREDON", MasterClass.GETIST() },
-					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
-					{ "@ACTION", "4" }
-				};
-				string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
-				if (Convert.ToInt32(ds) > 0)
-				{
-					DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					InitializeComponent();
-					FillConnectPersonID();
-				}
-				else
-				{
-					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-			}
-		}
 
-		private void btnaddINSCONdeelete_Click(object sender, EventArgs e)
-		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Insider Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
-			{
-				Hashtable hstmst = new Hashtable
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Insider Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
 				{
-					{ "@ID", ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() },
-					{ "@ENTEREDON", MasterClass.GETIST() },
-					{ "@ENTEREDBY", SESSIONKEYS.UserID.ToString() },//SESSIONKEYS.UserID.ToString()
-					{ "@ACTION", "5" }
-				};
-				string ds = new MasterClass().executeScalar_SP("STP_INS_PRO", hstmst);
-				if (Convert.ToInt32(ds) > 0)
-				{
-					DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-					InitializeComponent();
-					FillConnectPersonID();
-				}
-				else
-				{
-					DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+
+					string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N') ;").ToString();
+
+					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.TYPE = "DELETED";
+					lg.ID = perlogid;
+					lg.DESCRIPTION = "DELETED VALUE :- " + PRO.RECEPIENT_ID;
+					new MasterClass().SAVE_LOG(lg);
+					if (Convert.ToInt32(ds) > 0)
+					{
+						DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						InitializeComponent();
+						FillConnectPersonID();
+					}
+					else
+					{
+						DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
 				}
 			}
+
 		}
 
 		private void button1_Click(object sender, EventArgs e)

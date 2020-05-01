@@ -107,7 +107,6 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtINSCONconnectperson = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
 			this.btnaddINSCONdeelete = new System.Windows.Forms.Button();
 			this.btnupdateINSCON = new System.Windows.Forms.Button();
 			this.btncacncelINSCON = new System.Windows.Forms.Button();
@@ -604,7 +603,6 @@
 			this.groupBox1.Controls.Add(this.label4);
 			this.groupBox1.Controls.Add(this.txtINSCONconnectperson);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox1.Location = new System.Drawing.Point(12, 38);
 			this.groupBox1.Name = "groupBox1";
@@ -972,18 +970,6 @@
 			this.label2.TabIndex = 8;
 			this.label2.Text = "Connect Person ID";
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.BackColor = System.Drawing.Color.Transparent;
-			this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.Color.Red;
-			this.label1.Location = new System.Drawing.Point(125, 22);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(17, 19);
-			this.label1.TabIndex = 10;
-			this.label1.Text = "*";
-			// 
 			// btnaddINSCONdeelete
 			// 
 			this.btnaddINSCONdeelete.BackColor = System.Drawing.Color.Transparent;
@@ -1056,14 +1042,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "MASTER FOR RECORDING INSIDER CONNECTED PERSON";
 			this.Load += new System.EventHandler(this.MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON_Load);
-			this.Controls.SetChildIndex(this.groupBox1, 0);
-			this.Controls.SetChildIndex(this.groupBox2, 0);
-			this.Controls.SetChildIndex(this.groupBox3, 0);
-			this.Controls.SetChildIndex(this.btnaddINSCON, 0);
-			this.Controls.SetChildIndex(this.btncacncelINSCON, 0);
-			this.Controls.SetChildIndex(this.btnupdateINSCON, 0);
-			this.Controls.SetChildIndex(this.btnaddINSCONdeelete, 0);
-			this.Controls.SetChildIndex(this.button1, 0);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewmaterialfinancial)).EndInit();
@@ -1077,7 +1055,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDematAcoount)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhonemobile)).EndInit();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -1160,7 +1137,6 @@
 		private System.Windows.Forms.Label label4;
 		public System.Windows.Forms.TextBox txtINSCONconnectperson;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnaddINSCONdeelete;
 		private System.Windows.Forms.Button btnupdateINSCON;
 		private System.Windows.Forms.Button btncacncelINSCON;

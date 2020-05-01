@@ -4,6 +4,7 @@
 	{
 		public string ID { get; set; }
 		public string CURRVALUE { get; set; }
+		public string TYPE { get; set; }
 		public string OPERATION { get; set; }
 		public string DESCRIPTION { get; set; }
 		public string ENTEREDBY { get; set; }

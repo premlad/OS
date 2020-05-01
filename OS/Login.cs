@@ -2,7 +2,6 @@
 using OS.Data_Entity;
 using RSACryptography;
 using System;
-using System.Collections;
 using System.Data;
 using System.Windows.Forms;
 
@@ -20,10 +19,6 @@ namespace OS
 		{
 			try
 			{
-				DateTime IST = MasterClass.GETISTI();
-				DateTime currentDateTime = DateTime.Now;
-				DateTime dt = IST.AddMinutes(-IST.Minute).AddSeconds(-IST.Second);
-				DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
 				if (txtusername.Text == "")
 				{
 					DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -32,36 +27,23 @@ namespace OS
 				{
 					DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-				else if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+				else if (MasterClass.GETISTI() == "TEMP")
 				{
 					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				else if (new CheckDB().CreateDbForFirstInstance() == "EXISTS")
 				{
-					LOGIN a = new LOGIN
-					{
-						EMAIL = txtusername.Text,
-						PASSWORD = txtpassword.Text,
-						ACTIVE = "Y"
-					};
-
-					Hashtable hstmst = new Hashtable
-						{
-							{ "@EMAIL", a.EMAIL },
-							{ "@PASSWORD", a.PASSWORD },
-							{ "@ACTIVE", a.ACTIVE },
-							{ "@ACTION", "1" }
-						};
-					DataSet ds = new MasterClass().executeDatable_SP("STP_LOGIN", hstmst);
+					DataSet ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y'");
 					if (ds.Tables[0].Rows.Count > 0)
 					{
-						if (a.PASSWORD == CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PASSWORD"].ToString()))
+						if (txtpassword.Text == CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PASSWORD"].ToString()))
 						{
 							SESSIONKEYS.UserID = ds.Tables[0].Rows[0]["ID"].ToString();
 							SESSIONKEYS.Role = ds.Tables[0].Rows[0]["ADMIN"].ToString();
 							SESSIONKEYS.FullName = ds.Tables[0].Rows[0]["FULLNAME"].ToString();
-							lg.CURRVALUE = "LOG IN SUCCESSFULLY";
+							lg.CURRVALUE = "LOG IN";
 							lg.DESCRIPTION = "LOG IN SUCCESSFULLY";
+							lg.TYPE = "SELECTED";
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 							lg.ID = SESSIONKEYS.UserID.ToString();
 							string json = new MasterClass().SAVE_LOG(lg);

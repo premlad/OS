@@ -1,0 +1,1136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="OS.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="OS" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="OS.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="itextsharp.dll" size="4079616">
+      <assemblyIdentity name="itextsharp" version="5.5.13.1" publicKeyToken="8354AE6D2174DDCA" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>VUC+CCHYMD3JRf0r0cYggs26RiYOUniYX6CGYkLerdI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OS.exe" size="235520">
+      <assemblyIdentity name="OS" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>QXspb4m4wbrRBw3Vb/qDLP5nxZVBNhpTH48sHcyV4tE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.ComponentModel.Annotations.dll" size="43152">
+      <assemblyIdentity name="System.ComponentModel.Annotations" version="4.2.1.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>BBE8hUkYVRnzICeQzrI99glkSHK5wkmlbSvPWVZhAsQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Data.SqlServerCe.dll" size="296816">
+      <assemblyIdentity name="System.Data.SqlServerCe" version="3.5.1.0" publicKeyToken="89845DCD8080CC91" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>ygWc7FmnhTm4U0xrpvc+N/z5kx4ghQcKBoGBTj4zLbc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Icons\icons8-3d-farm.png" size="1790">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>vpKKJKlNv+4NkaNTKtjsH2BQqqOqI6ILwUZKItfOTo0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-add-column.png" size="668">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>bwpbEw/zZIwypB5WZPCiDy74E5cDmJX1zaFE87GYlOg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-add-new.png" size="249">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>9anWTM3uEg496JfrzOz6YhgfbnilO3neguJ3et36SEY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-add-row.png" size="628">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>gW4tHnj60630DfFPGMHXIrmvc+j6al3uYo8i0xaiKQE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-administrative-tools.png" size="2216">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ls5KvQycHQSFPOfrCm9lIpY/cCmAOCt5FCb4J6/Zrxw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-calendar-with-clock.png" size="1014">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>FaxdVGzQXaeAJRHy87fMYAg1sEJAtyEWXaC3I/idSrw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-calendar-with-clock-2.png" size="1025">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MfKw9w7os2stoxILS4kfuG82NSm2MSRXQWr2DPImunM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-circled-thumbs-up.png" size="1427">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>fyJtbuJs/yFv74DmgYFR/ZWQrFlQRwoUAHeyaOgPKCs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-circled-thumbs-up-filled.png" size="817">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>zs1qIhx/YZF4YARSKsKfX58vFDeu4jhJM7Ri2vER/cg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-clipboard-checklist.png" size="614">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>O31fUGmiGDJQIW5/Mc5iojQgc/v9KZMZxwTKfUK9I0w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-csv.png" size="1460">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>YqcaL5IetrehU+BzoF2+E5aZ+IrIhTnsKPnO6wwXiVs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-csv-2.png" size="712">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>icrFBeGadLgC+mJcEqVtFTIuBzZHcz8zb5xwx/pJdMQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete.png" size="299">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>YRMD4Gin0TaD/fLjvoXjYKS/KYS2tZlDXwq2tzb5s/w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-2.png" size="626">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>31zjkQxTSl/jWtVv4KJgsR+VNNZcoaGDKRlLRJewH2I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-button.png" size="1111">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>0dhGlH5E4BHMpfAd36YtEZczr4aFbc7sU0etipJWc0I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-button-2.png" size="802">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>dXXEl0FJZB1aFHWTz6/Y1jQnRLviGHxQgRp4g0Pk00A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-button-filled.png" size="712">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>3lcgk5Y+FBpyYVydj7Xk7FXK52W+dZ00plhlSxl1Of0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-column.png" size="673">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BKlp/BfnpIDfg8M2Z8dVoE4XazNWvXA/OgNJg54LMQI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-row.png" size="634">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>poO9xatb0mJmCV3Qw0z5ZHx7sTe99aicpt2rppqXMSw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-delete-row-2.png" size="558">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>tDibim1IoI3cDghjPEjPLJKJ4yzbmxj8ChlzIkJcVmA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-doughnut-chart.png" size="1968">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>4p6AybuZcwtGlpy3EKLsYOWShSlc7XlNpAjmdVAxVjI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-doughnut-chart-2.png" size="1484">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>guOlxCfg/j9amODsiLFJhuA1oaHMiqGjsv5U3pP5klo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-doughnut-chart-3.png" size="1014">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AGvoCY5ATUNu5/ikF5OoeO68GrrYc3/yFsv76QzP8P0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-edit-file.png" size="652">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>wDf3Ll4Cv6hLY+sRC68gNJvjPGRBtbgv0m92o3vOnyY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-edit-file-2.png" size="726">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>RtN0Hng3dfmF17RTSOB9GZOpcyFcPEgJNRD6D+l7GgM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-edit-file-3.png" size="1774">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>mtiEjxu1bZTuxq9jX2y+74kFLFsDf06LgQcTNWQJ6i8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-event.png" size="354">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>8X2EvqXHDejw1DWMv8YLz8vwXms7HQrcL/VoHPaIcgI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-event-2.png" size="1100">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>VYz3lFcbr389xWqkmor/h5gDH1wBp2JvqISyFqePJNQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-event-3.png" size="616">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AjXun+BVFPPu1U88cz5lI6cjPCSmjkXmWb0x02RJGW8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-gmail.png" size="991">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>0/hhZRzQWc4SyspWISsNx7Z0Kjj7SWoYSmTUvDnHDfo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-gmail-filled.png" size="665">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>JBXeaZICobK/wjrxTJ29UPfaHOgIRlM4H5nbhHO/haM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-gmail-login.png" size="1027">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Oh9bBooX8GrjPyXh4KvRxkR3OIkY6Zh5APdm9YWI+WY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-google-web-search.png" size="629">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>L+jLUSQX8FSUIzQjyfl56aWnBNdX+V841boa/ha2aUw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-google-web-search-2.png" size="1362">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>e/D33xHTASSJQROQZ7A0N2S1zwxjjanNrBSN+QMysRY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-google-web-search-filled.png" size="594">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>spq4D/8F0J0yBnIAGLXE/PPfNfU0tJApe9o820RjjHo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-graduation-cap.png" size="732">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BC4Jr68JkK5svhpAiSNKu1sVs7h76XuL1jdPpxonCRY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-graduation-cap-2.png" size="1000">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>7kmJVtY4iLky9v4elEe+AvXpyqBePSarwZU5ElrHBaQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-help.png" size="1323">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>e8Ny+IStD70SCeJTFA+tYs6v/HdPxTmOfDZ0NxJSD3Q=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-help-2.png" size="1292">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AwUFjwsBXq5KUA6+01wXRgIvYezLKSAuUnADLn2VCd4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-help-filled.png" size="793">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>J2K0E6CYYPmlhj5h2tRxbe/HyZLvro9x9UAfXzGFx7w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-info.png" size="805">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>5OMhEJSDoL3QHfQ6j2OkL1+lKl8EEqgHMLnrKolAYvk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-info-2.png" size="485">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>bMvtANbGSNkmLM0oEQfrPBb02CzGFTovCF7g+DZ06W8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-info-filled.png" size="703">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>v6ye1nO2iMnli8ORWN1Y3ovUhguPVoOKfTrrETEYD80=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-location-marker.png" size="659">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>p2ZBTtAFxFqUQD58QqfLXFVzo/AE6jzsr1H1T51Gq04=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-lock-outline-filled.png" size="562">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>t7gOldAQBIjSfYt9jv3snuB4nyiRXMtE77MMZNoj284=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-menu.png" size="197">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xa7jd7+wjUESPvaIvRmc6PNeGgcKdZ9PtBOuq2jNLS8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-menu-2.png" size="221">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>yl77OkXK+wQCjF1MKeW7LA6f2fd9t7nfeD5cGpCgp8A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-menu-filled.png" size="215">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>OUD0yDd0qUlqtidMdhJsgthdZlivSJMPP2IohS+eaX4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-message.png" size="328">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>FD7ch4hX6SCTfOz9pE48mWwaohT4o5bIbqccBxA7xuo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-message-2.png" size="678">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>atK74QPDbfuLjCkneEMQgagYaTFpBTFcSVKSoyqA4eM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-message-3.png" size="716">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>5w7CePmClsHkAAi6uDo0bPK1JGhVlgXYoKm9HV/iUVs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-message-4.png" size="731">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Jp63H8QYJpQ2wWWNfDstyxLK4GnMbitcaMIZecKH380=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-microsoft-excel.png" size="770">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>fDfoLwyYNF+brvrNqPP3bDElWp5+lEzZ6xPnAt1NUz4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-microsoft-excel-2.png" size="1470">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>cBey/gGBz2KOer0+iGgNwpt6VPSNqIyisw1tErTzjK0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-microsoft-word.png" size="1492">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>b+dnvgI9AcevdbKOJorQ0tQfF30b9hwz0OZb1fF8r3M=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-microsoft-word-2.png" size="839">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>fAINFHLuFZDAOwA/4hE3OuIRTaHKEnfZjRIR2ETw9zU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-money.png" size="1096">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>b4xpg5wDrLafHUa6AwwArcW60XuufH+nYbnz3HNZwq8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-money-2.png" size="1155">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>3TImMplPWDyTbwjezrLyn12SCyJaiFVFcrlRvZbxUnk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-music-note-outline.png" size="698">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>7f7yeZtHwB5vEKmvQX3JAR2bymKtL3EP6MOfwRZ5DNo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-new.png" size="930">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>rr4/YhZBo85xhqnFV9Y6UcSVnTZmpsuizi9tUheLDxI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-note.png" size="427">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>unaZU2Sja48wjI7UnRgkVndXLSmGcoMTOKiphfV1vlA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-note-2.png" size="360">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>LedkMSVtHXwcBDhkK0iHg6pS7fZqi9ImiRyLVrVQOUQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-note-filled.png" size="339">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>9a++Mxlf7mnY/+XaWjYLNZ9vpVuvjLeeLaefPvar/fc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-notification.png" size="715">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6DeRlRg9ltoaXC+6VUdie+E7q85AsU9EsxZS7TrawJo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-open.png" size="652">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>EGxZIAAYK/MF1TBiCHS0ymmRr10jGLRrgusuejX8CwM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-open-2.png" size="583">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>N/bv5KMMHNH3lPPmb1OmEBizt53NT6eds78Jp1uQwoc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-open-filled.png" size="526">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>/wfFQhTpih5Pb7g7TCTQ1UX2ZoaUpw83xxBnXf+nyBk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-package.png" size="260">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>lMQPGku9C5lXq7DUjd3y4CfTjTfTWq5l+Q2+m8a+VvY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-package-filled.png" size="382">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>flqfKHC0OnjxygEjyQ2PSYzfeHxEUUqweMrIDNfrsGM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-paste-special.png" size="748">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>rA9+gHIYSAcI+ucDWyt6B1scBbMWY3xCBDh7E09GRyk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-pdf.png" size="675">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>BQwr7CFrAWSF23vus2cPKCvrhIJiM31DA4AtR76RpjE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-pdf-2.png" size="1136">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>VacRxTmpzps3FJdsQfbiHnJkSqqGhQ4FcbyeeglnoIQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-pdf-3.png" size="1380">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZZssRoUrtLfHpofzPeP2eQWxfTgt/Q8nnP48NsPfmkw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-pencil.png" size="1251">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>zNbldm+FzmTxfZCZ/cD9XAI/D3XnyY0Dp4tIuvl3ZDQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-pencil-2.png" size="844">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>KGRVYicStv+hgi3eRRdEX11k0w1AoUdVk4BzhOC2dWg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-phone.png" size="557">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>SL17NDF9cL82+DrGjH3lllluuD+ctwqbN+v3nssjSW0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-phone-2.png" size="1118">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>CapGWT5jchS+/8fjsn65+W+uyfDqyfvKsUOLKCm+fvs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-phone-3.png" size="1003">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pRAm92QyMXYi1qi8vJdKoGA5tz6fa5OcvoN/WbgFNVs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-phone-filled.png" size="600">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>20tNIR2VJPwM7DV5pf5Zr/EFtT0mV4SR76B6+zdeLxk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-photos.png" size="1261">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AzpeRxjScLc8gNUE557ChzJIPFjqi4omIsZ05D/45F0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-photos-2.png" size="712">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>X3IGZ8aXa2QjLi7JuVBiIr8cCycqJzrrNaekNrcPt9c=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-photos-filled.png" size="1145">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1TmDt1MN7+IZKbOhaqazqJWR16VkOa0t/SSDYjF//Hs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-print-filled.png" size="495">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>zBSPDGpn/s1wEBvHqvk5uJIFpt/odJd29PWKJBn9ojY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-profile-picture.png" size="688">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>yofKzaJye+Gk2gHTZtjYi3TrsLmSe5RJUS1vtXpyGnA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-profile-picture-2.png" size="999">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>TGIiw41Nq/rhkFOJ/B9Qs8aVYviZnqJtYH3H9iTAxuw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-profile-picture-filled.png" size="493">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1AUjwMOuLenRZwtMd1ekk/jysjg6tNmM97vujnafVws=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-raw.png" size="568">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>oZ+uygWEOhlSvdvye8j6b06WOabC1n3q3ZBeiche0Aw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-refresh.png" size="831">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>8KABxZKCOpLCqtP7ZOAv21CSPCILfqC9kWOM0QskXNQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-refresh-2.png" size="1453">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>3QqJTQqYrEip2WnDYXbMBrvv1jSSsaI0nJOLfS/qfL0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-refresh-filled.png" size="781">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Y1/BeJYdfRP/jbMNBDjHCXHuJwdXouVn6q2Mk5k4U48=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-scissors-outline.png" size="1123">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ecbk3/huoZlafJSSTZ9uhi0QtM9px0IUw1BjnklrBkM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-security.png" size="1779">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>J+q/PYUdCq0FDO9hcuSzc5Qm2mMzXG2q4MQeFh5BA/I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-security-2.png" size="869">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pU7qj//Lj35H2D4yVkJ/Y6+Jyz80jAPA8JARMKwZw4Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-settings.png" size="1276">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>HkS3zy4lTkL05ocScaAS7lF7CyFpaSPWYZApQFwEOZU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-settings-filled.png" size="787">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>h841uucuRYPzcsGYC5EgW2dq7dlndmYU8AuMypkVz0s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-sort-by-modified-date.png" size="714">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Kk9GVB0Xg/o8X+aiS8+yTUH1w4kOYUVVb2EdmW+t4R0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-sort-by-recently-viewed.png" size="633">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>GPDnUaYCicZ9TmPY6wDR+Em1FIi6nATHXT47xqUm4ro=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-sort-by-recently-viewed-2.png" size="869">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>LiuYWej8IF4nTUg4uVCpPxLQYFuNPSZlc6ELPGfngJA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-sort-by-start-date.png" size="491">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Dxa1zzoI+1AnvSD8HBCtiFrvnTSfH43MYRtojans0w0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-text-align-left.png" size="184">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>hQ1R/zPkDeI+SFSUgQIbRWjwyuCZW0A6Il4iUITXQxU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-text-justify.png" size="180">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1dxgdWv6msCa0GTG08V8QMIZXOfISYXOWMxFw/VRJPc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-timeline.png" size="416">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>vjzQbqlRyTas/ig5Q5kZMLXNCammAewYkn30o0gCFVc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-timeline-2.png" size="660">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>T846fG4LMwOdabVyGg08kpvFY0HbtaRIOzPcYLdwKWk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-tool-symbol.png" size="1201">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>LSaxE2HV/hnJh+Nx8DRsntZBPCxyrRiLUl2ELy0fPhw=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-warn.png" size="759">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>l1DLroDJFCbaH+6uTtF0OZXCTcC09059wxt8Cj9ULa0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-warning.png" size="747">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>hfhUriQCMk7q4xpWjr/aQSvHX2LZtxAhQKlmug1xQYQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-word.png" size="709">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>7JadsDd9+29ecUEx0p8d76mHYK/2hWeVnyASJrDbi+E=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-work.png" size="428">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ssHiVPdlVgvHCKF2PIzYL+NUmUyivSScVayFE4HgtX4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-work-2.png" size="1192">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Mgc1TB+kvGlZMvuQXTTcuMgaIzN6ZkTAfWrDNlg5FMQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-work-3.png" size="1350">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>MLGGr/BauBMaoovrKkk/OiVKBCKFgni6hqicm2VyjdU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-work-4.png" size="823">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>It57dMss4EaKeN8y99cA67nBCmRS8ehZeoV3d/9pllQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-work-in-progress-filled.png" size="980">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>WANRn51UDGVHCMA/V4PyLE7NnkEwlTcgZOmQ0JUSwS8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Icons\icons8-xls.png" size="414">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>mfHbzNApwpAQesE9l55rB25XJv8b0826rii2HYiaY+4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="OS.exe.config" size="755">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>VXJBTxAnMej76b0BOZa6kX7aVL6bj76LRdBUCwRlfZo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\download.jpg" size="1609">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1QwhDc/mRBiNRadIHVXzh8KtSBl3zkimzZwrI+u2KGU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\houde.png" size="374590">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Lyqsbx0V/Ir7nGP+ZC+sGQ/cnazO76O7t0qxbFs1IZ8=</dsig:DigestValue>
+    </hash>
+  </file>
+</asmv1:assembly>
