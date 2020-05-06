@@ -31,6 +31,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON));
 			this.btnaddINSCON = new System.Windows.Forms.Button();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label26 = new System.Windows.Forms.Label();
 			this.dataGridViewmaterialfinancial = new System.Windows.Forms.DataGridView();
 			this.financilaFullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.financilaMobileNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +53,7 @@
 			this.txtINSCONfinancialfullname = new System.Windows.Forms.TextBox();
 			this.label25 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.dataGridViewISNCONrelativetable = new System.Windows.Forms.DataGridView();
 			this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.MobileNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,6 +75,7 @@
 			this.txtINSCONrelativefullnam = new System.Windows.Forms.TextBox();
 			this.label31 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label28 = new System.Windows.Forms.Label();
 			this.cmdINSCONSAVEID = new System.Windows.Forms.ComboBox();
 			this.dataGridViewPastEmployee = new System.Windows.Forms.DataGridView();
 			this.pastemployeegridview = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -111,6 +114,8 @@
 			this.btnupdateINSCON = new System.Windows.Forms.Button();
 			this.btncacncelINSCON = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewmaterialfinancial)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -137,6 +142,7 @@
 			// groupBox3
 			// 
 			this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox3.Controls.Add(this.label26);
 			this.groupBox3.Controls.Add(this.dataGridViewmaterialfinancial);
 			this.groupBox3.Controls.Add(this.btnmaterial);
 			this.groupBox3.Controls.Add(this.txtINSCONfinancialaddress);
@@ -152,12 +158,24 @@
 			this.groupBox3.Controls.Add(this.txtINSCONfinancialfullname);
 			this.groupBox3.Controls.Add(this.label25);
 			this.groupBox3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox3.Location = new System.Drawing.Point(704, 313);
+			this.groupBox3.Location = new System.Drawing.Point(704, 335);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(654, 334);
+			this.groupBox3.Size = new System.Drawing.Size(654, 312);
 			this.groupBox3.TabIndex = 31;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Material Financial Relationship";
+			// 
+			// label26
+			// 
+			this.label26.AutoSize = true;
+			this.label26.BackColor = System.Drawing.Color.Transparent;
+			this.label26.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label26.ForeColor = System.Drawing.Color.Red;
+			this.label26.Location = new System.Drawing.Point(74, 22);
+			this.label26.Name = "label26";
+			this.label26.Size = new System.Drawing.Size(17, 19);
+			this.label26.TabIndex = 42;
+			this.label26.Text = "*";
 			// 
 			// dataGridViewmaterialfinancial
 			// 
@@ -173,7 +191,7 @@
             this.Financialaddress});
 			this.dataGridViewmaterialfinancial.Location = new System.Drawing.Point(7, 129);
 			this.dataGridViewmaterialfinancial.Name = "dataGridViewmaterialfinancial";
-			this.dataGridViewmaterialfinancial.Size = new System.Drawing.Size(641, 199);
+			this.dataGridViewmaterialfinancial.Size = new System.Drawing.Size(641, 177);
 			this.dataGridViewmaterialfinancial.TabIndex = 40;
 			this.dataGridViewmaterialfinancial.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewmaterialfinancial_CellMouseDoubleClick);
 			// 
@@ -271,11 +289,10 @@
 			this.txtINSCONfinancialdematacno.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONfinancialdematacno.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONfinancialdematacno.Location = new System.Drawing.Point(463, 44);
-			this.txtINSCONfinancialdematacno.MaxLength = 50;
+			this.txtINSCONfinancialdematacno.MaxLength = 16;
 			this.txtINSCONfinancialdematacno.Name = "txtINSCONfinancialdematacno";
 			this.txtINSCONfinancialdematacno.Size = new System.Drawing.Size(145, 26);
 			this.txtINSCONfinancialdematacno.TabIndex = 15;
-			this.txtINSCONfinancialdematacno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
 			// 
 			// label22
 			// 
@@ -293,7 +310,7 @@
 			this.txtINSCONfinancialpanno.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONfinancialpanno.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONfinancialpanno.Location = new System.Drawing.Point(312, 44);
-			this.txtINSCONfinancialpanno.MaxLength = 50;
+			this.txtINSCONfinancialpanno.MaxLength = 10;
 			this.txtINSCONfinancialpanno.Name = "txtINSCONfinancialpanno";
 			this.txtINSCONfinancialpanno.Size = new System.Drawing.Size(145, 26);
 			this.txtINSCONfinancialpanno.TabIndex = 13;
@@ -355,6 +372,7 @@
 			// groupBox2
 			// 
 			this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox2.Controls.Add(this.label1);
 			this.groupBox2.Controls.Add(this.dataGridViewISNCONrelativetable);
 			this.groupBox2.Controls.Add(this.btnddrelative);
 			this.groupBox2.Controls.Add(this.txtINSCONrelativeaddress);
@@ -370,12 +388,24 @@
 			this.groupBox2.Controls.Add(this.txtINSCONrelativefullnam);
 			this.groupBox2.Controls.Add(this.label31);
 			this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox2.Location = new System.Drawing.Point(12, 313);
+			this.groupBox2.Location = new System.Drawing.Point(12, 335);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(654, 334);
+			this.groupBox2.Size = new System.Drawing.Size(654, 312);
 			this.groupBox2.TabIndex = 30;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "My Immediate Relative\'s";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.BackColor = System.Drawing.Color.Transparent;
+			this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.Color.Red;
+			this.label1.Location = new System.Drawing.Point(75, 22);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(17, 19);
+			this.label1.TabIndex = 40;
+			this.label1.Text = "*";
 			// 
 			// dataGridViewISNCONrelativetable
 			// 
@@ -391,7 +421,7 @@
             this.Address});
 			this.dataGridViewISNCONrelativetable.Location = new System.Drawing.Point(7, 129);
 			this.dataGridViewISNCONrelativetable.Name = "dataGridViewISNCONrelativetable";
-			this.dataGridViewISNCONrelativetable.Size = new System.Drawing.Size(641, 199);
+			this.dataGridViewISNCONrelativetable.Size = new System.Drawing.Size(641, 177);
 			this.dataGridViewISNCONrelativetable.TabIndex = 39;
 			this.dataGridViewISNCONrelativetable.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewISNCONrelativetable_CellMouseDoubleClick);
 			// 
@@ -489,11 +519,10 @@
 			this.txtINSCONrelativedematacno.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONrelativedematacno.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONrelativedematacno.Location = new System.Drawing.Point(463, 44);
-			this.txtINSCONrelativedematacno.MaxLength = 50;
+			this.txtINSCONrelativedematacno.MaxLength = 16;
 			this.txtINSCONrelativedematacno.Name = "txtINSCONrelativedematacno";
 			this.txtINSCONrelativedematacno.Size = new System.Drawing.Size(145, 26);
 			this.txtINSCONrelativedematacno.TabIndex = 15;
-			this.txtINSCONrelativedematacno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
 			// 
 			// label17
 			// 
@@ -511,7 +540,7 @@
 			this.txtINSCONrelativepanno.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONrelativepanno.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONrelativepanno.Location = new System.Drawing.Point(312, 44);
-			this.txtINSCONrelativepanno.MaxLength = 50;
+			this.txtINSCONrelativepanno.MaxLength = 10;
 			this.txtINSCONrelativepanno.Name = "txtINSCONrelativepanno";
 			this.txtINSCONrelativepanno.Size = new System.Drawing.Size(145, 26);
 			this.txtINSCONrelativepanno.TabIndex = 13;
@@ -573,6 +602,7 @@
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.label28);
 			this.groupBox1.Controls.Add(this.cmdINSCONSAVEID);
 			this.groupBox1.Controls.Add(this.dataGridViewPastEmployee);
 			this.groupBox1.Controls.Add(this.dataGridViewGraduationInstitution);
@@ -604,12 +634,24 @@
 			this.groupBox1.Controls.Add(this.txtINSCONconnectperson);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox1.Location = new System.Drawing.Point(12, 38);
+			this.groupBox1.Location = new System.Drawing.Point(12, 58);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(1346, 269);
 			this.groupBox1.TabIndex = 29;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Connected Person Info";
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.BackColor = System.Drawing.Color.Transparent;
+			this.label28.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label28.ForeColor = System.Drawing.Color.Red;
+			this.label28.Location = new System.Drawing.Point(436, 78);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(17, 19);
+			this.label28.TabIndex = 43;
+			this.label28.Text = "*";
 			// 
 			// cmdINSCONSAVEID
 			// 
@@ -776,11 +818,10 @@
 			this.txtINSCONdemataccountno.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONdemataccountno.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONdemataccountno.Location = new System.Drawing.Point(340, 100);
-			this.txtINSCONdemataccountno.MaxLength = 20;
+			this.txtINSCONdemataccountno.MaxLength = 16;
 			this.txtINSCONdemataccountno.Name = "txtINSCONdemataccountno";
 			this.txtINSCONdemataccountno.Size = new System.Drawing.Size(240, 26);
 			this.txtINSCONdemataccountno.TabIndex = 28;
-			this.txtINSCONdemataccountno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
 			// 
 			// label13
 			// 
@@ -885,7 +926,7 @@
 			this.txtINSCONpannomaster.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONpannomaster.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONpannomaster.Location = new System.Drawing.Point(523, 44);
-			this.txtINSCONpannomaster.MaxLength = 20;
+			this.txtINSCONpannomaster.MaxLength = 10;
 			this.txtINSCONpannomaster.Name = "txtINSCONpannomaster";
 			this.txtINSCONpannomaster.Size = new System.Drawing.Size(234, 26);
 			this.txtINSCONpannomaster.TabIndex = 15;
@@ -951,6 +992,7 @@
 			this.txtINSCONconnectperson.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.txtINSCONconnectperson.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.txtINSCONconnectperson.BackColor = System.Drawing.Color.MintCream;
+			this.txtINSCONconnectperson.Enabled = false;
 			this.txtINSCONconnectperson.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSCONconnectperson.Location = new System.Drawing.Point(7, 44);
 			this.txtINSCONconnectperson.MaxLength = 50;
@@ -1021,6 +1063,30 @@
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click_2);
 			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.Transparent;
+			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(456, 12);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(252, 40);
+			this.button2.TabIndex = 63;
+			this.button2.Text = "INSERT";
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// button3
+			// 
+			this.button3.BackColor = System.Drawing.Color.Transparent;
+			this.button3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button3.Location = new System.Drawing.Point(714, 12);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(252, 40);
+			this.button3.TabIndex = 64;
+			this.button3.Text = "UPDATE/DELETE";
+			this.button3.UseVisualStyleBackColor = false;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
 			// MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1028,6 +1094,8 @@
 			this.BackColor = System.Drawing.SystemColors.Control;
 			this.BackgroundImage = global::OS.Properties.Resources.download;
 			this.ClientSize = new System.Drawing.Size(1370, 730);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.btnaddINSCONdeelete);
 			this.Controls.Add(this.btnupdateINSCON);
@@ -1141,5 +1209,10 @@
 		private System.Windows.Forms.Button btnupdateINSCON;
 		private System.Windows.Forms.Button btncacncelINSCON;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label26;
+		private System.Windows.Forms.Label label28;
 	}
 }

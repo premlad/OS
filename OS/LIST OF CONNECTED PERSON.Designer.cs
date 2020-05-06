@@ -55,7 +55,6 @@
 			this.btnDownloadPDF = new System.Windows.Forms.Button();
 			this.btnDownloadexcel = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.btnSearch = new System.Windows.Forms.Button();
 			this.txtInsiderID = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -256,7 +255,7 @@
 			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
 			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(417, 49);
+			this.button1.Location = new System.Drawing.Point(496, 48);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(46, 40);
 			this.button1.TabIndex = 103;
@@ -313,17 +312,6 @@
 			this.label6.Size = new System.Drawing.Size(79, 19);
 			this.label6.TabIndex = 99;
 			this.label6.Text = "Download :";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.BackColor = System.Drawing.Color.Transparent;
-			this.label5.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(817, 49);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(20, 31);
-			this.label5.TabIndex = 98;
-			this.label5.Text = "|";
 			// 
 			// btnSearch
 			// 
@@ -432,7 +420,7 @@
 			// 
 			this.button2.BackColor = System.Drawing.Color.Transparent;
 			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(674, 48);
+			this.button2.Location = new System.Drawing.Point(646, 48);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(94, 40);
 			this.button2.TabIndex = 104;
@@ -451,7 +439,6 @@
 			this.Controls.Add(this.btnDownloadPDF);
 			this.Controls.Add(this.btnDownloadexcel);
 			this.Controls.Add(this.label6);
-			this.Controls.Add(this.label5);
 			this.Controls.Add(this.btnSearch);
 			this.Controls.Add(this.txtInsiderID);
 			this.Controls.Add(this.label4);
@@ -479,7 +466,6 @@
 		private System.Windows.Forms.Button btnDownloadPDF;
 		private System.Windows.Forms.Button btnDownloadexcel;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button btnSearch;
 		public System.Windows.Forms.TextBox txtInsiderID;
 		private System.Windows.Forms.Label label4;

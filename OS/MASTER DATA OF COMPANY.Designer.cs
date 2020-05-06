@@ -56,6 +56,7 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.txtMobileNo = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -139,6 +140,7 @@
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.label13);
 			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.txtID);
 			this.groupBox1.Controls.Add(this.txtDesignation);
@@ -394,6 +396,18 @@
 			this.label4.TabIndex = 58;
 			this.label4.Text = "Mobile No";
 			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.BackColor = System.Drawing.Color.Transparent;
+			this.label13.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label13.ForeColor = System.Drawing.Color.Red;
+			this.label13.Location = new System.Drawing.Point(970, 166);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(17, 19);
+			this.label13.TabIndex = 74;
+			this.label13.Text = "*";
+			// 
 			// MASTER_DATA_OF_COMPANY
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -403,11 +417,9 @@
 			this.Name = "MASTER_DATA_OF_COMPANY";
 			this.Text = "MASTER DATA OF COMPANY";
 			this.Load += new System.EventHandler(this.MASTER_DATA_OF_COMPANY_Load);
-			this.Controls.SetChildIndex(this.groupBox1, 0);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -441,5 +453,6 @@
 		private System.Windows.Forms.Label label11;
 		public System.Windows.Forms.TextBox txtID;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Label label13;
 	}
 }

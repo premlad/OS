@@ -3,6 +3,7 @@ using OS.Data_Entity;
 using RSACryptography;
 using System;
 using System.Data;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace OS
@@ -38,38 +39,91 @@ namespace OS
 			FillDataGrid();
 		}
 
+		private void SetLoading(bool displayLoader)
+		{
+			if (displayLoader)
+			{
+				Invoke((MethodInvoker)delegate
+				{
+					//picLoader.Visible = true;
+					Cursor = Cursors.WaitCursor;
+					//Thread.Sleep(4000);
+				});
+			}
+			else
+			{
+				Invoke((MethodInvoker)delegate
+				{
+					//picLoader.Visible = false;
+					Cursor = Cursors.Default;
+				});
+			}
+		}
+
 		private void FillDataGrid()
 		{
-			dataGridViewTable.Rows.Clear();
-			dataGridViewTable.Refresh();
-			//DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PER P, T_INS_PER_DT D WHERE P.ID = D.PERID AND P.ACTIVE = 'Y' AND D.ACTIVE = 'Y' AND P.LOCK = 'N' AND D.LOCK = 'N'");			
-			DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PER P LEFT JOIN T_INS_PER_DT D ON P.ID = D.PERID AND D.ACTIVE = 'Y' AND D.LOCK = 'N' INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE P.ACTIVE = 'Y'  AND P.LOCK = 'N' AND L.ACTIVE = 'Y'");
-
-			if (ds.Tables[0].Rows.Count > 0)
+			try
 			{
-				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+				SetLoading(true);
+
+				Thread.Sleep(2000);
+				Invoke((MethodInvoker)delegate
 				{
-					string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
-					dataGridViewTable.Rows.Add(row);
-				}
+					dataGridViewTable.Rows.Clear();
+					dataGridViewTable.Refresh();
+					//DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PER P, T_INS_PER_DT D WHERE P.ID = D.PERID AND P.ACTIVE = 'Y' AND D.ACTIVE = 'Y' AND P.LOCK = 'N' AND D.LOCK = 'N'");			
+					DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PER P LEFT JOIN T_INS_PER_DT D ON P.ID = D.PERID AND D.ACTIVE = 'Y' AND D.LOCK = 'N' INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE P.ACTIVE = 'Y'  AND P.LOCK = 'N' AND L.ACTIVE = 'Y'");
+
+					if (ds.Tables[0].Rows.Count > 0)
+					{
+						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+						{
+							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
+							dataGridViewTable.Rows.Add(row);
+						}
+					}
+				});
+
+				SetLoading(false);
+			}
+			catch (Exception)
+			{
+				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "List of Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		public void FillDataGrid(string text, string From, string To)
 		{
-
-			//dataGridViewTable.Rows.Clear();
-			dataGridViewTable.Refresh();
-
-			DataSet ds = new MasterClass().getDataSet("SELECT 'Connect Person Id' = P.CONNECTPERSONID,'Name of the Employee' = P.EMPNAME,'Current Designation' = P.CURRDESIGNATION,'Address' = P.ADDRESS,'PAN' = P.PANNO,'Demat A/c No' = P.DEMATACNO,'Phone No and Cell No' = P.MOBILENO,'Graduation Institutions' = P.GRADUATIONINSTI,'My Past Employee' = P.PASTEMP,'Type' = D.TYPE,'Name' = D.NAME,'Address' = D.ADDRESS,'Relationship' = D.RELATIONSHIP,'Phone No' = D.MOBILENO,'Pan No' = D.PANNO,'Demat Ac No' = D.DEMATACNO FROM T_INS_PER P INNER JOIN T_INS_PER_DT D ON P.ID = D.PERID WHERE P.ACTIVE = 'Y' AND D.ACTIVE = 'Y' AND P.LOCK = 'N' AND D.LOCK = 'N'");
-
-			if (ds.Tables[0].Rows.Count > 0)
+			try
 			{
-				dataGridViewTable.DataSource = ds.Tables[0];
-				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-				{
+				SetLoading(true);
 
-				}
+				Thread.Sleep(2000);
+				Invoke((MethodInvoker)delegate
+				{
+					dataGridViewTable.Rows.Clear();
+					dataGridViewTable.Refresh();
+					//DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PER P, T_INS_PER_DT D WHERE P.ID = D.PERID AND P.ACTIVE = 'Y' AND D.ACTIVE = 'Y' AND P.LOCK = 'N' AND D.LOCK = 'N'");			
+					DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PER P LEFT JOIN T_INS_PER_DT D ON P.ID = D.PERID AND D.ACTIVE = 'Y' AND D.LOCK = 'N' INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE P.ACTIVE = 'Y'  AND P.LOCK = 'N' AND L.ACTIVE = 'Y'");
+
+					if (ds.Tables[0].Rows.Count > 0)
+					{
+						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+						{
+							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()) == text)
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
+								dataGridViewTable.Rows.Add(row);
+							}
+						}
+					}
+				});
+
+				SetLoading(false);
+			}
+			catch (Exception)
+			{
+				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "List of Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -82,47 +136,84 @@ namespace OS
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			txtInsiderID.Text = "";
 			FillDataGrid();
 		}
 
 		private void btnDownloadexcel_Click(object sender, EventArgs e)
 		{
-			lg.CURRVALUE = "CONNECTED PERSON TAB";
-			lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
-			lg.TYPE = "SELECTED";
-			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-			lg.ID = SESSIONKEYS.UserID.ToString();
-			string json = new MasterClass().SAVE_LOG(lg);
-			SaveFileDialog sfd = new SaveFileDialog
+			try
 			{
-				Filter = "Excel Documents (*.xls)|*.xls",
-				FileName = "LIST OF CONNECTED PERSON.xls"
-			};
+				SetLoading(true);
 
-			if (sfd.ShowDialog() == DialogResult.OK)
+				//Thread.Sleep(2000);
+				Invoke((MethodInvoker)delegate
+				{
+					if (dataGridViewTable.Rows.Count > 0)
+					{
+						lg.CURRVALUE = "CONNECTED PERSON TAB";
+						lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
+						lg.TYPE = "SELECTED";
+						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+						lg.ID = SESSIONKEYS.UserID.ToString();
+						string json = new MasterClass().SAVE_LOG(lg);
+						SaveFileDialog sfd = new SaveFileDialog
+						{
+							Filter = "Excel Documents (*.xls)|*.xls",
+							FileName = "LIST OF CONNECTED PERSON.xls"
+						};
+
+						if (sfd.ShowDialog() == DialogResult.OK)
+						{
+							new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
+							MessageBox.Show("Exported Data Successfully in Excel Sheet.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+						}
+					}
+				});
+
+				SetLoading(false);
+			}
+			catch (Exception)
 			{
-				new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
-				MessageBox.Show("Exported Data Successfully in Excel Sheet.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void btnDownloadPDF_Click(object sender, EventArgs e)
 		{
-			lg.CURRVALUE = "CONNECTED PERSON TAB";
-			lg.DESCRIPTION = "DOWNLOADED PDF FILE";
-			lg.TYPE = "SELECTED";
-			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-			lg.ID = SESSIONKEYS.UserID.ToString();
-			string json = new MasterClass().SAVE_LOG(lg);
-			SaveFileDialog sfd = new SaveFileDialog
+			try
 			{
-				Filter = "PDF (*.pdf)|*.pdf",
-				FileName = "LIST OF CONNECTED PERSON.pdf"
-			};
-			if (sfd.ShowDialog() == DialogResult.OK)
+				SetLoading(true);
+
+				//Thread.Sleep(2000);
+				Invoke((MethodInvoker)delegate
+				{
+					if (dataGridViewTable.Rows.Count > 0)
+					{
+						lg.CURRVALUE = "CONNECTED PERSON TAB";
+						lg.DESCRIPTION = "DOWNLOADED PDF FILE";
+						lg.TYPE = "SELECTED";
+						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+						lg.ID = SESSIONKEYS.UserID.ToString();
+						string json = new MasterClass().SAVE_LOG(lg);
+						SaveFileDialog sfd = new SaveFileDialog
+						{
+							Filter = "PDF (*.pdf)|*.pdf",
+							FileName = "LIST OF CONNECTED PERSON.pdf"
+						};
+						if (sfd.ShowDialog() == DialogResult.OK)
+						{
+							new MasterClass().ToPDF(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
+							MessageBox.Show("Exported Data Successfully in PDF Sheet.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+						}
+					}
+				});
+
+				SetLoading(false);
+			}
+			catch (Exception)
 			{
-				new MasterClass().ToPDF(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
-				MessageBox.Show("Exported Data Successfully in PDF Sheet.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -142,24 +233,25 @@ namespace OS
 			{
 				if (txtInsiderID.Text != "")
 				{
-					int rowIndex = -1;
-					foreach (DataGridViewRow row in dataGridViewTable.Rows)
-					{
-						if (row.Cells[0].Value.ToString().Equals(txtInsiderID.Text))
-						{
-							rowIndex = row.Index;
-							//dataGridViewTable.Rows[rowIndex].Selected = true;
-						}
-						else
-						{
-							dataGridViewTable.Rows.RemoveAt(row.Index);
-						}
-					}
-				}
-				else
-				{
 					FillDataGrid(txtInsiderID.Text, txtFromDate.Value.ToString(), txtToDate.Value.ToString());
+					//int rowIndex = -1;
+					//foreach (DataGridViewRow row in dataGridViewTable.Rows)
+					//{
+					//	if (row.Cells[0].Value.ToString().Equals(txtInsiderID.Text))
+					//	{
+					//		rowIndex = row.Index;
+					//		//dataGridViewTable.Rows[rowIndex].Selected = true;
+					//	}
+					//	else
+					//	{
+					//		dataGridViewTable.Rows.RemoveAt(row.Index);
+					//	}
+					//}
 				}
+				//else
+				//{
+				//	FillDataGrid(txtInsiderID.Text, txtFromDate.Value.ToString(), txtToDate.Value.ToString());
+				//}
 			}
 			catch (Exception)
 			{

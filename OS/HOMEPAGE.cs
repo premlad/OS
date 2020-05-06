@@ -112,15 +112,16 @@ namespace OS
 		private void button6_Click(object sender, EventArgs e)
 		{
 			Login l = new Login();
-			SESSIONKEYS.UserID = "";
-			SESSIONKEYS.Role = "";
-			SESSIONKEYS.FullName = "";
 			lg.CURRVALUE = "LOG OUT";
 			lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
 			lg.TYPE = "SELECTED";
 			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 			lg.ID = SESSIONKEYS.UserID.ToString();
 			string json = new MasterClass().SAVE_LOG(lg);
+
+			SESSIONKEYS.UserID = "";
+			SESSIONKEYS.Role = "";
+			SESSIONKEYS.FullName = "";
 			l.Show();
 			Hide();
 		}
@@ -141,13 +142,118 @@ namespace OS
 
 		private void button9_Click(object sender, EventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Backup Data?", "Back Up Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			try
+			{
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Backup Data?", "Back Up Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					DialogResult ofd = folderBrowserDialog1.ShowDialog();
+
+					if (ofd == DialogResult.OK)
+					{
+						lg.CURRVALUE = "BACK UP DATA";
+						lg.TYPE = "SELECTED";
+						lg.ID = SESSIONKEYS.UserID.ToString();
+						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+						lg.DESCRIPTION = "BACK UP DATA";
+						new MasterClass().SAVE_LOG(lg);
+
+						string backupPath = folderBrowserDialog1.SelectedPath;
+						string fileName = "OS.sdf";
+						string sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+						string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+						string destFile = System.IO.Path.Combine(backupPath, fileName);
+
+						System.IO.File.Copy(sourceFile, destFile, true);
+
+						DialogResult dialog = MessageBox.Show("Data Backup Successfully.", "Back Up Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+
+				}
+			}
+			catch (Exception)
+			{
+				DialogResult dialog = MessageBox.Show("Data Backup Failed.", "Back Up Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void button10_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Restore Data?\nNote:-Please Back Up the Existing Data", "Restore Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					DialogResult ofd = folderBrowserDialog1.ShowDialog();
+
+					if (ofd == DialogResult.OK)
+					{
+						lg.CURRVALUE = "RESTORE DATA";
+						lg.TYPE = "SELECTED";
+						lg.ID = SESSIONKEYS.UserID.ToString();
+						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+						lg.DESCRIPTION = "RESTORE DATA";
+						new MasterClass().SAVE_LOG(lg);
+
+						string backupPath = folderBrowserDialog1.SelectedPath;
+						string fileName = "OS.sdf";
+						string sourcePath = backupPath;
+						string restorePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+						//if (File.Exists("OS.sdf"))
+						//{
+						//	System.IO.File.Move("OS.sdf", "OS" + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss") + ".sdf");
+						//}
+
+						string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
+						string destFile = System.IO.Path.Combine(restorePath, fileName);
+
+						System.IO.File.Copy(sourceFile, destFile, true);
+
+						lg.CURRVALUE = "RESTORE DATA";
+						lg.TYPE = "SELECTED";
+						lg.ID = SESSIONKEYS.UserID.ToString();
+						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+						lg.DESCRIPTION = "RESTORE DATA";
+						new MasterClass().SAVE_LOG(lg);
+
+						DialogResult dialog = MessageBox.Show("Data Restore Successfully.", "Restore Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+				}
+			}
+			catch (Exception)
+			{
+				DialogResult dialog = MessageBox.Show("Data Restore Failed.", "Restore Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+		}
+
+		private void button11_Click(object sender, EventArgs e)
+		{
+			CREATELOGIN l = new CREATELOGIN();
+			l.Show();
+			Hide();
+		}
+
+		private void button12_Click(object sender, EventArgs e)
+		{
+			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Lock the Database\nNote:After Locking you will not be able to Insert/Update/Delete Records.?\nSave the Database to appropraite Location.", "Lock Database", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (dialogResult == DialogResult.Yes)
 			{
 				DialogResult ofd = folderBrowserDialog1.ShowDialog();
 
 				if (ofd == DialogResult.OK)
 				{
+					string ds = new MasterClass().executeQueryForDB("UPDATE T_LOGIN SET LOCK = 'Y' ;").ToString();
+					lg.CURRVALUE = "DATABASE LOCKED";
+					lg.TYPE = "LOCK";
+					lg.ID = ds;
+					lg.DESCRIPTION = "DATABASE LOCKED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					new MasterClass().SAVE_LOG(lg);
+
 					string backupPath = folderBrowserDialog1.SelectedPath;
 					string fileName = "OS.sdf";
 					string sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -159,41 +265,23 @@ namespace OS
 					lg.CURRVALUE = "BACK UP DATA";
 					lg.TYPE = "SELECTED";
 					lg.ID = SESSIONKEYS.UserID.ToString();
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 					lg.DESCRIPTION = "BACK UP DATA";
 					new MasterClass().SAVE_LOG(lg);
-					DialogResult dialog = MessageBox.Show("Data Backup Successfully.", "Back Up Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					if (File.Exists("OS.sdf"))
+					{
+						File.Delete("OS.sdf");
+					}
+
+					DialogResult dialog = MessageBox.Show("Locked the Database Successfully.", "Lock Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					Login l = new Login();
+					l.Show();
+					Hide();
+
 				}
 
 			}
-		}
-
-		private void button10_Click(object sender, EventArgs e)
-		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Restore Data?\nNote:-Please Back Up the Existing Data", "Restore Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
-			{
-				DialogResult ofd = folderBrowserDialog1.ShowDialog();
-
-				if (ofd == DialogResult.OK)
-				{
-					string backupPath = folderBrowserDialog1.SelectedPath;
-					string fileName = "OS.sdf";
-					string sourcePath = backupPath;
-					string restorePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-					string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
-					string destFile = System.IO.Path.Combine(restorePath, fileName);
-
-					System.IO.File.Copy(sourceFile, destFile, true);
-					lg.CURRVALUE = "RESTORE DATA";
-					lg.TYPE = "SELECTED";
-					lg.ID = SESSIONKEYS.UserID.ToString();
-					lg.DESCRIPTION = "RESTORE DATA";
-					new MasterClass().SAVE_LOG(lg);
-					DialogResult dialog = MessageBox.Show("Data Restore Successfully.", "Restore Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				}
-			}
-
 		}
 	}
 }

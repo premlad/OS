@@ -56,10 +56,10 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>EEC3F0C290A6403D0C4E0CC553591DA8597136E5</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>49F05658B1E1EFE7784890E912DEF1BDF12C8520</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>OS_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>OSV3.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
@@ -105,6 +105,12 @@
     </Compile>
     <Compile Include="AUDIT TRAIL.Designer.cs">
       <DependentUpon>AUDIT TRAIL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CREATELOGIN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CREATELOGIN.Designer.cs">
+      <DependentUpon>CREATELOGIN.cs</DependentUpon>
     </Compile>
     <Compile Include="Data Access Layer\CheckDB.cs" />
     <Compile Include="Data Access Layer\CryptographyHelper.cs" />
@@ -186,6 +192,9 @@
     </Compile>
     <EmbeddedResource Include="AUDIT TRAIL.resx">
       <DependentUpon>AUDIT TRAIL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CREATELOGIN.resx">
+      <DependentUpon>CREATELOGIN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -361,7 +370,17 @@
     <Content Include="Icons\icons8-work-in-progress-filled.png" />
     <Content Include="Icons\icons8-work.png" />
     <Content Include="Icons\icons8-xls.png" />
+    <Content Include="OS.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\download.jpg" />
+    <Content Include="sqlceca35.dll" />
+    <Content Include="sqlcecompact35.dll" />
+    <Content Include="sqlceer35EN.dll" />
+    <Content Include="sqlceme35.dll" />
+    <Content Include="sqlceoledb35.dll" />
+    <Content Include="sqlceqp35.dll" />
+    <Content Include="sqlcese35.dll" />
     <None Include="Resources\gif.gif" />
     <Content Include="Resources\houde.png" />
   </ItemGroup>

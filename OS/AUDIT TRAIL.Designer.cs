@@ -48,7 +48,6 @@
 			this.btnDownloadPDF = new System.Windows.Forms.Button();
 			this.btnDownloadexcel = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtToDate = new System.Windows.Forms.DateTimePicker();
 			this.label2 = new System.Windows.Forms.Label();
@@ -63,7 +62,7 @@
 			// 
 			this.button2.BackColor = System.Drawing.Color.Transparent;
 			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(893, 49);
+			this.button2.Location = new System.Drawing.Point(828, 50);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(94, 40);
 			this.button2.TabIndex = 122;
@@ -92,6 +91,7 @@
 			this.button1.Size = new System.Drawing.Size(46, 40);
 			this.button1.TabIndex = 121;
 			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// panel1
 			// 
@@ -136,6 +136,7 @@
 			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
 			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridViewTable.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
 			this.dataGridViewTable.Name = "dataGridViewTable";
@@ -196,6 +197,7 @@
 			this.btnDownloadPrinter.Size = new System.Drawing.Size(46, 40);
 			this.btnDownloadPrinter.TabIndex = 119;
 			this.btnDownloadPrinter.UseVisualStyleBackColor = false;
+			this.btnDownloadPrinter.Visible = false;
 			// 
 			// btnDownloadPDF
 			// 
@@ -208,6 +210,7 @@
 			this.btnDownloadPDF.Size = new System.Drawing.Size(46, 40);
 			this.btnDownloadPDF.TabIndex = 118;
 			this.btnDownloadPDF.UseVisualStyleBackColor = false;
+			this.btnDownloadPDF.Click += new System.EventHandler(this.btnDownloadPDF_Click);
 			// 
 			// btnDownloadexcel
 			// 
@@ -220,6 +223,7 @@
 			this.btnDownloadexcel.Size = new System.Drawing.Size(46, 40);
 			this.btnDownloadexcel.TabIndex = 117;
 			this.btnDownloadexcel.UseVisualStyleBackColor = false;
+			this.btnDownloadexcel.Click += new System.EventHandler(this.btnDownloadexcel_Click);
 			// 
 			// label6
 			// 
@@ -232,17 +236,6 @@
 			this.label6.TabIndex = 116;
 			this.label6.Text = "Download :";
 			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.BackColor = System.Drawing.Color.Transparent;
-			this.label5.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(771, 54);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(20, 31);
-			this.label5.TabIndex = 115;
-			this.label5.Text = "|";
-			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
@@ -253,7 +246,6 @@
 			this.label1.Size = new System.Drawing.Size(23, 31);
 			this.label1.TabIndex = 110;
 			this.label1.Text = "-";
-			this.label1.Visible = false;
 			// 
 			// txtToDate
 			// 
@@ -264,7 +256,6 @@
 			this.txtToDate.Name = "txtToDate";
 			this.txtToDate.Size = new System.Drawing.Size(218, 26);
 			this.txtToDate.TabIndex = 109;
-			this.txtToDate.Visible = false;
 			// 
 			// label2
 			// 
@@ -276,7 +267,6 @@
 			this.label2.Size = new System.Drawing.Size(58, 19);
 			this.label2.TabIndex = 108;
 			this.label2.Text = "To Date";
-			this.label2.Visible = false;
 			// 
 			// txtFromDate
 			// 
@@ -287,7 +277,6 @@
 			this.txtFromDate.Name = "txtFromDate";
 			this.txtFromDate.Size = new System.Drawing.Size(218, 26);
 			this.txtFromDate.TabIndex = 107;
-			this.txtFromDate.Visible = false;
 			// 
 			// label15
 			// 
@@ -299,7 +288,6 @@
 			this.label15.Size = new System.Drawing.Size(75, 19);
 			this.label15.TabIndex = 106;
 			this.label15.Text = "From Date";
-			this.label15.Visible = false;
 			// 
 			// btnSearch
 			// 
@@ -311,6 +299,7 @@
 			this.btnSearch.TabIndex = 114;
 			this.btnSearch.Text = "SEARCH";
 			this.btnSearch.UseVisualStyleBackColor = false;
+			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
 			// 
 			// AUDIT_TRAIL
 			// 
@@ -324,7 +313,6 @@
 			this.Controls.Add(this.btnDownloadPDF);
 			this.Controls.Add(this.btnDownloadexcel);
 			this.Controls.Add(this.label6);
-			this.Controls.Add(this.label5);
 			this.Controls.Add(this.btnSearch);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.txtToDate);
@@ -353,7 +341,6 @@
 		private System.Windows.Forms.Button btnDownloadPDF;
 		private System.Windows.Forms.Button btnDownloadexcel;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.DateTimePicker txtToDate;
 		private System.Windows.Forms.Label label2;

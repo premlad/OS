@@ -48,9 +48,9 @@
 			this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.Location = new System.Drawing.Point(27, 267);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(42, 19);
+			this.label2.Size = new System.Drawing.Size(70, 19);
 			this.label2.TabIndex = 2;
-			this.label2.Text = "Email";
+			this.label2.Text = "Username";
 			// 
 			// btnlogin
 			// 
@@ -89,7 +89,7 @@
 			this.txtpassword.BackColor = System.Drawing.Color.MintCream;
 			this.txtpassword.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtpassword.Location = new System.Drawing.Point(30, 354);
-			this.txtpassword.MaxLength = 10;
+			this.txtpassword.MaxLength = 50;
 			this.txtpassword.Name = "txtpassword";
 			this.txtpassword.PasswordChar = '*';
 			this.txtpassword.Size = new System.Drawing.Size(252, 26);
@@ -124,7 +124,7 @@
 			this.label1.BackColor = System.Drawing.Color.Transparent;
 			this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.ForeColor = System.Drawing.Color.Red;
-			this.label1.Location = new System.Drawing.Point(65, 267);
+			this.label1.Location = new System.Drawing.Point(92, 267);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(17, 19);
 			this.label1.TabIndex = 7;

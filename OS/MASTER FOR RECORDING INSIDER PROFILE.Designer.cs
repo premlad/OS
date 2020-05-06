@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
 			this.btnaddINSCON = new System.Windows.Forms.Button();
 			this.btnaddINSCONdeelete = new System.Windows.Forms.Button();
@@ -60,12 +61,15 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtINSPROreceipeitnID = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.button1);
 			this.groupBox1.Controls.Add(this.btnaddINSCON);
 			this.groupBox1.Controls.Add(this.btnaddINSCONdeelete);
@@ -98,12 +102,24 @@
 			this.groupBox1.Controls.Add(this.txtINSPROreceipeitnID);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox1.Location = new System.Drawing.Point(12, 38);
+			this.groupBox1.Location = new System.Drawing.Point(12, 72);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(1346, 646);
+			this.groupBox1.Size = new System.Drawing.Size(1346, 607);
 			this.groupBox1.TabIndex = 30;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Insider Profile";
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.BackColor = System.Drawing.Color.Transparent;
+			this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.Color.Red;
+			this.label1.Location = new System.Drawing.Point(948, 128);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(17, 19);
+			this.label1.TabIndex = 60;
+			this.label1.Text = "*";
 			// 
 			// button1
 			// 
@@ -374,7 +390,7 @@
 			// cmdINSCONSAVEID
 			// 
 			this.cmdINSCONSAVEID.FormattingEnabled = true;
-			this.cmdINSCONSAVEID.Location = new System.Drawing.Point(624, 595);
+			this.cmdINSCONSAVEID.Location = new System.Drawing.Point(624, 553);
 			this.cmdINSCONSAVEID.Name = "cmdINSCONSAVEID";
 			this.cmdINSCONSAVEID.Size = new System.Drawing.Size(121, 27);
 			this.cmdINSCONSAVEID.TabIndex = 42;
@@ -452,6 +468,7 @@
 			this.txtINSPROreceipeitnID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.txtINSPROreceipeitnID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.txtINSPROreceipeitnID.BackColor = System.Drawing.Color.MintCream;
+			this.txtINSPROreceipeitnID.Enabled = false;
 			this.txtINSPROreceipeitnID.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtINSPROreceipeitnID.Location = new System.Drawing.Point(91, 56);
 			this.txtINSPROreceipeitnID.MaxLength = 50;
@@ -471,11 +488,37 @@
 			this.label2.TabIndex = 8;
 			this.label2.Text = "Recipient ID";
 			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.Transparent;
+			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(453, 26);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(252, 40);
+			this.button2.TabIndex = 31;
+			this.button2.Text = "INSERT";
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// button3
+			// 
+			this.button3.BackColor = System.Drawing.Color.Transparent;
+			this.button3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button3.Location = new System.Drawing.Point(711, 26);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(252, 40);
+			this.button3.TabIndex = 32;
+			this.button3.Text = "UPDATE/DELETE";
+			this.button3.UseVisualStyleBackColor = false;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
 			// MASTER_FOR_RECORDING_INSIDER_PROFILE
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1370, 730);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.groupBox1);
 			this.Name = "MASTER_FOR_RECORDING_INSIDER_PROFILE";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -521,5 +564,8 @@
 		private System.Windows.Forms.Button btnupdateINSCON;
 		private System.Windows.Forms.Button btncacncelINSCON;
 		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Label label1;
 	}
 }

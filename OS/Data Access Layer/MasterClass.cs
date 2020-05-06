@@ -40,6 +40,28 @@ namespace OS.Data_Access_Layer
 			return new MasterClass().executeQuery("INSERT INTO M_LOG_AUDIT(NAME,OPERATION,DESCRIPTION,TID,ENTEREDBY,ENTEREDON) VALUES ('" + CryptographyHelper.Encrypt(obj.CURRVALUE) + "', '" + CryptographyHelper.Encrypt(obj.TYPE) + "', '" + CryptographyHelper.Encrypt(obj.DESCRIPTION) + "', '" + obj.ID + "', '" + obj.ENTEREDBY + "', '" + GETIST() + "'); ").ToString();
 		}
 
+		public string GETLOCKDB()
+		{
+			DataSet ds = new MasterClass().getDataSet("SELECT LOCK FROM T_LOGIN WHERE ACTIVE = 'Y'");
+			List<string> termsList = new List<string>();
+			if (ds.Tables[0].Rows.Count > 0)
+			{
+				string a = ds.Tables[0].Rows[0]["LOCK"].ToString();
+				if (a.Trim() == "Y")
+				{
+					return "Y";
+				}
+				else
+				{
+					return "N";
+				}
+			}
+			else
+			{
+				return "N";
+			}
+		}
+
 		public string GETCPID()
 		{
 			DataSet ds = new MasterClass().getDataSet("select CONNECTPERSONID from T_INS_PER WHERE ACTIVE = 'Y'");
@@ -185,6 +207,41 @@ namespace OS.Data_Access_Layer
 			request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
 			request.ContentType = "application/x-www-form-urlencoded";
 			request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+			request.Timeout = 1000000000;
+			System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
+			if (response.StatusCode == System.Net.HttpStatusCode.OK)
+			{
+				string todaysDates = response.Headers["date"];
+
+				dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+					System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
+			}
+
+			DateTime currentDateTime = DateTime.Now;
+			DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
+			DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
+			if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+			{
+				return "TEMP";
+			}
+			else
+			{
+				return "ALLOW";
+			}
+			//DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
+			//return dateTime_Indian;
+		}
+
+		public static string GETISTII()
+		{
+			DateTime dateTime = DateTime.MinValue;
+			System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
+			request.Method = "GET";
+			request.Accept = "text/html, application/xhtml+xml, */*";
+			request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
+			request.ContentType = "application/x-www-form-urlencoded";
+			request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+			request.Timeout = 1000000000;
 			System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
 			if (response.StatusCode == System.Net.HttpStatusCode.OK)
 			{
@@ -375,7 +432,7 @@ namespace OS.Data_Access_Layer
 
 			// Export data.
 
-			for (int i = 0; i < dGV.RowCount - 1; i++)
+			for (int i = 0; i < dGV.RowCount; i++)
 			{
 
 				string stLine = "";
@@ -455,6 +512,33 @@ namespace OS.Data_Access_Layer
 			Regex rx = new Regex(
 			@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$");
 			return rx.IsMatch(email);
+		}
+
+		public bool IsValidPanno(string panno)
+		{
+			if (panno.Length == 10)
+			{
+				Regex rx = new Regex(@"[A-Z]{5}\d{4}[A-Z]{1}");
+				return rx.IsMatch(panno);
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool IsValidDematAcno(string DematAcno)
+		{
+			if (DematAcno.Length == 16)
+			{
+				Regex rx = new Regex(@"[A-Z]{2}\d{14}");
+				return rx.IsMatch(DematAcno);
+			}
+			else
+			{
+				return false;
+			}
+
 		}
 
 		public static string getdate(string date)

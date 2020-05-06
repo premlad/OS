@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(REPORTS_OF_SHARING_OF_UPSI));
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
@@ -51,7 +51,6 @@
 			this.btnDownloadPDF = new System.Windows.Forms.Button();
 			this.btnDownloadexcel = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.btnSearch = new System.Windows.Forms.Button();
 			this.txtInsiderID = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -76,18 +75,18 @@
 			this.dataGridViewTable.AllowUserToAddRows = false;
 			this.dataGridViewTable.AllowUserToDeleteRows = false;
 			this.dataGridViewTable.AllowUserToOrderColumns = true;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
 			this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.dataGridViewTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
 			this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UPSID,
@@ -102,14 +101,14 @@
             this.DateofEntry,
             this.Dateofsecofnetry,
             this.datehwnupsi});
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle9;
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
@@ -208,7 +207,7 @@
 			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
 			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(475, 47);
+			this.button1.Location = new System.Drawing.Point(557, 47);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(46, 40);
 			this.button1.TabIndex = 103;
@@ -266,17 +265,6 @@
 			this.label6.TabIndex = 99;
 			this.label6.Text = "Download :";
 			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.BackColor = System.Drawing.Color.Transparent;
-			this.label5.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(1007, 49);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(20, 31);
-			this.label5.TabIndex = 98;
-			this.label5.Text = "|";
-			// 
 			// btnSearch
 			// 
 			this.btnSearch.BackColor = System.Drawing.Color.Transparent;
@@ -324,7 +312,7 @@
 			// 
 			this.button2.BackColor = System.Drawing.Color.Transparent;
 			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(722, 41);
+			this.button2.Location = new System.Drawing.Point(734, 48);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(94, 40);
 			this.button2.TabIndex = 106;
@@ -343,12 +331,11 @@
 			this.Controls.Add(this.btnDownloadPDF);
 			this.Controls.Add(this.btnDownloadexcel);
 			this.Controls.Add(this.label6);
-			this.Controls.Add(this.label5);
 			this.Controls.Add(this.btnSearch);
 			this.Controls.Add(this.txtInsiderID);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.panel1);
-			this.Text = "REPORTS_OF_SHARING_OF_UPSI";
+			this.Text = "REPORTS OF SHARING OF UPSI";
 			this.Load += new System.EventHandler(this.REPORTS_OF_SHARING_OF_UPSI_Load);
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
@@ -366,7 +353,6 @@
 		private System.Windows.Forms.Button btnDownloadPDF;
 		private System.Windows.Forms.Button btnDownloadexcel;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button btnSearch;
 		public System.Windows.Forms.TextBox txtInsiderID;
 		private System.Windows.Forms.Label label4;
