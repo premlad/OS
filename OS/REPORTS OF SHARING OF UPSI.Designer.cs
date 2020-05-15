@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(REPORTS_OF_SHARING_OF_UPSI));
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
@@ -46,17 +46,17 @@
 			this.DateofEntry = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Dateofsecofnetry = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.datehwnupsi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.button1 = new System.Windows.Forms.Button();
-			this.btnDownloadPrinter = new System.Windows.Forms.Button();
-			this.btnDownloadPDF = new System.Windows.Forms.Button();
-			this.btnDownloadexcel = new System.Windows.Forms.Button();
+			this.button1 = new OS.ButtonLastest();
+			this.btnDownloadPrinter = new OS.ButtonLastest();
+			this.btnDownloadPDF = new OS.ButtonLastest();
+			this.btnDownloadexcel = new OS.ButtonLastest();
 			this.label6 = new System.Windows.Forms.Label();
-			this.btnSearch = new System.Windows.Forms.Button();
+			this.btnSearch = new OS.ButtonLastest();
 			this.txtInsiderID = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-			this.button2 = new System.Windows.Forms.Button();
+			this.button2 = new OS.ButtonLastest();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -75,18 +75,18 @@
 			this.dataGridViewTable.AllowUserToAddRows = false;
 			this.dataGridViewTable.AllowUserToDeleteRows = false;
 			this.dataGridViewTable.AllowUserToOrderColumns = true;
-			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.dataGridViewTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UPSID,
@@ -101,14 +101,14 @@
             this.DateofEntry,
             this.Dateofsecofnetry,
             this.datehwnupsi});
-			dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle9;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
@@ -122,104 +122,105 @@
 			this.UPSID.HeaderText = "UPSI ID";
 			this.UPSID.Name = "UPSID";
 			this.UPSID.ReadOnly = true;
-			this.UPSID.Width = 81;
+			this.UPSID.Width = 79;
 			// 
 			// InsiderIDCOnnID
 			// 
 			this.InsiderIDCOnnID.HeaderText = "Insider ID | Connected ID";
 			this.InsiderIDCOnnID.Name = "InsiderIDCOnnID";
 			this.InsiderIDCOnnID.ReadOnly = true;
-			this.InsiderIDCOnnID.Width = 110;
+			this.InsiderIDCOnnID.Width = 114;
 			// 
 			// Name
 			// 
 			this.Name.HeaderText = "Name";
 			this.Name.Name = "Name";
 			this.Name.ReadOnly = true;
-			this.Name.Width = 71;
+			this.Name.Width = 74;
 			// 
 			// Category
 			// 
 			this.Category.HeaderText = "Category of Recipient";
 			this.Category.Name = "Category";
 			this.Category.ReadOnly = true;
-			this.Category.Width = 101;
+			this.Category.Width = 105;
 			// 
 			// Pan
 			// 
 			this.Pan.HeaderText = "Pan No";
 			this.Pan.Name = "Pan";
 			this.Pan.ReadOnly = true;
-			this.Pan.Width = 57;
+			this.Pan.Width = 74;
 			// 
 			// Pannoofaffl
 			// 
 			this.Pannoofaffl.HeaderText = "PAN No. of Affiliates, in case the recipient is an entity";
 			this.Pannoofaffl.Name = "Pannoofaffl";
 			this.Pannoofaffl.ReadOnly = true;
-			this.Pannoofaffl.Width = 169;
+			this.Pannoofaffl.Width = 168;
 			// 
 			// detailsofUPID
 			// 
 			this.detailsofUPID.HeaderText = "Details of UPSI along with reason of sharing";
 			this.detailsofUPID.Name = "detailsofUPID";
 			this.detailsofUPID.ReadOnly = true;
-			this.detailsofUPID.Width = 154;
+			this.detailsofUPID.Width = 161;
 			// 
 			// Datteime
 			// 
 			this.Datteime.HeaderText = "Date and Time of Sharing";
 			this.Datteime.Name = "Datteime";
 			this.Datteime.ReadOnly = true;
-			this.Datteime.Width = 115;
+			this.Datteime.Width = 122;
 			// 
 			// NDSsigned
 			// 
 			this.NDSsigned.HeaderText = "Whether NDA has been signed and Notice of confidentiality has been given?";
 			this.NDSsigned.Name = "NDSsigned";
 			this.NDSsigned.ReadOnly = true;
-			this.NDSsigned.Width = 225;
+			this.NDSsigned.Width = 244;
 			// 
 			// DateofEntry
 			// 
 			this.DateofEntry.HeaderText = "Date of first entry with User Name";
 			this.DateofEntry.Name = "DateofEntry";
 			this.DateofEntry.ReadOnly = true;
-			this.DateofEntry.Width = 119;
+			this.DateofEntry.Width = 124;
 			// 
 			// Dateofsecofnetry
 			// 
 			this.Dateofsecofnetry.HeaderText = "Date of second and all entry with User Name";
 			this.Dateofsecofnetry.Name = "Dateofsecofnetry";
 			this.Dateofsecofnetry.ReadOnly = true;
-			this.Dateofsecofnetry.Width = 142;
+			this.Dateofsecofnetry.Width = 150;
 			// 
 			// datehwnupsi
 			// 
 			this.datehwnupsi.HeaderText = "Date when UPSI became publicly available";
 			this.datehwnupsi.Name = "datehwnupsi";
 			this.datehwnupsi.ReadOnly = true;
-			this.datehwnupsi.Width = 175;
+			this.datehwnupsi.Width = 184;
 			// 
 			// button1
 			// 
-			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.BackColor = System.Drawing.Color.DodgerBlue;
 			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
-			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(557, 47);
+			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(498, 47);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(46, 40);
+			this.button1.Size = new System.Drawing.Size(112, 40);
 			this.button1.TabIndex = 103;
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// btnDownloadPrinter
 			// 
-			this.btnDownloadPrinter.BackColor = System.Drawing.Color.Transparent;
+			this.btnDownloadPrinter.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnDownloadPrinter.BackgroundImage = global::OS.Properties.Resources.icons8_print_filled;
 			this.btnDownloadPrinter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnDownloadPrinter.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDownloadPrinter.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnDownloadPrinter.Location = new System.Drawing.Point(1283, 48);
 			this.btnDownloadPrinter.Name = "btnDownloadPrinter";
 			this.btnDownloadPrinter.Size = new System.Drawing.Size(46, 40);
@@ -230,26 +231,28 @@
 			// 
 			// btnDownloadPDF
 			// 
-			this.btnDownloadPDF.BackColor = System.Drawing.Color.Transparent;
+			this.btnDownloadPDF.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnDownloadPDF.BackgroundImage = global::OS.Properties.Resources.icons8_pdf;
-			this.btnDownloadPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnDownloadPDF.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnDownloadPDF.Location = new System.Drawing.Point(1210, 48);
+			this.btnDownloadPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.btnDownloadPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnDownloadPDF.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDownloadPDF.Location = new System.Drawing.Point(1136, 47);
 			this.btnDownloadPDF.Name = "btnDownloadPDF";
-			this.btnDownloadPDF.Size = new System.Drawing.Size(46, 40);
+			this.btnDownloadPDF.Size = new System.Drawing.Size(112, 40);
 			this.btnDownloadPDF.TabIndex = 101;
 			this.btnDownloadPDF.UseVisualStyleBackColor = false;
 			this.btnDownloadPDF.Click += new System.EventHandler(this.btnDownloadPDF_Click);
 			// 
 			// btnDownloadexcel
 			// 
-			this.btnDownloadexcel.BackColor = System.Drawing.Color.Transparent;
+			this.btnDownloadexcel.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnDownloadexcel.BackgroundImage = global::OS.Properties.Resources.icons8_microsoft_excel;
 			this.btnDownloadexcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			this.btnDownloadexcel.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnDownloadexcel.Location = new System.Drawing.Point(1138, 47);
+			this.btnDownloadexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnDownloadexcel.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnDownloadexcel.Location = new System.Drawing.Point(999, 47);
 			this.btnDownloadexcel.Name = "btnDownloadexcel";
-			this.btnDownloadexcel.Size = new System.Drawing.Size(46, 40);
+			this.btnDownloadexcel.Size = new System.Drawing.Size(112, 40);
 			this.btnDownloadexcel.TabIndex = 100;
 			this.btnDownloadexcel.UseVisualStyleBackColor = false;
 			this.btnDownloadexcel.Click += new System.EventHandler(this.btnDownloadexcel_Click);
@@ -258,17 +261,19 @@
 			// 
 			this.label6.AutoSize = true;
 			this.label6.BackColor = System.Drawing.Color.Transparent;
-			this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(1046, 58);
+			this.label6.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.ForeColor = System.Drawing.Color.White;
+			this.label6.Location = new System.Drawing.Point(889, 59);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(79, 19);
+			this.label6.Size = new System.Drawing.Size(82, 19);
 			this.label6.TabIndex = 99;
 			this.label6.Text = "Download :";
 			// 
 			// btnSearch
 			// 
-			this.btnSearch.BackColor = System.Drawing.Color.Transparent;
-			this.btnSearch.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnSearch.BackColor = System.Drawing.Color.DodgerBlue;
+			this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnSearch.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSearch.Location = new System.Drawing.Point(350, 47);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(112, 40);
@@ -280,21 +285,22 @@
 			// txtInsiderID
 			// 
 			this.txtInsiderID.BackColor = System.Drawing.Color.MintCream;
-			this.txtInsiderID.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtInsiderID.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtInsiderID.Location = new System.Drawing.Point(111, 55);
 			this.txtInsiderID.MaxLength = 20;
 			this.txtInsiderID.Name = "txtInsiderID";
-			this.txtInsiderID.Size = new System.Drawing.Size(217, 26);
+			this.txtInsiderID.Size = new System.Drawing.Size(217, 27);
 			this.txtInsiderID.TabIndex = 95;
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.BackColor = System.Drawing.Color.Transparent;
-			this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.ForeColor = System.Drawing.Color.White;
 			this.label4.Location = new System.Drawing.Point(107, 33);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(63, 19);
+			this.label4.Size = new System.Drawing.Size(61, 19);
 			this.label4.TabIndex = 96;
 			this.label4.Text = "UPSI ID";
 			// 
@@ -310,11 +316,12 @@
 			// 
 			// button2
 			// 
-			this.button2.BackColor = System.Drawing.Color.Transparent;
-			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(734, 48);
+			this.button2.BackColor = System.Drawing.Color.DodgerBlue;
+			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(653, 47);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(94, 40);
+			this.button2.Size = new System.Drawing.Size(112, 40);
 			this.button2.TabIndex = 106;
 			this.button2.Text = "CLOSE";
 			this.button2.UseVisualStyleBackColor = false;
@@ -335,8 +342,20 @@
 			this.Controls.Add(this.txtInsiderID);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.panel1);
+			//this.Name = "REPORTS_OF_SHARING_OF_UPSI";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "REPORTS OF SHARING OF UPSI";
 			this.Load += new System.EventHandler(this.REPORTS_OF_SHARING_OF_UPSI_Load);
+			this.Controls.SetChildIndex(this.panel1, 0);
+			this.Controls.SetChildIndex(this.label4, 0);
+			this.Controls.SetChildIndex(this.txtInsiderID, 0);
+			this.Controls.SetChildIndex(this.btnSearch, 0);
+			this.Controls.SetChildIndex(this.label6, 0);
+			this.Controls.SetChildIndex(this.btnDownloadexcel, 0);
+			this.Controls.SetChildIndex(this.btnDownloadPDF, 0);
+			this.Controls.SetChildIndex(this.btnDownloadPrinter, 0);
+			this.Controls.SetChildIndex(this.button1, 0);
+			this.Controls.SetChildIndex(this.button2, 0);
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
 			this.ResumeLayout(false);
@@ -348,12 +367,7 @@
 
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.DataGridView dataGridViewTable;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button btnDownloadPrinter;
-		private System.Windows.Forms.Button btnDownloadPDF;
-		private System.Windows.Forms.Button btnDownloadexcel;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Button btnSearch;
 		public System.Windows.Forms.TextBox txtInsiderID;
 		private System.Windows.Forms.Label label4;
 		private System.Drawing.Printing.PrintDocument printDocument1;
@@ -370,6 +384,11 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn DateofEntry;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Dateofsecofnetry;
 		private System.Windows.Forms.DataGridViewTextBoxColumn datehwnupsi;
-		private System.Windows.Forms.Button button2;
+		private ButtonLastest button1;
+		private ButtonLastest btnDownloadPrinter;
+		private ButtonLastest btnDownloadPDF;
+		private ButtonLastest btnDownloadexcel;
+		private ButtonLastest btnSearch;
+		private ButtonLastest button2;
 	}
 }

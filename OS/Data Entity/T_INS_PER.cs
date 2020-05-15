@@ -8,7 +8,9 @@
 		public string NAME_OF_EMP { get; set; }
 		public string CURRENT_DESIGNATION { get; set; }
 		public string ADDRESS { get; set; }
+		public string RESIADDRESS { get; set; }
 		public string PAN_NO { get; set; }
+		public string OTHERIDENTIFIER { get; set; }
 		public string DEMAT_AC_NO { get; set; }
 		public string MOBILE_NO { get; set; }
 		public string GRADUATION_INSTITUTIONS { get; set; }
@@ -19,6 +21,7 @@
 
 	public class T_INS_PER_IMMEDAITE_RELATIVES
 	{
+		public string ID { get; set; }
 		public string NAME { get; set; }
 		public string ADDRESS { get; set; }
 		public string RELATIONSHIP { get; set; }
@@ -29,6 +32,7 @@
 
 	public class T_INS_PER_MATERIAL_FINANCIAL
 	{
+		public string ID { get; set; }
 		public string NAME { get; set; }
 		public string ADDRESS { get; set; }
 		public string RELATIONSHIP { get; set; }

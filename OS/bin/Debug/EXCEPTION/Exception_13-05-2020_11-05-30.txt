@@ -1,0 +1,2 @@
+Exception file created: 13-May-20 11:03:30 PM
+There was an error parsing the query. [ Token line number = 1,Token line offset = 52,Token in error = WHERE ]

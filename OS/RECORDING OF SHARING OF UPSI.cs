@@ -22,18 +22,19 @@ namespace OS
 
 			Login l = new Login();
 			//TopMost = true;
-			WindowState = FormWindowState.Maximized;
+			//WindowState = FormWindowState.Maximized;
 			try
 			{
 				if (SESSIONKEYS.UserID.ToString() == "")
 				{
-					Hide();
+					Close();
 					l.Show();
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				Hide();
+				new MasterClass().SAVETEXTLOG(ex);
+				Close();
 				l.Show();
 			}
 			FillConnectPersonID();
@@ -56,11 +57,12 @@ namespace OS
 		{
 			try
 			{
-
-
-				txtUPSIDateofsharing.CustomFormat = "dd-MM-yyyy";
-				txtUPSIEffctiveUpto.CustomFormat = "dd-MM-yyyy";
-				txtUPSIUPSIavaailabe.CustomFormat = "dd-MM-yyyy";
+				//txtUPSIDateofsharing.CustomFormat = "dd-MM-yyyy";
+				//txtUPSIEffctiveUpto.CustomFormat = "dd-MM-yyyy";
+				//txtUPSIUPSIavaailabe.CustomFormat = "dd-MM-yyyy";
+				txtUPSIDateofsharing.CustomFormat = " ";
+				txtUPSIEffctiveUpto.CustomFormat = " ";
+				txtUPSIUPSIavaailabe.CustomFormat = " ";
 				DataSet ds = new MasterClass().getDataSet("SELECT ID,UPSIID FROM T_INS_UPSI WHERE ACTIVE = 'Y' AND LOCK = 'N'");
 				AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
 				if (ds.Tables[0].Rows.Count > 0)
@@ -107,9 +109,10 @@ namespace OS
 					txtUPSINAME.ValueMember = "UPSIID";
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -137,23 +140,34 @@ namespace OS
 
 		private void SetLoading(bool displayLoader)
 		{
-			if (displayLoader)
+			try
 			{
-				Invoke((MethodInvoker)delegate
+				if (displayLoader)
 				{
-					//picLoader.Visible = true;
-					Cursor = Cursors.WaitCursor;
-					Thread.Sleep(4000);
-				});
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = true;
+						Cursor = Cursors.WaitCursor;
+						//Thread.Sleep(4000);
+					});
+				}
+				else
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = false;
+						Cursor = Cursors.Default;
+					});
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Invoke((MethodInvoker)delegate
-				{
-					//picLoader.Visible = false;
-					Cursor = Cursors.Default;
-				});
+				new MasterClass().SAVETEXTLOG(ex);
+				//Login l = new Login();
+				//l.Show();
+				//Close();
 			}
+
 		}
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
@@ -165,9 +179,16 @@ namespace OS
 				Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
-
-					int val = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
-					int val2 = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIUPSIavaailabe.Value);
+					int val = 0;
+					int val2 = 0;
+					if (txtUPSIEffctiveUpto.Text.ToString().Trim() != "")
+					{
+						val = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
+					}
+					if (txtUPSIUPSIavaailabe.Text.ToString().Trim() != "")
+					{
+						val2 = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIUPSIavaailabe.Value);
+					}
 					if (new MasterClass().GETLOCKDB() == "Y")
 					{
 						DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -187,16 +208,43 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
+						Close();
 					}
 					//if (txtUPSIID.Text == "")
 					//{
 					//	DialogResult dialog = MessageBox.Show("Enter UPSI ID.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					//}
-					else
-					if (txtUPSINAME.Text == "")
+					else if (txtUPSINAME.Text == "")
 					{
 						DialogResult dialog = MessageBox.Show("Enter Recepeint Name.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSIAdress.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Address.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSIcategory.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Category.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSIPanno.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter PAN No. or any other Identifier ID.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSINatureUPSI.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Nature of UPSI.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSIpurposesharing.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Purpose of Sharing.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSIDateofsharing.Text.Trim() == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Date of Sharing.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (radioButtonNDAYES.Checked == false && radioButtonNDANo.Checked == false)
+					{
+						DialogResult dialog = MessageBox.Show("Enter NDA has been signed or Notice of confidentiality has been given.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else if (val > 0)
 					{
@@ -254,7 +302,7 @@ namespace OS
 						lg.ID = perlogid;
 						lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						new MasterClass().SAVE_LOG(lg);
 
 						if (Convert.ToInt32(ds) > 0)
@@ -267,14 +315,16 @@ namespace OS
 						}
 						Clear();
 						FillConnectPersonID();
-
+						button2.PerformClick();
 					}
 				});
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Saved. Please Check Your Internet Connection.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -287,13 +337,21 @@ namespace OS
 
 				DataSet ds1 = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N' AND ID = '" + ((ComboboxItem1)txtUPSINAME.SelectedItem).UPSIID + "'");
 				DataSet ds2 = new MasterClass().getDataSet("SELECT * FROM T_INS_PER WHERE ACTIVE = 'Y' AND LOCK = 'N' AND ID = '" + ((ComboboxItem1)txtUPSINAME.SelectedItem).UPSIID + "'");
-
+				txtUPSIOthercategory.Text = "";
 				if (ds1.Tables[0].Rows.Count > 0)
 				{
 					if (CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["RECEPIENTID"].ToString()) == a[1].Trim())
 					{
 						txtUPSIAdress.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["ADDRESS"].ToString());
-						txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["PANNO"].ToString());
+						if (CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["PANNO"].ToString()).Trim() == "")
+						{
+							txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["OTHERIDENTIFIER"].ToString());
+						}
+						else
+						{
+							txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["PANNO"].ToString());
+						}
+
 						lblnNDS.Text = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["PANNOAFFILIATES"].ToString());
 						txtUPSIcategory.Text = "";
 						if (CryptographyHelper.Decrypt(ds1.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Contains("OTHERS"))
@@ -319,8 +377,16 @@ namespace OS
 					if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CONNECTPERSONID"].ToString()) == a[1].Trim())
 					{
 						txtUPSIAdress.Text = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["ADDRESS"].ToString());
-						txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["PANNO"].ToString());
-						txtUPSIcategory.Text = "";
+						if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["PANNO"].ToString()).Trim() == "")
+						{
+							txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["OTHERIDENTIFIER"].ToString());
+						}
+						else
+						{
+							txtUPSIPanno.Text = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["PANNO"].ToString());
+						}
+						txtUPSIcategory.Text = "Connected Person";
+						lblnNDS.Text = "";
 						//if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Contains("OTHERS"))
 						//{
 						//	string[] abc = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[0]["CATEGORYRECEIPT"].ToString()).Split('|');
@@ -339,9 +405,10 @@ namespace OS
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
 
@@ -374,13 +441,36 @@ namespace OS
 								txtUPSIAdress.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["ADDRESS"].ToString());
 								txtUPSINatureUPSI.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["UPSINATURE"].ToString());
 								txtUPSIpurposesharing.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["SHARINGPURPOSE"].ToString());
-								txtUPSIDateofsharing.Value = DateTime.ParseExact(CryptographyHelper.Decrypt(Convert.ToString(ds.Tables[0].Rows[0]["SHARINGDATE"].ToString())), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+								if (CryptographyHelper.Decrypt(Convert.ToString(ds.Tables[0].Rows[0]["SHARINGDATE"].ToString())).Trim() == "")
+								{
+									txtUPSIDateofsharing.CustomFormat = " ";
+								}
+								else
+								{
+									txtUPSIDateofsharing.Value = DateTime.ParseExact(CryptographyHelper.Decrypt(Convert.ToString(ds.Tables[0].Rows[0]["SHARINGDATE"].ToString())), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+								}
 
-								txtUPSIEffctiveUpto.Value = DateTime.ParseExact(CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["EFFECTIVEUPTO"].ToString()), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["EFFECTIVEUPTO"].ToString()).Trim() == "")
+								{
+									txtUPSIEffctiveUpto.CustomFormat = " ";
+								}
+								else
+								{
+									txtUPSIEffctiveUpto.Value = DateTime.ParseExact(CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["EFFECTIVEUPTO"].ToString()), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+								}
 
 								txtUPSIremarks.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["REMARKS"].ToString());
 
-								txtUPSIUPSIavaailabe.Value = DateTime.ParseExact(CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["UPSIAVAILABLE"].ToString()), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["UPSIAVAILABLE"].ToString()).Trim() == "")
+								{
+									txtUPSIUPSIavaailabe.CustomFormat = " ";
+								}
+								else
+								{
+									txtUPSIUPSIavaailabe.Value = DateTime.ParseExact(CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["UPSIAVAILABLE"].ToString()), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+								}
+
 
 								txtUPSIcategory.Text = "";
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["RECIPIENTCAT"].ToString()).Contains("OTHERS"))
@@ -402,14 +492,14 @@ namespace OS
 									{
 										radioButtonNDAYES.Checked = true;
 									}
-									else
+									else if (yes[0] == "NO")
 									{
 										radioButtonNDANo.Checked = true;
 									}
 									lblnNDS.Text = yes[1];
 								}
 
-								txtUPSIID.ReadOnly = true;
+								//txtUPSIID.ReadOnly = true;
 								btnupdateINSCON.Visible = true;
 								btnaddINSCONdeelete.Visible = true;
 								btncacncelINSCON.Visible = true;
@@ -427,14 +517,16 @@ namespace OS
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		public void Clear()
 		{
+			lblnNDS.Text = "";
 			txtUPSIID.Text = "";
 			txtUPSINAME.Text = "";
 			txtUPSIPanno.Text = "";
@@ -447,6 +539,10 @@ namespace OS
 			txtUPSIUPSIavaailabe.Text = "";
 			txtUPSIcategory.Text = "";
 			txtUPSIOthercategory.Text = "";
+			radioButtonNDAYES.Checked = false;
+			radioButtonNDANo.Checked = false;
+			txtUPSIOthercategory.Visible = false;
+			label12.Visible = false;
 		}
 
 		private void btncacncelINSCON_Click(object sender, EventArgs e)
@@ -458,6 +554,7 @@ namespace OS
 			btncacncelINSCON.Visible = false;
 			btnaddINSCON.Visible = true;
 			FillConnectPersonID();
+			button3.PerformClick();
 		}
 
 		private void btnupdateINSCON_Click(object sender, EventArgs e)
@@ -490,7 +587,7 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
+						Close();
 					}
 					else
 					if (txtUPSIID.Text == "")
@@ -548,15 +645,17 @@ namespace OS
 						PRO.ID = "";
 						PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 
+						DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_UPSI_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
+
 						string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_UPSI SET UPSIID = '" + CryptographyHelper.Encrypt(PRO.UPSIID) + "',RECIPIENTNAME = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "',RECIPIENTCAT = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PANNO) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',UPSINATURE = '" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "',SHARINGPURPOSE = '" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "',SHARINGDATE = '" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "',EFFECTIVEUPTO = '" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "',REMARKS = '" + CryptographyHelper.Encrypt(PRO.REMARKS) + "',NDASIGNED = '" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "',UPSIAVAILABLE = '" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
 
 						string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.UPSIID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
 
 						lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
 						lg.TYPE = "UPDATED";
-						lg.ID = perlogid;
+						lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						lg.DESCRIPTION = "UPDATED VALUE :- " + PRO.UPSIID;
 						new MasterClass().SAVE_LOG(lg);
 
@@ -575,13 +674,16 @@ namespace OS
 						btncacncelINSCON.Visible = false;
 						btnaddINSCON.Visible = true;
 						FillConnectPersonID();
+						button3.PerformClick();
 					}
 				});
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Updated. Please Check Your Internet Connection.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -614,7 +716,7 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
+						Close();
 					}
 					else
 					{
@@ -666,7 +768,7 @@ namespace OS
 							lg.TYPE = "DELETED";
 							lg.ID = perlogid;
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							lg.ID = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
 							lg.DESCRIPTION = "DELETED VALUE :- " + PRO.UPSIID;
 							new MasterClass().SAVE_LOG(lg);
 
@@ -680,6 +782,7 @@ namespace OS
 								btncacncelINSCON.Visible = false;
 								btnaddINSCON.Visible = true;
 								FillConnectPersonID();
+								button3.PerformClick();
 							}
 							else
 							{
@@ -691,8 +794,10 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Deleted. Please Check Your Internet Connection.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -728,7 +833,7 @@ namespace OS
 		{
 			HOMEPAGE h = new HOMEPAGE();
 			h.Show();
-			Hide();
+			Close();
 		}
 
 		#endregion
@@ -737,22 +842,65 @@ namespace OS
 		{
 			Clear();
 			FillConnectPersonID();
+			string CPID = "UPSI" + new MasterClass().GETUPSIID();
+			txtUPSIID.Text = CPID;
 			txtUPSIID.Enabled = false;
 			btnupdateINSCON.Visible = false;
 			btnaddINSCONdeelete.Visible = false;
 			btncacncelINSCON.Visible = false;
 			btnaddINSCON.Visible = true;
+
+			btnaddINSCON.Enabled = true;
+			txtUPSINAME.Enabled = true;
+			txtUPSINatureUPSI.Enabled = true;
+			txtUPSIpurposesharing.Enabled = true;
+			txtUPSIDateofsharing.Enabled = true;
+			txtUPSIEffctiveUpto.Enabled = true;
+			txtUPSIremarks.Enabled = true;
+			radioButtonNDAYES.Enabled = true;
+			radioButtonNDANo.Enabled = true;
+			txtUPSIUPSIavaailabe.Enabled = true;
 		}
 
 		private void button3_Click(object sender, EventArgs e)
 		{
 			Clear();
 			FillConnectPersonID();
+			txtUPSIID.Text = "";
 			txtUPSIID.Enabled = true;
-			btnupdateINSCON.Visible = false;
-			btnaddINSCONdeelete.Visible = false;
-			btncacncelINSCON.Visible = false;
-			btnaddINSCON.Visible = true;
+			btnupdateINSCON.Visible = true;
+			btnaddINSCONdeelete.Visible = true;
+			btncacncelINSCON.Visible = true;
+			btnaddINSCON.Visible = false;
+
+			btnupdateINSCON.Enabled = true;
+			btnaddINSCONdeelete.Enabled = true;
+			btncacncelINSCON.Enabled = true;
+
+			txtUPSINAME.Enabled = true;
+			txtUPSINatureUPSI.Enabled = true;
+			txtUPSIpurposesharing.Enabled = true;
+			txtUPSIDateofsharing.Enabled = true;
+			txtUPSIEffctiveUpto.Enabled = true;
+			txtUPSIremarks.Enabled = true;
+			radioButtonNDAYES.Enabled = true;
+			radioButtonNDANo.Enabled = true;
+			txtUPSIUPSIavaailabe.Enabled = true;
+		}
+
+		private void txtUPSIDateofsharing_ValueChanged(object sender, EventArgs e)
+		{
+			txtUPSIDateofsharing.CustomFormat = "dd-MM-yyyy";
+		}
+
+		private void txtUPSIEffctiveUpto_ValueChanged(object sender, EventArgs e)
+		{
+			txtUPSIEffctiveUpto.CustomFormat = "dd-MM-yyyy";
+		}
+
+		private void txtUPSIUPSIavaailabe_ValueChanged(object sender, EventArgs e)
+		{
+			txtUPSIUPSIavaailabe.CustomFormat = "dd-MM-yyyy";
 		}
 	}
 }

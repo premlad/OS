@@ -7,7 +7,7 @@
     <ProjectGuid>{A8B14DE3-969B-4F58-8740-6C25EFCEF08D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>OS</RootNamespace>
-    <AssemblyName>OS</AssemblyName>
+    <AssemblyName>The PIT Archive</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -74,7 +74,10 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icons8-scan-stock-96.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
@@ -86,9 +89,11 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.Device" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -105,6 +110,9 @@
     </Compile>
     <Compile Include="AUDIT TRAIL.Designer.cs">
       <DependentUpon>AUDIT TRAIL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonLastest.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="CREATELOGIN.cs">
       <SubType>Form</SubType>
@@ -134,6 +142,12 @@
     <Compile Include="HOMEPAGE.Designer.cs">
       <DependentUpon>HOMEPAGE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer.Designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
     <Compile Include="LIST OF CONNECTED PERSON.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +159,12 @@
     </Compile>
     <Compile Include="LIST OF INSIDERS.Designer.cs">
       <DependentUpon>LIST OF INSIDERS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="List of PAN’s Registered under Database.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="List of PAN’s Registered under Database.Designer.cs">
+      <DependentUpon>List of PAN’s Registered under Database.cs</DependentUpon>
     </Compile>
     <Compile Include="MASTER DATA OF COMPANY.cs">
       <SubType>Form</SubType>
@@ -208,6 +228,9 @@
     <EmbeddedResource Include="LIST OF INSIDERS.resx">
       <DependentUpon>LIST OF INSIDERS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="List of PAN’s Registered under Database.resx">
+      <DependentUpon>List of PAN’s Registered under Database.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MASTER DATA OF COMPANY.resx">
       <DependentUpon>MASTER DATA OF COMPANY.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +262,7 @@
     <EmbeddedResource Include="REPORTS OF SHARING OF UPSI.resx">
       <DependentUpon>REPORTS OF SHARING OF UPSI.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -257,6 +281,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons8-scan-stock-96.ico" />
     <Content Include="Icons\icons8-3d-farm.png" />
     <Content Include="Icons\icons8-add-column.png" />
     <Content Include="Icons\icons8-add-new.png" />
@@ -385,24 +410,16 @@
     <Content Include="Resources\houde.png" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
+      <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
-    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

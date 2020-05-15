@@ -29,15 +29,15 @@
 		private void InitializeComponent()
 		{
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
 			this.ConnectPersonID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.NameofEMployee = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.CurrrentDesignation = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.residentaddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Pan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.otheridentifier = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DematAcno = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.PhoneNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.InstiGrad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,12 +50,12 @@
 			this.Pannorf = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Dematacnrf = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.usernamedat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.button1 = new System.Windows.Forms.Button();
-			this.btnDownloadPrinter = new System.Windows.Forms.Button();
-			this.btnDownloadPDF = new System.Windows.Forms.Button();
-			this.btnDownloadexcel = new System.Windows.Forms.Button();
+			this.button1 = new OS.ButtonLastest();
+			this.btnDownloadPrinter = new OS.ButtonLastest();
+			this.btnDownloadPDF = new OS.ButtonLastest();
+			this.btnDownloadexcel = new OS.ButtonLastest();
 			this.label6 = new System.Windows.Forms.Label();
-			this.btnSearch = new System.Windows.Forms.Button();
+			this.btnSearch = new OS.ButtonLastest();
 			this.txtInsiderID = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
@@ -64,7 +64,7 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtFromDate = new System.Windows.Forms.DateTimePicker();
 			this.label15 = new System.Windows.Forms.Label();
-			this.button2 = new System.Windows.Forms.Button();
+			this.button2 = new OS.ButtonLastest();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -87,21 +87,15 @@
 			this.dataGridViewTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridViewTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.dataGridViewTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConnectPersonID,
             this.NameofEMployee,
             this.CurrrentDesignation,
             this.Address,
+            this.residentaddress,
             this.Pan,
+            this.otheridentifier,
             this.DematAcno,
             this.PhoneNo,
             this.InstiGrad,
@@ -114,14 +108,6 @@
             this.Pannorf,
             this.Dematacnrf,
             this.usernamedat});
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridViewTable.DefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
@@ -135,138 +121,154 @@
 			this.ConnectPersonID.HeaderText = "Connect Person ID";
 			this.ConnectPersonID.Name = "ConnectPersonID";
 			this.ConnectPersonID.ReadOnly = true;
-			this.ConnectPersonID.Width = 123;
+			this.ConnectPersonID.Width = 129;
 			// 
 			// NameofEMployee
 			// 
 			this.NameofEMployee.HeaderText = "Name of Employee";
 			this.NameofEMployee.Name = "NameofEMployee";
 			this.NameofEMployee.ReadOnly = true;
-			this.NameofEMployee.Width = 138;
+			this.NameofEMployee.Width = 145;
 			// 
 			// CurrrentDesignation
 			// 
 			this.CurrrentDesignation.HeaderText = "Current Designation";
 			this.CurrrentDesignation.Name = "CurrrentDesignation";
 			this.CurrrentDesignation.ReadOnly = true;
-			this.CurrrentDesignation.Width = 141;
+			this.CurrrentDesignation.Width = 150;
 			// 
 			// Address
 			// 
-			this.Address.HeaderText = "Address";
+			this.Address.HeaderText = "Permanent Address";
 			this.Address.Name = "Address";
 			this.Address.ReadOnly = true;
-			this.Address.Width = 85;
+			this.Address.Width = 150;
+			// 
+			// residentaddress
+			// 
+			this.residentaddress.HeaderText = "Residentail Address";
+			this.residentaddress.Name = "residentaddress";
+			this.residentaddress.ReadOnly = true;
+			this.residentaddress.Width = 150;
 			// 
 			// Pan
 			// 
 			this.Pan.HeaderText = "Pan No";
 			this.Pan.Name = "Pan";
 			this.Pan.ReadOnly = true;
-			this.Pan.Width = 57;
+			this.Pan.Width = 74;
+			// 
+			// otheridentifier
+			// 
+			this.otheridentifier.HeaderText = "Other Identifier No.";
+			this.otheridentifier.Name = "otheridentifier";
+			this.otheridentifier.ReadOnly = true;
+			this.otheridentifier.Width = 125;
 			// 
 			// DematAcno
 			// 
 			this.DematAcno.HeaderText = "Demat A.c No";
 			this.DematAcno.Name = "DematAcno";
 			this.DematAcno.ReadOnly = true;
-			this.DematAcno.Width = 95;
+			this.DematAcno.Width = 98;
 			// 
 			// PhoneNo
 			// 
 			this.PhoneNo.HeaderText = "Phone No";
 			this.PhoneNo.Name = "PhoneNo";
 			this.PhoneNo.ReadOnly = true;
-			this.PhoneNo.Width = 88;
+			this.PhoneNo.Width = 90;
 			// 
 			// InstiGrad
 			// 
 			this.InstiGrad.HeaderText = "Graduation Institutions";
 			this.InstiGrad.Name = "InstiGrad";
 			this.InstiGrad.ReadOnly = true;
-			this.InstiGrad.Width = 154;
+			this.InstiGrad.Width = 165;
 			// 
 			// PastEMp
 			// 
 			this.PastEMp.HeaderText = "Past Employees";
 			this.PastEMp.Name = "PastEMp";
 			this.PastEMp.ReadOnly = true;
-			this.PastEMp.Width = 119;
+			this.PastEMp.Width = 126;
 			// 
 			// Type
 			// 
 			this.Type.HeaderText = "Type";
 			this.Type.Name = "Type";
 			this.Type.ReadOnly = true;
-			this.Type.Width = 64;
+			this.Type.Width = 66;
 			// 
 			// Name
 			// 
 			this.Name.HeaderText = "Name";
 			this.Name.Name = "Name";
 			this.Name.ReadOnly = true;
-			this.Name.Width = 71;
+			this.Name.Width = 74;
 			// 
 			// Addressrf
 			// 
 			this.Addressrf.HeaderText = "Address";
 			this.Addressrf.Name = "Addressrf";
 			this.Addressrf.ReadOnly = true;
-			this.Addressrf.Width = 85;
+			this.Addressrf.Width = 89;
 			// 
 			// Relationship
 			// 
 			this.Relationship.HeaderText = "Relationship";
 			this.Relationship.Name = "Relationship";
 			this.Relationship.ReadOnly = true;
-			this.Relationship.Width = 107;
+			this.Relationship.Width = 115;
 			// 
 			// PhoneNorf
 			// 
 			this.PhoneNorf.HeaderText = "Phone No";
 			this.PhoneNorf.Name = "PhoneNorf";
 			this.PhoneNorf.ReadOnly = true;
-			this.PhoneNorf.Width = 88;
+			this.PhoneNorf.Width = 90;
 			// 
 			// Pannorf
 			// 
 			this.Pannorf.HeaderText = "Pan No";
 			this.Pannorf.Name = "Pannorf";
 			this.Pannorf.ReadOnly = true;
-			this.Pannorf.Width = 57;
+			this.Pannorf.Width = 74;
 			// 
 			// Dematacnrf
 			// 
 			this.Dematacnrf.HeaderText = "Demat A.c No";
 			this.Dematacnrf.Name = "Dematacnrf";
 			this.Dematacnrf.ReadOnly = true;
-			this.Dematacnrf.Width = 95;
+			this.Dematacnrf.Width = 98;
 			// 
 			// usernamedat
 			// 
 			this.usernamedat.HeaderText = "Date of Entry with Username";
 			this.usernamedat.Name = "usernamedat";
 			this.usernamedat.ReadOnly = true;
-			this.usernamedat.Width = 135;
+			this.usernamedat.Width = 141;
 			// 
 			// button1
 			// 
-			this.button1.BackColor = System.Drawing.Color.Transparent;
+			this.button1.BackColor = System.Drawing.Color.DodgerBlue;
 			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
-			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(496, 48);
+			this.button1.Location = new System.Drawing.Point(460, 49);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(46, 40);
+			this.button1.Size = new System.Drawing.Size(112, 40);
 			this.button1.TabIndex = 103;
 			this.button1.UseVisualStyleBackColor = false;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// btnDownloadPrinter
 			// 
-			this.btnDownloadPrinter.BackColor = System.Drawing.Color.Transparent;
+			this.btnDownloadPrinter.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnDownloadPrinter.BackgroundImage = global::OS.Properties.Resources.icons8_print_filled;
 			this.btnDownloadPrinter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDownloadPrinter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnDownloadPrinter.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnDownloadPrinter.Location = new System.Drawing.Point(1284, 49);
 			this.btnDownloadPrinter.Name = "btnDownloadPrinter";
@@ -278,26 +280,28 @@
 			// 
 			// btnDownloadPDF
 			// 
-			this.btnDownloadPDF.BackColor = System.Drawing.Color.Transparent;
+			this.btnDownloadPDF.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnDownloadPDF.BackgroundImage = global::OS.Properties.Resources.icons8_pdf;
-			this.btnDownloadPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDownloadPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.btnDownloadPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnDownloadPDF.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnDownloadPDF.Location = new System.Drawing.Point(1211, 49);
+			this.btnDownloadPDF.Location = new System.Drawing.Point(1155, 48);
 			this.btnDownloadPDF.Name = "btnDownloadPDF";
-			this.btnDownloadPDF.Size = new System.Drawing.Size(46, 40);
+			this.btnDownloadPDF.Size = new System.Drawing.Size(112, 40);
 			this.btnDownloadPDF.TabIndex = 101;
 			this.btnDownloadPDF.UseVisualStyleBackColor = false;
 			this.btnDownloadPDF.Click += new System.EventHandler(this.btnDownloadPDF_Click);
 			// 
 			// btnDownloadexcel
 			// 
-			this.btnDownloadexcel.BackColor = System.Drawing.Color.Transparent;
+			this.btnDownloadexcel.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnDownloadexcel.BackgroundImage = global::OS.Properties.Resources.icons8_microsoft_excel;
 			this.btnDownloadexcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.btnDownloadexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnDownloadexcel.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnDownloadexcel.Location = new System.Drawing.Point(1139, 48);
+			this.btnDownloadexcel.Location = new System.Drawing.Point(1019, 48);
 			this.btnDownloadexcel.Name = "btnDownloadexcel";
-			this.btnDownloadexcel.Size = new System.Drawing.Size(46, 40);
+			this.btnDownloadexcel.Size = new System.Drawing.Size(112, 40);
 			this.btnDownloadexcel.TabIndex = 100;
 			this.btnDownloadexcel.UseVisualStyleBackColor = false;
 			this.btnDownloadexcel.Click += new System.EventHandler(this.btnDownloadexcel_Click);
@@ -306,17 +310,19 @@
 			// 
 			this.label6.AutoSize = true;
 			this.label6.BackColor = System.Drawing.Color.Transparent;
-			this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label6.Location = new System.Drawing.Point(1047, 59);
+			this.label6.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.ForeColor = System.Drawing.Color.White;
+			this.label6.Location = new System.Drawing.Point(922, 60);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(79, 19);
+			this.label6.Size = new System.Drawing.Size(82, 19);
 			this.label6.TabIndex = 99;
 			this.label6.Text = "Download :";
 			// 
 			// btnSearch
 			// 
-			this.btnSearch.BackColor = System.Drawing.Color.Transparent;
-			this.btnSearch.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnSearch.BackColor = System.Drawing.Color.DodgerBlue;
+			this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnSearch.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnSearch.Location = new System.Drawing.Point(292, 49);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(112, 40);
@@ -328,21 +334,22 @@
 			// txtInsiderID
 			// 
 			this.txtInsiderID.BackColor = System.Drawing.Color.MintCream;
-			this.txtInsiderID.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtInsiderID.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtInsiderID.Location = new System.Drawing.Point(53, 57);
 			this.txtInsiderID.MaxLength = 20;
 			this.txtInsiderID.Name = "txtInsiderID";
-			this.txtInsiderID.Size = new System.Drawing.Size(217, 26);
+			this.txtInsiderID.Size = new System.Drawing.Size(217, 27);
 			this.txtInsiderID.TabIndex = 95;
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.BackColor = System.Drawing.Color.Transparent;
-			this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.ForeColor = System.Drawing.Color.White;
 			this.label4.Location = new System.Drawing.Point(49, 35);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(95, 19);
+			this.label4.Size = new System.Drawing.Size(100, 19);
 			this.label4.TabIndex = 96;
 			this.label4.Text = "Connected ID";
 			// 
@@ -418,11 +425,12 @@
 			// 
 			// button2
 			// 
-			this.button2.BackColor = System.Drawing.Color.Transparent;
-			this.button2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(646, 48);
+			this.button2.BackColor = System.Drawing.Color.DodgerBlue;
+			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(627, 48);
 			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(94, 40);
+			this.button2.Size = new System.Drawing.Size(112, 40);
 			this.button2.TabIndex = 104;
 			this.button2.Text = "CLOSE";
 			this.button2.UseVisualStyleBackColor = false;
@@ -430,7 +438,7 @@
 			// 
 			// LIST_OF_CONNECTED_PERSON
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1370, 730);
 			this.Controls.Add(this.button2);
@@ -449,8 +457,26 @@
 			this.Controls.Add(this.txtFromDate);
 			this.Controls.Add(this.label15);
 			this.Controls.Add(this.panel1);
+			this.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "LIST OF CONNECTED PERSON";
 			this.Load += new System.EventHandler(this.LIST_OF_CONNECTED_PERSON_Load);
+			this.Controls.SetChildIndex(this.panel1, 0);
+			this.Controls.SetChildIndex(this.label15, 0);
+			this.Controls.SetChildIndex(this.txtFromDate, 0);
+			this.Controls.SetChildIndex(this.label2, 0);
+			this.Controls.SetChildIndex(this.txtToDate, 0);
+			this.Controls.SetChildIndex(this.label1, 0);
+			this.Controls.SetChildIndex(this.label3, 0);
+			this.Controls.SetChildIndex(this.label4, 0);
+			this.Controls.SetChildIndex(this.txtInsiderID, 0);
+			this.Controls.SetChildIndex(this.btnSearch, 0);
+			this.Controls.SetChildIndex(this.label6, 0);
+			this.Controls.SetChildIndex(this.btnDownloadexcel, 0);
+			this.Controls.SetChildIndex(this.btnDownloadPDF, 0);
+			this.Controls.SetChildIndex(this.btnDownloadPrinter, 0);
+			this.Controls.SetChildIndex(this.button1, 0);
+			this.Controls.SetChildIndex(this.button2, 0);
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
 			this.ResumeLayout(false);
@@ -461,12 +487,7 @@
 		#endregion
 
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button btnDownloadPrinter;
-		private System.Windows.Forms.Button btnDownloadPDF;
-		private System.Windows.Forms.Button btnDownloadexcel;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Button btnSearch;
 		public System.Windows.Forms.TextBox txtInsiderID;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label3;
@@ -475,13 +496,14 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.DateTimePicker txtFromDate;
 		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.DataGridView dataGridViewTable;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ConnectPersonID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn NameofEMployee;
 		private System.Windows.Forms.DataGridViewTextBoxColumn CurrrentDesignation;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+		private System.Windows.Forms.DataGridViewTextBoxColumn residentaddress;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Pan;
+		private System.Windows.Forms.DataGridViewTextBoxColumn otheridentifier;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DematAcno;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PhoneNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn InstiGrad;
@@ -494,5 +516,11 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Pannorf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Dematacnrf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn usernamedat;
+		private ButtonLastest button1;
+		private ButtonLastest btnDownloadPrinter;
+		private ButtonLastest btnDownloadPDF;
+		private ButtonLastest btnDownloadexcel;
+		private ButtonLastest btnSearch;
+		private ButtonLastest button2;
 	}
 }

@@ -9,6 +9,7 @@
 		public string CATEGORY_OF_RECEIPT { get; set; }
 		public string ADDRESS { get; set; }
 		public string PAN_NO { get; set; }
+		public string OTHERIDENTIFIER { get; set; }
 		public string AADHAR_NO { get; set; }
 		public string MOBILE_NO { get; set; }
 		public string LANDLINE_NO { get; set; }

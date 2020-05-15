@@ -20,18 +20,19 @@ namespace OS
 		{
 			Login l = new Login();
 			//TopMost = true;
-			WindowState = FormWindowState.Maximized;
+			//WindowState = FormWindowState.Maximized;
 			try
 			{
 				if (SESSIONKEYS.UserID.ToString() == "" || SESSIONKEYS.UserID.ToString() == null)
 				{
-					Hide();
+					Close();
 					l.Show();
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				Hide();
+				new MasterClass().SAVETEXTLOG(ex);
+				Close();
 				l.Show();
 			}
 			txtFromDate.CustomFormat = "dd-MM-yyyy";
@@ -41,22 +42,32 @@ namespace OS
 
 		private void SetLoading(bool displayLoader)
 		{
-			if (displayLoader)
+			try
 			{
-				Invoke((MethodInvoker)delegate
+				if (displayLoader)
 				{
-					//picLoader.Visible = true;
-					Cursor = Cursors.WaitCursor;
-					//Thread.Sleep(4000);
-				});
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = true;
+						Cursor = Cursors.WaitCursor;
+						//Thread.Sleep(4000);
+					});
+				}
+				else
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = false;
+						Cursor = Cursors.Default;
+					});
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Invoke((MethodInvoker)delegate
-				{
-					//picLoader.Visible = false;
-					Cursor = Cursors.Default;
-				});
+				new MasterClass().SAVETEXTLOG(ex);
+				//Login l = new Login();
+				//l.Show();
+				//Close();
 			}
 		}
 
@@ -78,7 +89,7 @@ namespace OS
 					{
 						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 						{
-							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
+							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RESIADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
 							dataGridViewTable.Rows.Add(row);
 						}
 					}
@@ -86,9 +97,11 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "List of Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "List of Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -112,7 +125,7 @@ namespace OS
 						{
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()) == text)
 							{
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMPNAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CURRDESIGNATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RESIADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["GRADUATIONINSTI"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PASTEMP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["TYPE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO1"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATACNO"].ToString()), (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim() };
 								dataGridViewTable.Rows.Add(row);
 							}
 						}
@@ -121,9 +134,11 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "List of Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "List of Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -131,7 +146,7 @@ namespace OS
 		{
 			HOMEPAGE h = new HOMEPAGE();
 			h.Show();
-			Hide();
+			Close();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -169,12 +184,18 @@ namespace OS
 							MessageBox.Show("Exported Data Successfully in Excel Sheet.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 						}
 					}
+					else
+					{
+						MessageBox.Show("No Record To Export !!!", "Info");
+					}
 				});
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -207,12 +228,18 @@ namespace OS
 							MessageBox.Show("Exported Data Successfully in PDF Sheet.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 						}
 					}
+					else
+					{
+						MessageBox.Show("No Record To Export !!!", "Info");
+					}
 				});
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "LIST OF CONNECTED PERSON", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -253,8 +280,9 @@ namespace OS
 				//	FillDataGrid(txtInsiderID.Text, txtFromDate.Value.ToString(), txtToDate.Value.ToString());
 				//}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				DialogResult dialog = MessageBox.Show("Following Value doesnt Match Any Records.", "List of Insider", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}

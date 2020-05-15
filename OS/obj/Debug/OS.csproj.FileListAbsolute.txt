@@ -1,31 +1,3 @@
-C:\TB DATA\OS SETUP\OS\bin\Debug\OS.sdf
-C:\TB DATA\OS SETUP\OS\bin\Debug\OS.exe.config
-C:\TB DATA\OS SETUP\OS\bin\Debug\OS.exe
-C:\TB DATA\OS SETUP\OS\bin\Debug\OS.pdb
-C:\TB DATA\OS SETUP\OS\bin\Debug\itextsharp.dll
-C:\TB DATA\OS SETUP\OS\bin\Debug\System.ComponentModel.Annotations.dll
-C:\TB DATA\OS SETUP\OS\bin\Debug\System.Data.SqlServerCe.dll
-C:\TB DATA\OS SETUP\OS\bin\Debug\itextsharp.xml
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.AUDIT_TRAIL.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.CREATELOGIN.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.Form1.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.HOMEPAGE.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.LIST_OF_CONNECTED_PERSON.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.LIST_OF_INSIDERS.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTER_DATA_OF_COMPANY.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.Login.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTER_FOR_RECORDING_INSIDER_PROFILE.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTERFORM.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.Properties.Resources.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.RECORDING_OF_SHARING_OF_UPSI.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.REPORTS_OF_SHARING_OF_UPSI.resources
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csproj.GenerateResource.cache
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csproj.CoreCompileInputs.cache
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csproj.CopyComplete
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.exe
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.pdb
-C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csprojAssemblyReference.cache
 C:\TB DATA\OS\OS\bin\Debug\OS.sdf
 C:\TB DATA\OS\OS\bin\Debug\OS.exe.config
 C:\TB DATA\OS\OS\bin\Debug\OS.exe
@@ -54,3 +26,31 @@ C:\TB DATA\OS\OS\obj\Debug\OS.csproj.CopyComplete
 C:\TB DATA\OS\OS\obj\Debug\OS.exe
 C:\TB DATA\OS\OS\obj\Debug\OS.pdb
 C:\TB DATA\OS\OS\bin\Debug\OS.pdb
+C:\TB DATA\OS SETUP\OS\bin\Debug\OS.sdf
+C:\TB DATA\OS SETUP\OS\bin\Debug\The PIT Archive.exe.config
+C:\TB DATA\OS SETUP\OS\bin\Debug\The PIT Archive.exe
+C:\TB DATA\OS SETUP\OS\bin\Debug\The PIT Archive.pdb
+C:\TB DATA\OS SETUP\OS\bin\Debug\itextsharp.dll
+C:\TB DATA\OS SETUP\OS\bin\Debug\System.ComponentModel.Annotations.dll
+C:\TB DATA\OS SETUP\OS\bin\Debug\System.Data.SqlServerCe.dll
+C:\TB DATA\OS SETUP\OS\bin\Debug\itextsharp.xml
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.AUDIT_TRAIL.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.CREATELOGIN.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.Form1.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.HOMEPAGE.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.LIST_OF_CONNECTED_PERSON.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.LIST_OF_INSIDERS.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.List_of_PAN_s_Registered_under_Database.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTER_DATA_OF_COMPANY.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.Login.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTER_FOR_RECORDING_INSIDER_PROFILE.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.MASTERFORM.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.Properties.Resources.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.RECORDING_OF_SHARING_OF_UPSI.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.REPORTS_OF_SHARING_OF_UPSI.resources
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csproj.GenerateResource.cache
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csproj.CoreCompileInputs.cache
+C:\TB DATA\OS SETUP\OS\obj\Debug\OS.csproj.CopyComplete
+C:\TB DATA\OS SETUP\OS\obj\Debug\The PIT Archive.exe
+C:\TB DATA\OS SETUP\OS\obj\Debug\The PIT Archive.pdb

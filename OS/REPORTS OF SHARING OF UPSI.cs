@@ -22,18 +22,19 @@ namespace OS
 		{
 			Login l = new Login();
 			//TopMost = true;
-			WindowState = FormWindowState.Maximized;
+			//WindowState = FormWindowState.Maximized;
 			try
 			{
 				if (SESSIONKEYS.UserID.ToString() == "" || SESSIONKEYS.UserID.ToString() == null)
 				{
-					Hide();
+					Close();
 					l.Show();
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				Hide();
+				new MasterClass().SAVETEXTLOG(ex);
+				Close();
 				l.Show();
 			}
 			//txtFromDate.CustomFormat = "dd-MM-yyyy";
@@ -43,22 +44,32 @@ namespace OS
 
 		private void SetLoading(bool displayLoader)
 		{
-			if (displayLoader)
+			try
 			{
-				Invoke((MethodInvoker)delegate
+				if (displayLoader)
 				{
-					//picLoader.Visible = true;
-					Cursor = Cursors.WaitCursor;
-					//Thread.Sleep(4000);
-				});
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = true;
+						Cursor = Cursors.WaitCursor;
+						//Thread.Sleep(4000);
+					});
+				}
+				else
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = false;
+						Cursor = Cursors.Default;
+					});
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Invoke((MethodInvoker)delegate
-				{
-					//picLoader.Visible = false;
-					Cursor = Cursors.Default;
-				});
+				new MasterClass().SAVETEXTLOG(ex);
+				//Login l = new Login();
+				//l.Show();
+				//Close();
 			}
 		}
 
@@ -109,9 +120,11 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -124,8 +137,9 @@ namespace OS
 					FillDataGrid(txtInsiderID.Text, "", "");
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				DialogResult dialog = MessageBox.Show("Following Value doesnt Match Any Records.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -181,9 +195,11 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -217,12 +233,18 @@ namespace OS
 							MessageBox.Show("Exported Data Successfully in Excel Sheet.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 						}
 					}
+					else
+					{
+						MessageBox.Show("No Record To Export !!!", "Info");
+					}
 				});
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -264,8 +286,10 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "LIST OF SHARING OF UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -312,7 +336,7 @@ namespace OS
 		{
 			HOMEPAGE h = new HOMEPAGE();
 			h.Show();
-			Hide();
+			Close();
 		}
 	}
 }

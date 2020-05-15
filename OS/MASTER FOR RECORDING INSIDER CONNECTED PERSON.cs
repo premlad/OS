@@ -25,18 +25,19 @@ namespace OS
 		{
 			Login l = new Login();
 			//TopMost = true;
-			WindowState = FormWindowState.Maximized;
+			//WindowState = FormWindowState.Maximized;
 			try
 			{
 				if (SESSIONKEYS.UserID.ToString() == "")
 				{
-					Hide();
+					Close();
 					l.Show();
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				Hide();
+				new MasterClass().SAVETEXTLOG(ex);
+				Close();
 				l.Show();
 			}
 			FillConnectPersonID();
@@ -59,7 +60,6 @@ namespace OS
 		{
 			try
 			{
-
 				cmdINSCONSAVEID.Items.Clear();
 				DataSet ds = new MasterClass().getDataSet("SELECT ID,CONNECTPERSONID FROM T_INS_PER WHERE ACTIVE = 'Y' AND LOCK = 'N'");
 				AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
@@ -77,13 +77,14 @@ namespace OS
 						cmdINSCONSAVEID.ValueMember = "ID";
 						MyCollection.Add(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString()));
 					}
-
 				}
 				txtINSCONconnectperson.AutoCompleteCustomSource = MyCollection;
+
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -173,37 +174,69 @@ namespace OS
 
 		private void dataGridViewPhonemobile_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			try
 			{
-				dataGridViewPhonemobile.Rows.RemoveAt(e.RowIndex);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					dataGridViewPhonemobile.Rows.RemoveAt(e.RowIndex);
+				}
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void dataGridViewDematAcoount_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			try
 			{
-				dataGridViewDematAcoount.Rows.RemoveAt(e.RowIndex);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					dataGridViewDematAcoount.Rows.RemoveAt(e.RowIndex);
+				}
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void dataGridViewGraduationInstitution_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			try
 			{
-				dataGridViewGraduationInstitution.Rows.RemoveAt(e.RowIndex);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					dataGridViewGraduationInstitution.Rows.RemoveAt(e.RowIndex);
+				}
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void dataGridViewPastEmployee_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			try
 			{
-				dataGridViewPastEmployee.Rows.RemoveAt(e.RowIndex);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					dataGridViewPastEmployee.Rows.RemoveAt(e.RowIndex);
+				}
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -237,7 +270,7 @@ namespace OS
 						}
 						else
 						{
-							string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text };
+							string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text, "" };
 							dataGridViewISNCONrelativetable.Rows.Add(row);
 							txtINSCONrelativefullnam.Text = "";
 							txtINSCONrelativemobileno.Text = "";
@@ -249,7 +282,7 @@ namespace OS
 					}
 					else
 					{
-						string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text };
+						string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text, "" };
 						dataGridViewISNCONrelativetable.Rows.Add(row);
 						txtINSCONrelativefullnam.Text = "";
 						txtINSCONrelativemobileno.Text = "";
@@ -267,7 +300,7 @@ namespace OS
 					}
 					else
 					{
-						string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text };
+						string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text, "" };
 						dataGridViewISNCONrelativetable.Rows.Add(row);
 						txtINSCONrelativefullnam.Text = "";
 						txtINSCONrelativemobileno.Text = "";
@@ -279,7 +312,7 @@ namespace OS
 				}
 				else
 				{
-					string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text };
+					string[] row = { txtINSCONrelativefullnam.Text, txtINSCONrelativemobileno.Text, txtINSCONrelativepanno.Text, txtINSCONrelativedematacno.Text, txtINSCONrelativerelationship.Text, txtINSCONrelativeaddress.Text, "" };
 					dataGridViewISNCONrelativetable.Rows.Add(row);
 					txtINSCONrelativefullnam.Text = "";
 					txtINSCONrelativemobileno.Text = "";
@@ -288,7 +321,6 @@ namespace OS
 					txtINSCONrelativerelationship.Text = "";
 					txtINSCONrelativeaddress.Text = "";
 				}
-
 			}
 		}
 
@@ -322,7 +354,7 @@ namespace OS
 						}
 						else
 						{
-							string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text };
+							string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text, "" };
 							dataGridViewmaterialfinancial.Rows.Add(row);
 							txtINSCONfinancialfullname.Text = "";
 							txtINSCONfinancialmobileno.Text = "";
@@ -334,7 +366,7 @@ namespace OS
 					}
 					else
 					{
-						string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text };
+						string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text, "" };
 						dataGridViewmaterialfinancial.Rows.Add(row);
 						txtINSCONfinancialfullname.Text = "";
 						txtINSCONfinancialmobileno.Text = "";
@@ -352,7 +384,7 @@ namespace OS
 					}
 					else
 					{
-						string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text };
+						string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text, "" };
 						dataGridViewmaterialfinancial.Rows.Add(row);
 						txtINSCONfinancialfullname.Text = "";
 						txtINSCONfinancialmobileno.Text = "";
@@ -364,7 +396,7 @@ namespace OS
 				}
 				else
 				{
-					string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text };
+					string[] row = { txtINSCONfinancialfullname.Text, txtINSCONfinancialmobileno.Text, txtINSCONfinancialpanno.Text, txtINSCONfinancialdematacno.Text, txtINSCONfinancialrelationship.Text, txtINSCONfinancialaddress.Text, "" };
 					dataGridViewmaterialfinancial.Rows.Add(row);
 					txtINSCONfinancialfullname.Text = "";
 					txtINSCONfinancialmobileno.Text = "";
@@ -378,40 +410,66 @@ namespace OS
 
 		private void dataGridViewmaterialfinancial_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			try
 			{
-				dataGridViewmaterialfinancial.Rows.RemoveAt(e.RowIndex);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					dataGridViewmaterialfinancial.Rows.RemoveAt(e.RowIndex);
+				}
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void dataGridViewISNCONrelativetable_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-			if (dialogResult == DialogResult.Yes)
+			try
 			{
-				dataGridViewISNCONrelativetable.Rows.RemoveAt(e.RowIndex);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Connected Person", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.Yes)
+				{
+					dataGridViewISNCONrelativetable.Rows.RemoveAt(e.RowIndex);
+				}
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void SetLoading(bool displayLoader)
 		{
-			if (displayLoader)
+			try
 			{
-				Invoke((MethodInvoker)delegate
+				if (displayLoader)
 				{
-					//picLoader.Visible = true;
-					Cursor = Cursors.WaitCursor;
-					Thread.Sleep(4000);
-				});
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = true;
+						Cursor = Cursors.WaitCursor;
+						//Thread.Sleep(4000);
+					});
+				}
+				else
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = false;
+						Cursor = Cursors.Default;
+					});
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Invoke((MethodInvoker)delegate
-				{
-					//picLoader.Visible = false;
-					Cursor = Cursors.Default;
-				});
+				new MasterClass().SAVETEXTLOG(ex);
+				//Login l = new Login();
+				//l.Show();
+				//Close();
 			}
 		}
 
@@ -419,6 +477,7 @@ namespace OS
 		{
 			try
 			{
+				int error = 0;
 				SetLoading(true);
 
 				Thread.Sleep(2000);
@@ -448,26 +507,43 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
+						Close();
 					}
 					else if (txtINSCONnameofemployee.Text == "")
 					{
 						DialogResult dialog = MessageBox.Show("Enter Name of Employee.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
-					else if (txtINSCONpannomaster.Text == "")
+					else if (txtINSCONaddressmaster.Text == "")
 					{
-						DialogResult dialog = MessageBox.Show("Enter Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						DialogResult dialog = MessageBox.Show("Enter Permanent Address.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (permanentaddress.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Residentail Address.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else if (dataGridViewPhonemobile.Rows.Count <= 0)
 					{
 						DialogResult dialog = MessageBox.Show("Enter Phone No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
-					else if (!new MasterClass().IsValidPanno(txtINSCONpannomaster.Text))
-					{
-						DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
 					else
 					{
+						if (txtINSCONpannomaster.Text == "")
+						{
+							if (txtotheridentifier.Text == "")
+							{
+								DialogResult dialog = MessageBox.Show("Enter Other Identifier No or Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								error++;
+							}
+						}
+						else 
+						{
+							if (!new MasterClass().IsValidPanno(txtINSCONpannomaster.Text))
+							{ 
+								DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								error++;
+							}
+						}
+
 						DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
 						DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
 						List<string> termsList = new List<string>();
@@ -493,6 +569,7 @@ namespace OS
 						if (b.Contains(txtINSCONpannomaster.Text))
 						{
 							DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							error++;
 						}
 						else
 						{
@@ -503,7 +580,9 @@ namespace OS
 								NAME_OF_EMP = txtINSCONnameofemployee.Text,
 								ADDRESS = txtINSCONaddressmaster.Text,
 								PAN_NO = txtINSCONpannomaster.Text,
-								CURRENT_DESIGNATION = txtINSCONcurrentdesigantion.Text
+								CURRENT_DESIGNATION = txtINSCONcurrentdesigantion.Text,
+								OTHERIDENTIFIER = txtotheridentifier.Text,
+								RESIADDRESS = permanentaddress.Text
 							};
 							string PhoneNo = "";
 							foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
@@ -526,6 +605,7 @@ namespace OS
 								if (!new MasterClass().IsValidDematAcno(row.Cells["datagridviewdematacno"].Value.ToString()))
 								{
 									DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+									error++;
 								}
 								else
 								{
@@ -577,6 +657,30 @@ namespace OS
 									if (!new MasterClass().IsValidPanno(row.Cells["PANNo"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else if (row.Cells["DematAcNo"].Value.ToString() != "")
+									{
+										if (!new MasterClass().IsValidDematAcno(row.Cells["DematAcNo"].Value.ToString()))
+										{
+											DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+											error++;
+										}
+									}
+									else
+									{
+
+										T_INS_PER_IMMEDAITE_RELATIVES RELATIVEARRAY = new T_INS_PER_IMMEDAITE_RELATIVES
+										{
+											NAME = row.Cells["FullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["MobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["PANNo"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["DematAcNo"].Value.ToString(),
+											RELATIONSHIP = row.Cells["Relationship"].Value.ToString(),
+											ADDRESS = row.Cells["Address"].Value.ToString()
+										};
+
+										T_INS_PER_IMMEDAITE_RELATIVES.Add(RELATIVEARRAY);
 									}
 								}
 								else if (row.Cells["DematAcNo"].Value.ToString() != "")
@@ -584,6 +688,22 @@ namespace OS
 									if (!new MasterClass().IsValidDematAcno(row.Cells["DematAcNo"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else
+									{
+
+										T_INS_PER_IMMEDAITE_RELATIVES RELATIVEARRAY = new T_INS_PER_IMMEDAITE_RELATIVES
+										{
+											NAME = row.Cells["FullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["MobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["PANNo"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["DematAcNo"].Value.ToString(),
+											RELATIONSHIP = row.Cells["Relationship"].Value.ToString(),
+											ADDRESS = row.Cells["Address"].Value.ToString()
+										};
+
+										T_INS_PER_IMMEDAITE_RELATIVES.Add(RELATIVEARRAY);
 									}
 								}
 								else
@@ -613,6 +733,28 @@ namespace OS
 									if (!new MasterClass().IsValidPanno(row.Cells["FinancialPanno"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else if (row.Cells["FinancialDemaAcno"].Value.ToString() != "")
+									{
+										if (!new MasterClass().IsValidDematAcno(row.Cells["FinancialDemaAcno"].Value.ToString()))
+										{
+											DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+											error++;
+										}
+									}
+									else
+									{
+										T_INS_PER_MATERIAL_FINANCIAL FINANCIALARRAY = new T_INS_PER_MATERIAL_FINANCIAL
+										{
+											NAME = row.Cells["financilaFullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["financilaMobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["FinancialPanno"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["FinancialDemaAcno"].Value.ToString(),
+											RELATIONSHIP = row.Cells["FinancialRelationship"].Value.ToString(),
+											ADDRESS = row.Cells["Financialaddress"].Value.ToString()
+										};
+										T_INS_PER_MATERIAL_FINANCIAL.Add(FINANCIALARRAY);
 									}
 								}
 								else if (row.Cells["FinancialDemaAcno"].Value.ToString() != "")
@@ -620,6 +762,20 @@ namespace OS
 									if (!new MasterClass().IsValidDematAcno(row.Cells["FinancialDemaAcno"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else
+									{
+										T_INS_PER_MATERIAL_FINANCIAL FINANCIALARRAY = new T_INS_PER_MATERIAL_FINANCIAL
+										{
+											NAME = row.Cells["financilaFullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["financilaMobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["FinancialPanno"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["FinancialDemaAcno"].Value.ToString(),
+											RELATIONSHIP = row.Cells["FinancialRelationship"].Value.ToString(),
+											ADDRESS = row.Cells["Financialaddress"].Value.ToString()
+										};
+										T_INS_PER_MATERIAL_FINANCIAL.Add(FINANCIALARRAY);
 									}
 								}
 								else
@@ -638,62 +794,70 @@ namespace OS
 							}
 							CNS.FINANCIALARRAY = T_INS_PER_MATERIAL_FINANCIAL.ToArray();
 							CNS.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							string CPID = "CP" + new MasterClass().GETCPID();
-							string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PER (CONNECTPERSONID, EMPNAME, CURRDESIGNATION, ADDRESS, PANNO, DEMATACNO, MOBILENO, GRADUATIONINSTI, PASTEMP, ENTEREDBY, ENTEREDON, ACTIVE, LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PER_LOG(TID,CONNECTPERSONID,EMPNAME,CURRDESIGNATION,ADDRESS,PANNO,DEMATACNO,MOBILENO,GRADUATIONINSTI,PASTEMP,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N')").ToString();
-							lg.CURRVALUE = "CONNECTED PERSON TAB";
-							lg.TYPE = "INSERTED";
-							lg.ID = perlogid;
-							lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
-							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							lg.ID = SESSIONKEYS.UserID.ToString();
-							new MasterClass().SAVE_LOG(lg);
-							if (Convert.ToInt32(ds) > 0)
-							{
-								foreach (T_INS_PER_MATERIAL_FINANCIAL m_x in CNS.FINANCIALARRAY)
-								{
-									string dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
-									string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N')").ToString();
-									lg.CURRVALUE = "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP";
-									lg.TYPE = "INSERTED";
-									lg.ID = perlogisdt;
-									lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
-									lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-									lg.ID = SESSIONKEYS.UserID.ToString();
-									new MasterClass().SAVE_LOG(lg);
-								}
 
-								foreach (T_INS_PER_IMMEDAITE_RELATIVES m_x in CNS.RELATIVEARRAY)
-								{
-									string dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
-									string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N')").ToString();
-									lg.CURRVALUE = "CONNECTED PERSON TAB RELATIVE RELATIONSHIP";
-									lg.TYPE = "INSERTED";
-									lg.ID = perlogisdt;
-									lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
-									lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-									lg.ID = SESSIONKEYS.UserID.ToString();
-									new MasterClass().SAVE_LOG(lg);
-								}
-								DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
-							}
-							else
+							if (error == 0)
 							{
-								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								string CPID = "CP" + new MasterClass().GETCPID();
+								string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PER (CONNECTPERSONID, EMPNAME, CURRDESIGNATION, ADDRESS, RESIADDRESS, PANNO, OTHERIDENTIFIER, DEMATACNO, MOBILENO, GRADUATIONINSTI, PASTEMP, ENTEREDBY, ENTEREDON, ACTIVE, LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.RESIADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
+								string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PER_LOG(TID,CONNECTPERSONID,EMPNAME,CURRDESIGNATION,ADDRESS,RESIADDRESS,PANNO,OTHERIDENTIFIER,DEMATACNO,MOBILENO,GRADUATIONINSTI,PASTEMP,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.RESIADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N')").ToString();
+								lg.CURRVALUE = "CONNECTED PERSON TAB";
+								lg.TYPE = "INSERTED";
+								lg.ID = perlogid;
+								lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
+								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+								//lg.ID = SESSIONKEYS.UserID.ToString();
+								new MasterClass().SAVE_LOG(lg);
+								if (Convert.ToInt32(ds) > 0)
+								{
+									foreach (T_INS_PER_MATERIAL_FINANCIAL m_x in CNS.FINANCIALARRAY)
+									{
+										string dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
+										string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N')").ToString();
+										lg.CURRVALUE = "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP";
+										lg.TYPE = "INSERTED";
+										lg.ID = perlogisdt;
+										lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
+										lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+										//&& = SESSIONKEYS.UserID.ToString();
+										new MasterClass().SAVE_LOG(lg);
+									}
+
+									foreach (T_INS_PER_IMMEDAITE_RELATIVES m_x in CNS.RELATIVEARRAY)
+									{
+										string dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
+										string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N')").ToString();
+										lg.CURRVALUE = "CONNECTED PERSON TAB RELATIVE RELATIONSHIP";
+										lg.TYPE = "INSERTED";
+										lg.ID = perlogisdt;
+										lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
+										lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+										//&& = SESSIONKEYS.UserID.ToString();
+										new MasterClass().SAVE_LOG(lg);
+									}
+									DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								}
+								else
+								{
+									DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								}
+								Clear();
+								btnupdateINSCON.Visible = false;
+								btnaddINSCONdeelete.Visible = false;
+								btncacncelINSCON.Visible = false;
+								btnaddINSCON.Visible = true;
+								FillConnectPersonID();
+								button2.PerformClick();
 							}
-							Clear();
-							btnupdateINSCON.Visible = false;
-							btnaddINSCONdeelete.Visible = false;
-							btncacncelINSCON.Visible = false;
-							btnaddINSCON.Visible = true;
-							FillConnectPersonID();
+
 						}
 					}
 				});
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Saved. Please Check Your Internet Connection.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -730,6 +894,19 @@ namespace OS
 								PANO = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PANNO"].ToString());
 								txtINSCONcurrentdesigantion.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["CURRDESIGNATION"].ToString());
 								txtINSCONaddressmaster.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["ADDRESS"].ToString());
+								permanentaddress.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["RESIADDRESS"].ToString());
+								txtotheridentifier.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["OTHERIDENTIFIER"].ToString());
+
+								if (permanentaddress.Text == txtINSCONaddressmaster.Text)
+								{
+									checkBox1.Checked = true;
+									permanentaddress.Enabled = false;
+								}
+								else
+								{
+									checkBox1.Checked = false;
+									permanentaddress.Enabled = true;
+								}
 
 								dataGridViewPhonemobile.Rows.Clear();
 								dataGridViewPhonemobile.Refresh();
@@ -739,13 +916,19 @@ namespace OS
 									string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["MOBILENO"].ToString()).Split('|');
 									for (int j = 0; j < abc.Length; j++)
 									{
-										dataGridViewPhonemobile.Rows.Add(abc[j]);
+										if (abc[j] != "" && abc[j] != null)
+										{
+											dataGridViewPhonemobile.Rows.Add(abc[j]);
+										}
 									}
 								}
 								else
 								{
 									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["MOBILENO"].ToString()) };
-									dataGridViewPhonemobile.Rows.Add(row);
+									if (row[0] != "" && row[0] != null)
+									{
+										dataGridViewPhonemobile.Rows.Add(row);
+									}
 								}
 								txtMobileINSCONNumber.Text = "";
 
@@ -756,13 +939,19 @@ namespace OS
 									string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["DEMATACNO"].ToString()).Split('|');
 									for (int j = 0; j < abc.Length; j++)
 									{
-										dataGridViewDematAcoount.Rows.Add(abc[j]);
+										if (abc[j] != "" && abc[j] != null)
+										{
+											dataGridViewDematAcoount.Rows.Add(abc[j]);
+										}
 									}
 								}
 								else
 								{
 									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["DEMATACNO"].ToString()) };
-									dataGridViewDematAcoount.Rows.Add(row);
+									if (row[0] != "" && row[0] != null)
+									{
+										dataGridViewDematAcoount.Rows.Add(row);
+									}
 								}
 								txtINSCONdemataccountno.Text = "";
 
@@ -773,13 +962,19 @@ namespace OS
 									string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["GRADUATIONINSTI"].ToString()).Split('|');
 									for (int j = 0; j < abc.Length; j++)
 									{
-										dataGridViewGraduationInstitution.Rows.Add(abc[j]);
+										if (abc[j] != "" && abc[j] != null)
+										{
+											dataGridViewGraduationInstitution.Rows.Add(abc[j]);
+										}
 									}
 								}
 								else
 								{
 									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["GRADUATIONINSTI"].ToString()) };
-									dataGridViewGraduationInstitution.Rows.Add(row);
+									if (row[0] != "" && row[0] != null)
+									{
+										dataGridViewGraduationInstitution.Rows.Add(row);
+									}
 								}
 								txtINSCONgraduationinstitution.Text = "";
 
@@ -790,13 +985,19 @@ namespace OS
 									string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PASTEMP"].ToString()).Split('|');
 									for (int j = 0; j < abc.Length; j++)
 									{
-										dataGridViewPastEmployee.Rows.Add(abc[j]);
+										if (abc[j] != "" && abc[j] != null)
+										{
+											dataGridViewPastEmployee.Rows.Add(abc[j]);
+										}
 									}
 								}
 								else
 								{
 									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PASTEMP"].ToString()) };
-									dataGridViewPastEmployee.Rows.Add(row);
+									if (row[0] != "" && row[0] != null)
+									{
+										dataGridViewPastEmployee.Rows.Add(row);
+									}
 								}
 								txtINSCONpastemployee.Text = "";
 
@@ -809,12 +1010,12 @@ namespace OS
 									string a = CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["TYPE"].ToString());
 									if (CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["TYPE"].ToString()) == "FINANCIAL")
 									{
-										string[] row = { CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["ADDRESS"].ToString()) };
+										string[] row = { CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["ADDRESS"].ToString()), ds.Tables[1].Rows[i]["ID"].ToString() };
 										dataGridViewmaterialfinancial.Rows.Add(row);
 									}
 									else
 									{
-										string[] row = { CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["ADDRESS"].ToString()) };
+										string[] row = { CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["DEMATACNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["RELATIONSHIP"].ToString()), CryptographyHelper.Decrypt(ds.Tables[1].Rows[i]["ADDRESS"].ToString()), ds.Tables[1].Rows[i]["ID"].ToString() };
 										dataGridViewISNCONrelativetable.Rows.Add(row);
 									}
 								}
@@ -857,12 +1058,11 @@ namespace OS
 						}
 					}
 				}
-
-
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -896,6 +1096,8 @@ namespace OS
 			txtINSCONfinancialdematacno.Text = "";
 			txtINSCONfinancialrelationship.Text = "";
 			txtINSCONfinancialaddress.Text = "";
+			permanentaddress.Text = "";
+			txtotheridentifier.Text = "";
 		}
 
 		private void btncacncelINSCON_Click(object sender, EventArgs e)
@@ -907,12 +1109,14 @@ namespace OS
 			btncacncelINSCON.Visible = false;
 			btnaddINSCON.Visible = true;
 			FillConnectPersonID();
+			button3.PerformClick();
 		}
 
 		private void btnupdateINSCON_Click(object sender, EventArgs e)
 		{
 			try
 			{
+				int error = 0;
 				SetLoading(true);
 
 				Thread.Sleep(2000);
@@ -937,30 +1141,43 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
-					}
-					else if (txtINSCONconnectperson.Text == "")
-					{
-						DialogResult dialog = MessageBox.Show("Enter Connect Person ID.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Close();
 					}
 					else if (txtINSCONnameofemployee.Text == "")
 					{
 						DialogResult dialog = MessageBox.Show("Enter Name of Employee.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
-					else if (txtINSCONpannomaster.Text == "")
+					else if (txtINSCONaddressmaster.Text == "")
 					{
-						DialogResult dialog = MessageBox.Show("Enter Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						DialogResult dialog = MessageBox.Show("Enter Permanent Address.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (permanentaddress.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Enter Residentail Address.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else if (dataGridViewPhonemobile.Rows.Count <= 0)
 					{
 						DialogResult dialog = MessageBox.Show("Enter Phone No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
-					else if (!new MasterClass().IsValidPanno(txtINSCONpannomaster.Text))
-					{
-						DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
 					else
 					{
+						if (txtINSCONpannomaster.Text == "")
+						{
+							if (txtotheridentifier.Text == "")
+							{
+								DialogResult dialog = MessageBox.Show("Enter Other Identifier No or Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								error++;
+							}
+						}
+						else
+						{
+							if (!new MasterClass().IsValidPanno(txtINSCONpannomaster.Text))
+							{
+								DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								error++;
+							}
+						}
+						
 						DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
 						DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
 						List<string> termsList = new List<string>();
@@ -999,7 +1216,9 @@ namespace OS
 								NAME_OF_EMP = txtINSCONnameofemployee.Text,
 								ADDRESS = txtINSCONaddressmaster.Text,
 								PAN_NO = txtINSCONpannomaster.Text,
-								CURRENT_DESIGNATION = txtINSCONcurrentdesigantion.Text
+								CURRENT_DESIGNATION = txtINSCONcurrentdesigantion.Text,
+								OTHERIDENTIFIER = txtotheridentifier.Text,
+								RESIADDRESS = permanentaddress.Text
 							};
 							string PhoneNo = "";
 							foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
@@ -1022,6 +1241,7 @@ namespace OS
 								if (!new MasterClass().IsValidDematAcno(row.Cells["datagridviewdematacno"].Value.ToString()))
 								{
 									DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+									error++;
 								}
 								else
 								{
@@ -1073,6 +1293,47 @@ namespace OS
 									if (!new MasterClass().IsValidPanno(row.Cells["PANNo"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else if (row.Cells["DematAcNo"].Value.ToString() != "")
+									{
+										if (!new MasterClass().IsValidDematAcno(row.Cells["DematAcNo"].Value.ToString()))
+										{
+											DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+											error++;
+										}
+										else
+										{
+
+											T_INS_PER_IMMEDAITE_RELATIVES RELATIVEARRAY = new T_INS_PER_IMMEDAITE_RELATIVES
+											{
+												ID = row.Cells["RelativeID"].Value.ToString(),
+												NAME = row.Cells["FullName"].Value.ToString(),
+												MOBILE_NO = row.Cells["MobileNo"].Value.ToString(),
+												PAN_NO = row.Cells["PANNo"].Value.ToString(),
+												DEMAT_AC_NO = row.Cells["DematAcNo"].Value.ToString(),
+												RELATIONSHIP = row.Cells["Relationship"].Value.ToString(),
+												ADDRESS = row.Cells["Address"].Value.ToString()
+											};
+
+											T_INS_PER_IMMEDAITE_RELATIVES.Add(RELATIVEARRAY);
+										}
+									}
+									else
+									{
+
+										T_INS_PER_IMMEDAITE_RELATIVES RELATIVEARRAY = new T_INS_PER_IMMEDAITE_RELATIVES
+										{
+											ID = row.Cells["RelativeID"].Value.ToString(),
+											NAME = row.Cells["FullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["MobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["PANNo"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["DematAcNo"].Value.ToString(),
+											RELATIONSHIP = row.Cells["Relationship"].Value.ToString(),
+											ADDRESS = row.Cells["Address"].Value.ToString()
+										};
+
+										T_INS_PER_IMMEDAITE_RELATIVES.Add(RELATIVEARRAY);
 									}
 								}
 								else if (row.Cells["DematAcNo"].Value.ToString() != "")
@@ -1080,6 +1341,23 @@ namespace OS
 									if (!new MasterClass().IsValidDematAcno(row.Cells["DematAcNo"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else
+									{
+
+										T_INS_PER_IMMEDAITE_RELATIVES RELATIVEARRAY = new T_INS_PER_IMMEDAITE_RELATIVES
+										{
+											ID = row.Cells["RelativeID"].Value.ToString(),
+											NAME = row.Cells["FullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["MobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["PANNo"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["DematAcNo"].Value.ToString(),
+											RELATIONSHIP = row.Cells["Relationship"].Value.ToString(),
+											ADDRESS = row.Cells["Address"].Value.ToString()
+										};
+
+										T_INS_PER_IMMEDAITE_RELATIVES.Add(RELATIVEARRAY);
 									}
 								}
 								else
@@ -1087,6 +1365,7 @@ namespace OS
 
 									T_INS_PER_IMMEDAITE_RELATIVES RELATIVEARRAY = new T_INS_PER_IMMEDAITE_RELATIVES
 									{
+										ID = row.Cells["RelativeID"].Value.ToString(),
 										NAME = row.Cells["FullName"].Value.ToString(),
 										MOBILE_NO = row.Cells["MobileNo"].Value.ToString(),
 										PAN_NO = row.Cells["PANNo"].Value.ToString(),
@@ -1109,6 +1388,43 @@ namespace OS
 									if (!new MasterClass().IsValidPanno(row.Cells["FinancialPanno"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else if (row.Cells["FinancialDemaAcno"].Value.ToString() != "")
+									{
+										if (!new MasterClass().IsValidDematAcno(row.Cells["FinancialDemaAcno"].Value.ToString()))
+										{
+											DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+											error++;
+										}
+										else
+										{
+											T_INS_PER_MATERIAL_FINANCIAL FINANCIALARRAY = new T_INS_PER_MATERIAL_FINANCIAL
+											{
+												ID = row.Cells["FinancialID"].Value.ToString(),
+												NAME = row.Cells["financilaFullName"].Value.ToString(),
+												MOBILE_NO = row.Cells["financilaMobileNo"].Value.ToString(),
+												PAN_NO = row.Cells["FinancialPanno"].Value.ToString(),
+												DEMAT_AC_NO = row.Cells["FinancialDemaAcno"].Value.ToString(),
+												RELATIONSHIP = row.Cells["FinancialRelationship"].Value.ToString(),
+												ADDRESS = row.Cells["Financialaddress"].Value.ToString()
+											};
+											T_INS_PER_MATERIAL_FINANCIAL.Add(FINANCIALARRAY);
+										}
+									}
+									else
+									{
+										T_INS_PER_MATERIAL_FINANCIAL FINANCIALARRAY = new T_INS_PER_MATERIAL_FINANCIAL
+										{
+											ID = row.Cells["FinancialID"].Value.ToString(),
+											NAME = row.Cells["financilaFullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["financilaMobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["FinancialPanno"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["FinancialDemaAcno"].Value.ToString(),
+											RELATIONSHIP = row.Cells["FinancialRelationship"].Value.ToString(),
+											ADDRESS = row.Cells["Financialaddress"].Value.ToString()
+										};
+										T_INS_PER_MATERIAL_FINANCIAL.Add(FINANCIALARRAY);
 									}
 								}
 								else if (row.Cells["FinancialDemaAcno"].Value.ToString() != "")
@@ -1116,12 +1432,28 @@ namespace OS
 									if (!new MasterClass().IsValidDematAcno(row.Cells["FinancialDemaAcno"].Value.ToString()))
 									{
 										DialogResult dialog = MessageBox.Show("Enter Proper Demat A.c No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+										error++;
+									}
+									else
+									{
+										T_INS_PER_MATERIAL_FINANCIAL FINANCIALARRAY = new T_INS_PER_MATERIAL_FINANCIAL
+										{
+											ID = row.Cells["FinancialID"].Value.ToString(),
+											NAME = row.Cells["financilaFullName"].Value.ToString(),
+											MOBILE_NO = row.Cells["financilaMobileNo"].Value.ToString(),
+											PAN_NO = row.Cells["FinancialPanno"].Value.ToString(),
+											DEMAT_AC_NO = row.Cells["FinancialDemaAcno"].Value.ToString(),
+											RELATIONSHIP = row.Cells["FinancialRelationship"].Value.ToString(),
+											ADDRESS = row.Cells["Financialaddress"].Value.ToString()
+										};
+										T_INS_PER_MATERIAL_FINANCIAL.Add(FINANCIALARRAY);
 									}
 								}
 								else
 								{
 									T_INS_PER_MATERIAL_FINANCIAL FINANCIALARRAY = new T_INS_PER_MATERIAL_FINANCIAL
 									{
+										ID = row.Cells["FinancialID"].Value.ToString(),
 										NAME = row.Cells["financilaFullName"].Value.ToString(),
 										MOBILE_NO = row.Cells["financilaMobileNo"].Value.ToString(),
 										PAN_NO = row.Cells["FinancialPanno"].Value.ToString(),
@@ -1135,64 +1467,119 @@ namespace OS
 							CNS.FINANCIALARRAY = T_INS_PER_MATERIAL_FINANCIAL.ToArray();
 							CNS.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 
-							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PER SET EMPNAME = '" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "',CURRDESIGNATION = '" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "',ADDRESS = '" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "',DEMATACNO = '" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "',GRADUATIONINSTI = '" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "',PASTEMP = '" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
-							new MasterClass().executeQuery("DELETE T_INS_PER_DT	WHERE PERID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' AND ACTIVE = 'Y'");
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PER_LOG(TID,CONNECTPERSONID,EMPNAME,CURRDESIGNATION,ADDRESS,PANNO,DEMATACNO,MOBILENO,GRADUATIONINSTI,PASTEMP,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(CNS.CONNECT_PERSON_ID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
-							lg.CURRVALUE = "CONNECTED PERSON TAB";
-							lg.TYPE = "UPDATED";
-							lg.ID = perlogid;
-							lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
-							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							lg.ID = SESSIONKEYS.UserID.ToString();
-							new MasterClass().SAVE_LOG(lg);
-							if (Convert.ToInt32(ds) > 0)
+							if (error == 0)
 							{
-								foreach (T_INS_PER_MATERIAL_FINANCIAL m_x in CNS.FINANCIALARRAY)
-								{
-									string dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
-									string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
-									lg.CURRVALUE = "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP";
-									lg.TYPE = "UPDATED";
-									lg.ID = perlogisdt;
-									lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
-									lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-									lg.ID = SESSIONKEYS.UserID.ToString();
-									new MasterClass().SAVE_LOG(lg);
-								}
+								DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_PER_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
 
-								foreach (T_INS_PER_IMMEDAITE_RELATIVES m_x in CNS.RELATIVEARRAY)
+								string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PER SET EMPNAME = '" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "',CURRDESIGNATION = '" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "',ADDRESS = '" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "',RESIADDRESS = '" + CryptographyHelper.Encrypt(CNS.RESIADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(CNS.OTHERIDENTIFIER) + "',DEMATACNO = '" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "',GRADUATIONINSTI = '" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "',PASTEMP = '" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+								new MasterClass().executeQuery("UPDATE T_INS_PER_DT SET ACTIVE = 'N' WHERE PERID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' AND ACTIVE = 'Y'");
+								//new MasterClass().executeQuery("UPDATE T_INS_PER_DT_LOG SET ACTIVE = 'N' WHERE PERID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' AND ACTIVE = 'Y'");
+								string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PER_LOG(TID,CONNECTPERSONID,EMPNAME,CURRDESIGNATION,ADDRESS,RESIADDRESS,PANNO,OTHERIDENTIFIER,DEMATACNO,MOBILENO,GRADUATIONINSTI,PASTEMP,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(CNS.CONNECT_PERSON_ID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.RESIADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
+								lg.CURRVALUE = "CONNECTED PERSON TAB";
+								lg.TYPE = "UPDATED";
+								lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
+								lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
+								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+								//lg.ID = SESSIONKEYS.UserID.ToString();
+								new MasterClass().SAVE_LOG(lg);
+								Thread.Sleep(1000);
+								if (Convert.ToInt32(ds) > 0)
 								{
-									string dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
-									string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
-									lg.CURRVALUE = "CONNECTED PERSON TAB RELATIVE RELATIONSHIP";
-									lg.TYPE = "UPDATED";
-									lg.ID = perlogisdt;
-									lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
-									lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-									lg.ID = SESSIONKEYS.UserID.ToString();
-									new MasterClass().SAVE_LOG(lg);
+									foreach (T_INS_PER_MATERIAL_FINANCIAL m_x in CNS.FINANCIALARRAY)
+									{
+										string dss = "";
+										if (m_x.ID != "")
+										{
+											DataSet getvals = new MasterClass().getDataSet("SELECT ID FROM T_INS_PER_DT_LOG WHERE ACTIVE = 'Y' AND ID = '" + m_x.ID + "' ORDER BY ENTEREDON DESC");
+
+											dss = new MasterClass().executeQuery("UPDATE T_INS_PER_DT SET PERID =  '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "',NAME='" + CryptographyHelper.Encrypt(m_x.NAME) + "',ADDRESS ='" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "',RELATIONSHIP = '" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "',MOBILENO = '" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "',PANNO = '" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "',DEMATACNO = '" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "',ACTIVE = 'Y' WHERE ID = '" + m_x.ID + "' ;").ToString();
+
+											string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + m_x.ID + "','" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
+											lg.CURRVALUE = "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP";
+											lg.TYPE = "UPDATED";
+											lg.ID = perlogisdt + "|" + getvals.Tables[0].Rows[0]["ID"].ToString();
+											lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
+											lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+											//lg.ID = SESSIONKEYS.UserID.ToString();
+											new MasterClass().SAVE_LOG(lg);
+										}
+										else
+										{
+											dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
+
+											string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
+											lg.CURRVALUE = "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP";
+											lg.TYPE = "UPDATED";
+											lg.ID = perlogisdt;
+											lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
+											lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+											//lg.ID = SESSIONKEYS.UserID.ToString();
+											new MasterClass().SAVE_LOG(lg);
+										}
+
+
+
+									}
+									Thread.Sleep(1000);
+									foreach (T_INS_PER_IMMEDAITE_RELATIVES m_x in CNS.RELATIVEARRAY)
+									{
+										string dss = "";
+										if (m_x.ID != "")
+										{
+											DataSet getvals = new MasterClass().getDataSet("SELECT ID FROM T_INS_PER_DT_LOG WHERE ACTIVE = 'Y' AND ID = '" + m_x.ID + "'  ORDER BY ENTEREDON DESC");
+
+											dss = new MasterClass().executeQuery("UPDATE T_INS_PER_DT SET PERID =  '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "',NAME='" + CryptographyHelper.Encrypt(m_x.NAME) + "',ADDRESS ='" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "',RELATIONSHIP = '" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "',MOBILENO = '" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "',PANNO = '" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "',DEMATACNO = '" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "',ACTIVE = 'Y' WHERE ID = '" + m_x.ID + "' ;").ToString();
+
+											string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + m_x.ID + "','" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
+											lg.CURRVALUE = "CONNECTED PERSON TAB RELATIVE RELATIONSHIP";
+											lg.TYPE = "UPDATED";
+											lg.ID = perlogisdt + "|" + getvals.Tables[0].Rows[0]["ID"].ToString();
+											lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
+											lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+											//lg.ID = SESSIONKEYS.UserID.ToString();
+											new MasterClass().SAVE_LOG(lg);
+										}
+										else
+										{
+											dss = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT(PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK)  VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N')").ToString();
+
+											string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dss + "','" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N')").ToString();
+											lg.CURRVALUE = "CONNECTED PERSON TAB RELATIVE RELATIONSHIP";
+											lg.TYPE = "UPDATED";
+											lg.ID = perlogisdt;
+											lg.DESCRIPTION = "UPDATED VALUE :- " + CNS.CONNECT_PERSON_ID;
+											lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+											//lg.ID = SESSIONKEYS.UserID.ToString();
+											new MasterClass().SAVE_LOG(lg);
+										}
+
+
+									}
+									DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
 								}
-								DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								else
+								{
+									DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								}
+								Clear();
+								txtINSCONconnectperson.Text = "";
+								btnupdateINSCON.Visible = false;
+								btnaddINSCONdeelete.Visible = false;
+								btncacncelINSCON.Visible = false;
+								btnaddINSCON.Visible = true;
+								FillConnectPersonID();
+								button3.PerformClick();
 							}
-							else
-							{
-								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Information);
-							}
-							Clear();
-							txtINSCONconnectperson.Text = "";
-							btnupdateINSCON.Visible = false;
-							btnaddINSCONdeelete.Visible = false;
-							btncacncelINSCON.Visible = false;
-							btnaddINSCON.Visible = true;
-							FillConnectPersonID();
 						}
 					}
 				});
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Updated. Please Check Your Internet Connection.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -1225,7 +1612,7 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
+						Close();
 					}
 					else
 					{
@@ -1235,7 +1622,9 @@ namespace OS
 							NAME_OF_EMP = txtINSCONnameofemployee.Text,
 							ADDRESS = txtINSCONaddressmaster.Text,
 							PAN_NO = txtINSCONpannomaster.Text,
-							CURRENT_DESIGNATION = txtINSCONcurrentdesigantion.Text
+							CURRENT_DESIGNATION = txtINSCONcurrentdesigantion.Text,
+							OTHERIDENTIFIER = txtotheridentifier.Text,
+							RESIADDRESS = permanentaddress.Text
 						};
 						string PhoneNo = "";
 						foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
@@ -1333,38 +1722,38 @@ namespace OS
 						if (dialogResult == DialogResult.Yes)
 						{
 							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PER SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "'").ToString();
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PER_LOG(TID,CONNECTPERSONID,EMPNAME,CURRDESIGNATION,ADDRESS,PANNO,DEMATACNO,MOBILENO,GRADUATIONINSTI,PASTEMP,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(CNS.CONNECT_PERSON_ID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N')").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PER_LOG(TID,CONNECTPERSONID,EMPNAME,CURRDESIGNATION,ADDRESS,RESIADDRESS,PANNO,OTHERIDENTIFIER,DEMATACNO,MOBILENO,GRADUATIONINSTI,PASTEMP,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(CNS.CONNECT_PERSON_ID) + "','" + CryptographyHelper.Encrypt(CNS.NAME_OF_EMP) + "','" + CryptographyHelper.Encrypt(CNS.CURRENT_DESIGNATION) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.RESIADDRESS) + "','" + CryptographyHelper.Encrypt(CNS.PAN_NO) + "','" + CryptographyHelper.Encrypt(CNS.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(CNS.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt(CNS.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(CNS.GRADUATION_INSTITUTIONS) + "','" + CryptographyHelper.Encrypt(CNS.PAST_EMPLOYEES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N')").ToString();
 							lg.CURRVALUE = "CONNECTED PERSON TAB";
 							lg.TYPE = "DELETED";
 							lg.ID = perlogid;
 							lg.DESCRIPTION = "DELETED VALUE :- " + CNS.CONNECT_PERSON_ID;
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							lg.ID = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
 							new MasterClass().SAVE_LOG(lg);
 
 
 							string dsS = new MasterClass().executeQueryForDB("UPDATE T_INS_PER_DT SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE PERID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "'").ToString();
 							foreach (T_INS_PER_MATERIAL_FINANCIAL m_x in CNS.FINANCIALARRAY)
 							{
-								string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N')").ToString();
+								string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("FINANCIAL") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N')").ToString();
 								lg.CURRVALUE = "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP";
 								lg.TYPE = "DELETED";
 								lg.ID = perlogisdt;
 								lg.DESCRIPTION = "DELETED VALUE :- " + CNS.CONNECT_PERSON_ID;
 								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-								lg.ID = SESSIONKEYS.UserID.ToString();
+								//lg.ID = SESSIONKEYS.UserID.ToString();
 								new MasterClass().SAVE_LOG(lg);
 							}
 
 							foreach (T_INS_PER_IMMEDAITE_RELATIVES m_x in CNS.RELATIVEARRAY)
 							{
-								string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dsS + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(CNS.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N')").ToString();
+								string perlogisdt = new MasterClass().executeQuery("INSERT INTO T_INS_PER_DT_LOG(TID,PERID,NAME,ADDRESS,RELATIONSHIP,MOBILENO,PANNO,DEMATACNO,TYPE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + dsS + "','" + ds + "','" + CryptographyHelper.Encrypt(m_x.NAME) + "','" + CryptographyHelper.Encrypt(m_x.ADDRESS) + "','" + CryptographyHelper.Encrypt(m_x.RELATIONSHIP) + "','" + CryptographyHelper.Encrypt(m_x.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(m_x.PAN_NO) + "','" + CryptographyHelper.Encrypt(m_x.DEMAT_AC_NO) + "','" + CryptographyHelper.Encrypt("RELATIVE") + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N')").ToString();
 								lg.CURRVALUE = "CONNECTED PERSON TAB RELATIVE RELATIONSHIP";
 								lg.TYPE = "DELETED";
 								lg.ID = perlogisdt;
 								lg.DESCRIPTION = "DELETED VALUE :- " + CNS.CONNECT_PERSON_ID;
 								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-								lg.ID = SESSIONKEYS.UserID.ToString();
+								//lg.ID = SESSIONKEYS.UserID.ToString();
 								new MasterClass().SAVE_LOG(lg);
 							}
 							if (Convert.ToInt32(ds) > 0)
@@ -1377,6 +1766,7 @@ namespace OS
 								btncacncelINSCON.Visible = false;
 								btnaddINSCON.Visible = true;
 								FillConnectPersonID();
+								button3.PerformClick();
 							}
 							else
 							{
@@ -1389,8 +1779,10 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Saved. Please Check Your Internet Connection.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
@@ -1400,35 +1792,111 @@ namespace OS
 		{
 			HOMEPAGE H = new HOMEPAGE();
 			H.Show();
-			Hide();
+			Close();
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
 			Clear();
 			FillConnectPersonID();
-			txtINSCONconnectperson.Text = "";
+			string CPID = "CP" + new MasterClass().GETCPID();
+			txtINSCONconnectperson.Text = CPID;
 			txtINSCONconnectperson.Enabled = false;
 			btnupdateINSCON.Visible = false;
 			btnaddINSCONdeelete.Visible = false;
 			btncacncelINSCON.Visible = false;
 			btnaddINSCON.Visible = true;
+			btnaddINSCON.Enabled = true;
 
+			txtINSCONnameofemployee.Enabled = true;
+			txtINSCONpannomaster.Enabled = true;
+			txtINSCONcurrentdesigantion.Enabled = true;
+			txtINSCONaddressmaster.Enabled = true;
+			txtINSCONrelativefullnam.Enabled = true;
+			txtINSCONrelativemobileno.Enabled = true;
+			txtINSCONrelativepanno.Enabled = true;
+			txtINSCONrelativedematacno.Enabled = true;
+			txtINSCONrelativerelationship.Enabled = true;
+			txtINSCONrelativeaddress.Enabled = true;
+			txtINSCONfinancialfullname.Enabled = true;
+			txtINSCONfinancialmobileno.Enabled = true;
+			txtINSCONfinancialpanno.Enabled = true;
+			txtINSCONfinancialdematacno.Enabled = true;
+			txtINSCONfinancialrelationship.Enabled = true;
+			txtINSCONfinancialaddress.Enabled = true;
+			permanentaddress.Enabled = true;
+			txtotheridentifier.Enabled = true;
+			txtMobileINSCONNumber.Enabled = true;
+			btnINSCONaddnumber.Enabled = true;
+			txtINSCONdemataccountno.Enabled = true;
+			btnINSCONadddematacno.Enabled = true;
+			txtINSCONgraduationinstitution.Enabled = true;
+			txtINSCONpastemployee.Enabled = true;
+			btnINSCONpastemployees.Enabled = true;
+			btnddrelative.Enabled = true;
+			btnmaterial.Enabled = true;
+			btnINSCONGraduationInstitution.Enabled = true;
 		}
 
 		private void button3_Click(object sender, EventArgs e)
 		{
 			Clear();
 			FillConnectPersonID();
+			txtINSCONconnectperson.Text = "";
 			txtINSCONconnectperson.Enabled = true;
 			btnupdateINSCON.Visible = true;
 			btnaddINSCONdeelete.Visible = true;
 			btncacncelINSCON.Visible = true;
 			btnaddINSCON.Visible = false;
+			btnupdateINSCON.Enabled = true;
+			btnaddINSCONdeelete.Enabled = true;
+			btncacncelINSCON.Enabled = true;
+
+			txtINSCONnameofemployee.Enabled = true;
+			txtINSCONpannomaster.Enabled = true;
+			txtINSCONcurrentdesigantion.Enabled = true;
+			txtINSCONaddressmaster.Enabled = true;
+			txtINSCONrelativefullnam.Enabled = true;
+			txtINSCONrelativemobileno.Enabled = true;
+			txtINSCONrelativepanno.Enabled = true;
+			txtINSCONrelativedematacno.Enabled = true;
+			txtINSCONrelativerelationship.Enabled = true;
+			txtINSCONrelativeaddress.Enabled = true;
+			txtINSCONfinancialfullname.Enabled = true;
+			txtINSCONfinancialmobileno.Enabled = true;
+			txtINSCONfinancialpanno.Enabled = true;
+			txtINSCONfinancialdematacno.Enabled = true;
+			txtINSCONfinancialrelationship.Enabled = true;
+			txtINSCONfinancialaddress.Enabled = true;
+			permanentaddress.Enabled = true;
+			txtotheridentifier.Enabled = true;
+			txtMobileINSCONNumber.Enabled = true;
+			btnINSCONaddnumber.Enabled = true;
+			txtINSCONdemataccountno.Enabled = true;
+			btnINSCONadddematacno.Enabled = true;
+			txtINSCONgraduationinstitution.Enabled = true;
+			txtINSCONpastemployee.Enabled = true;
+			btnINSCONpastemployees.Enabled = true;
+			btnddrelative.Enabled = true;
+			btnmaterial.Enabled = true;
+			btnINSCONGraduationInstitution.Enabled = true;
 		}
+
 
 		#endregion
 
-
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBox1.Checked == true)
+			{
+				permanentaddress.Text = txtINSCONaddressmaster.Text;
+				permanentaddress.Enabled = false;
+			}
+			else
+			{
+				permanentaddress.Text = "";
+				permanentaddress.Enabled = true;
+			}
+		}
 	}
 }

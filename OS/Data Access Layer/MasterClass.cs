@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlServerCe;
 using System.Device.Location;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,6 +16,7 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace OS.Data_Access_Layer
@@ -38,6 +40,29 @@ namespace OS.Data_Access_Layer
 		{
 
 			return new MasterClass().executeQuery("INSERT INTO M_LOG_AUDIT(NAME,OPERATION,DESCRIPTION,TID,ENTEREDBY,ENTEREDON) VALUES ('" + CryptographyHelper.Encrypt(obj.CURRVALUE) + "', '" + CryptographyHelper.Encrypt(obj.TYPE) + "', '" + CryptographyHelper.Encrypt(obj.DESCRIPTION) + "', '" + obj.ID + "', '" + obj.ENTEREDBY + "', '" + GETIST() + "'); ").ToString();
+		}
+
+		public void SAVETEXTLOG(Exception e)
+		{
+			string TXTPATH = Directory.GetCurrentDirectory() + "\\EXCEPTION\\" + "Exception_" + DateTime.Now.ToString("dd-MM-yyyy_hh-MM-ss") + ".txt";
+			FileInfo fi = new FileInfo(TXTPATH);
+			try
+			{
+				if (fi.Exists)
+				{
+					fi.Delete();
+				}
+
+				using (StreamWriter sw = fi.CreateText())
+				{
+					sw.WriteLine("Exception file created: {0}", DateTime.Now.ToString());
+					sw.WriteLine(e.ToString());
+				}
+			}
+			catch (Exception ex)
+			{
+				SAVETEXTLOG(ex);
+			}
 		}
 
 		public string GETLOCKDB()
@@ -192,41 +217,38 @@ namespace OS.Data_Access_Layer
 			return UTF8Encoding.UTF8.GetString(resultArray);
 		}
 
-		public static DateTime GETIST()
+		public static string GETIST()
 		{
 			DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
-			return dateTime_Indian;
+			return dateTime_Indian.ToString("yyyy-MM-dd hh:mm:ss");
 		}
 
 		public static string GETISTI()
 		{
-			DateTime dateTime = DateTime.MinValue;
-			System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
-			request.Method = "GET";
-			request.Accept = "text/html, application/xhtml+xml, */*";
-			request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-			request.ContentType = "application/x-www-form-urlencoded";
-			request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
-			request.Timeout = 1000000000;
-			System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
-			if (response.StatusCode == System.Net.HttpStatusCode.OK)
-			{
-				string todaysDates = response.Headers["date"];
-
-				dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
-					System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
-			}
-
-			DateTime currentDateTime = DateTime.Now;
-			DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
-			DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
-			if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+			CultureInfo.CurrentCulture.ClearCachedData();
+			TimeZoneInfo.ClearCachedData();
+			//Thread.Sleep(2000);
+			TimeZoneInfo tz = TimeZoneInfo.Local;
+			if (tz.StandardName.ToString() != "India Standard Time")
 			{
 				return "TEMP";
 			}
 			else
 			{
-				return "ALLOW";
+				DateTime dateTime;
+				dateTime = SESSIONKEYS.datetimeog;
+				DateTime currentDateTime = DateTime.Now;
+				DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
+				DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
+
+				if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+				{
+					return "TEMP";
+				}
+				else
+				{
+					return "ALLOW";
+				}
 			}
 			//DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
 			//return dateTime_Indian;
@@ -234,34 +256,47 @@ namespace OS.Data_Access_Layer
 
 		public static string GETISTII()
 		{
-			DateTime dateTime = DateTime.MinValue;
-			System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
-			request.Method = "GET";
-			request.Accept = "text/html, application/xhtml+xml, */*";
-			request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-			request.ContentType = "application/x-www-form-urlencoded";
-			request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
-			request.Timeout = 1000000000;
-			System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
-			if (response.StatusCode == System.Net.HttpStatusCode.OK)
-			{
-				string todaysDates = response.Headers["date"];
-
-				dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
-					System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
-			}
-
-			DateTime currentDateTime = DateTime.Now;
-			DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
-			DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
-			if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+			CultureInfo.CurrentCulture.ClearCachedData();
+			TimeZoneInfo.ClearCachedData();
+			Thread.Sleep(2000);
+			TimeZoneInfo tz = TimeZoneInfo.Local;
+			if (tz.StandardName.ToString() != "India Standard Time")
 			{
 				return "TEMP";
 			}
 			else
 			{
-				return "ALLOW";
+				DateTime dateTime = DateTime.MinValue;
+				System.Net.HttpWebRequest request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("http://www.microsoft.com");
+				request.Method = "GET";
+				request.Accept = "text/html, application/xhtml+xml, */*";
+				request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
+				request.ContentType = "application/x-www-form-urlencoded";
+				request.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+				request.Timeout = 1000000000;
+				System.Net.HttpWebResponse response = (System.Net.HttpWebResponse)request.GetResponse();
+				if (response.StatusCode == System.Net.HttpStatusCode.OK)
+				{
+					string todaysDates = response.Headers["date"];
+
+					dateTime = DateTime.ParseExact(todaysDates, "ddd, dd MMM yyyy HH:mm:ss 'GMT'",
+						System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat, System.Globalization.DateTimeStyles.AssumeUniversal);
+				}
+
+				DateTime currentDateTime = DateTime.Now;
+				DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
+				DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
+				SESSIONKEYS.datetimeog = dateTime;
+				if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+				{
+					return "TEMP";
+				}
+				else
+				{
+					return "ALLOW";
+				}
 			}
+
 			//DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
 			//return dateTime_Indian;
 		}
@@ -296,6 +331,7 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				tran.Rollback();
 				con.Close();
 				throw ex;
@@ -330,6 +366,7 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				tran.Rollback();
 				con.Close();
 				throw ex;
@@ -348,6 +385,7 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				con.Close();
 				throw ex;
 			}
@@ -370,6 +408,7 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				con.Close();
 				throw ex;
 			}
@@ -393,6 +432,8 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception ex)
 			{
+				con.Close();
+				new MasterClass().SAVETEXTLOG(ex);
 				throw ex;
 			}
 		}
@@ -410,59 +451,67 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception ex)
 			{
+				con.Close();
+				new MasterClass().SAVETEXTLOG(ex);
 				throw ex;
 			}
 		}
 
 		public string ToCsV(DataGridView dGV, string filename)
 		{
-
-			string stOutput = "";
-
-			// Export titles:
-
-			string sHeaders = "";
-
-			for (int j = 0; j < dGV.Columns.Count; j++)
+			try
 			{
-				sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
-			}
+				string stOutput = "";
 
-			stOutput += sHeaders + "\r\n";
+				// Export titles:
 
-			// Export data.
+				string sHeaders = "";
 
-			for (int i = 0; i < dGV.RowCount; i++)
-			{
-
-				string stLine = "";
-
-				for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+				for (int j = 0; j < dGV.Columns.Count; j++)
 				{
-					stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+					sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
 				}
 
-				stOutput += stLine + "\r\n";
+				stOutput += sHeaders + "\r\n";
 
+				// Export data.
+
+				for (int i = 0; i < dGV.RowCount; i++)
+				{
+
+					string stLine = "";
+
+					for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+					{
+						stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+					}
+
+					stOutput += stLine + "\r\n";
+
+				}
+
+				Encoding utf16 = Encoding.GetEncoding(1254);
+
+				byte[] output = utf16.GetBytes(stOutput);
+
+				FileStream fs = new FileStream(filename, FileMode.Create);
+
+				BinaryWriter bw = new BinaryWriter(fs);
+
+				bw.Write(output, 0, output.Length); //write the encoded file
+
+				bw.Flush();
+
+				bw.Close();
+
+				fs.Close();
+				return "";
 			}
-
-			Encoding utf16 = Encoding.GetEncoding(1254);
-
-			byte[] output = utf16.GetBytes(stOutput);
-
-			FileStream fs = new FileStream(filename, FileMode.Create);
-
-			BinaryWriter bw = new BinaryWriter(fs);
-
-			bw.Write(output, 0, output.Length); //write the encoded file
-
-			bw.Flush();
-
-			bw.Close();
-
-			fs.Close();
-			return "";
-
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				return "";
+			}
 		}
 
 		public void ToPDF(DataGridView dataGridView1, string filename, bool fileError = false)
@@ -500,8 +549,9 @@ namespace OS.Data_Access_Layer
 						stream.Close();
 					}
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
+					new MasterClass().SAVETEXTLOG(ex);
 					throw;
 				}
 			}
@@ -531,8 +581,9 @@ namespace OS.Data_Access_Layer
 		{
 			if (DematAcno.Length == 16)
 			{
-				Regex rx = new Regex(@"[A-Z]{2}\d{14}");
-				return rx.IsMatch(DematAcno);
+				return true;
+				//Regex rx = new Regex(@"[A-Z]{2}\d{14}");
+				//return rx.IsMatch(DematAcno);
 			}
 			else
 			{
@@ -612,6 +663,7 @@ namespace OS.Data_Access_Layer
 
 			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				throw ex;
 			}
 
@@ -646,6 +698,7 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception e)
 			{
+				new MasterClass().SAVETEXTLOG(e);
 				return "Unknown latitude and longitude with Exception:" + e.ToString();
 			}
 		}
@@ -667,6 +720,7 @@ namespace OS.Data_Access_Layer
 			}
 			catch (Exception e)
 			{
+				new MasterClass().SAVETEXTLOG(e);
 				return "Unknown IP with Exception:" + e.ToString();
 			}
 		}
@@ -714,7 +768,8 @@ namespace OS.Data_Access_Layer
 
 			catch (Exception ex)
 			{
-				throw ex;
+				new MasterClass().SAVETEXTLOG(ex);
+				return false;
 			}
 
 

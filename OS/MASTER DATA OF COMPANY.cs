@@ -22,18 +22,19 @@ namespace OS
 			Login l = new Login();
 
 			//TopMost = true;
-			WindowState = FormWindowState.Maximized;
+			//WindowState = FormWindowState.Maximized;
 			try
 			{
 				if (SESSIONKEYS.UserID.ToString() == "")
 				{
-					Hide();
+					Close();
 					l.Show();
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				Hide();
+				new MasterClass().SAVETEXTLOG(ex);
+				Close();
 				l.Show();
 			}
 			FIllData();
@@ -64,31 +65,68 @@ namespace OS
 					val = "UPDATE";
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
 		private void SetLoading(bool displayLoader)
 		{
-			if (displayLoader)
+			try
 			{
-				Invoke((MethodInvoker)delegate
+				if (displayLoader)
 				{
-					//picLoader.Visible = true;
-					Cursor = Cursors.WaitCursor;
-					Thread.Sleep(4000);
-				});
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = true;
+						Cursor = Cursors.WaitCursor;
+						//Thread.Sleep(4000);
+					});
+				}
+				else
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = false;
+						Cursor = Cursors.Default;
+					});
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Invoke((MethodInvoker)delegate
-				{
-					//picLoader.Visible = false;
-					Cursor = Cursors.Default;
-				});
+				new MasterClass().SAVETEXTLOG(ex);
+				//Login l = new Login();
+				//l.Show();
+				//Close();
 			}
+			//if (displayLoader)
+			//{
+			//	Invoke((MethodInvoker)delegate
+			//	{
+			//		string a = Cursor.ToString();
+			//		if (a != "[Cursor: WaitCursor]")
+			//		{
+			//			//picLoader.Visible = true;
+			//			Cursor = Cursors.WaitCursor;
+			//			//Thread.Sleep(4000);
+			//		}
+			//	});
+			//}
+			//else
+			//{
+			//	//if(Cursor.Dispose)
+			//	string a = Cursor.ToString();
+			//	if (a != "[Cursor: Default]")
+			//	{
+			//		Invoke((MethodInvoker)delegate
+			//		{
+			//			//picLoader.Visible = false;
+			//			Cursor = Cursors.Default;
+			//		});
+			//	}
+			//}
 		}
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
@@ -118,11 +156,15 @@ namespace OS
 						SESSIONKEYS.UserID = "";
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
+						SetLoading(false);
 						l.Show();
-						Hide();
+						Close();
 					}
-					else
-			if (!new MasterClass().IsValidEmail(txtEmailID.Text))
+					else if (txtCompanyName.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Please Enter Company Name.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (!new MasterClass().IsValidEmail(txtEmailID.Text))
 					{
 						DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
@@ -131,15 +173,19 @@ namespace OS
 						string ds;
 						if (val == "UPDATE")
 						{
+							DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_COMPANY_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
+
 							ds = new MasterClass().executeQueryForDB("UPDATE T_INS_COMPANY SET COMPANYNAME = '" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "',REGOFFICE = '" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "',CORPORATEOFFICE = '" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "',MOBILENO = '" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "',EMAILID = '" + CryptographyHelper.Encrypt(txtEmailID.Text) + "',CIN = '" + CryptographyHelper.Encrypt(txtCIN.Text) + "',BSECODE = '" + CryptographyHelper.Encrypt(txtBSE.Text) + "',NSECODE = '" + CryptographyHelper.Encrypt(txtNSE.Text) + "',ISIN = '" + CryptographyHelper.Encrypt(txtISIN.Text) + "',OFFICERNAME = '" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "',DESIGNATION = '" + CryptographyHelper.Encrypt(txtDesignation.Text) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' ;").ToString();
 							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY_LOG(TID,COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
 
+
+
 							lg.CURRVALUE = "MASTER DATA OF COMPANY PROFILE TAB";
 							lg.TYPE = "UPDATED";
-							lg.ID = perlogid;
+							lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
 							lg.DESCRIPTION = "UPDATED IN MASTER DATA OF COMPANY";
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							lg.ID = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
 							new MasterClass().SAVE_LOG(lg);
 
 							if (Convert.ToInt32(ds) > 0)
@@ -161,7 +207,7 @@ namespace OS
 							lg.ID = perlogid;
 							lg.DESCRIPTION = "INSERTED IN MASTER DATA OF COMPANY";
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							lg.ID = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
 							new MasterClass().SAVE_LOG(lg);
 
 							if (Convert.ToInt32(ds) > 0)
@@ -180,9 +226,15 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Saved. Please Check Your Internet Connection.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			finally
+			{
+				SESSIONKEYS.CompanyName = " of " + txtCompanyName.Text + ".";
 			}
 		}
 
@@ -190,7 +242,7 @@ namespace OS
 		{
 			HOMEPAGE H = new HOMEPAGE();
 			H.Show();
-			Hide();
+			Close();
 		}
 
 		#endregion

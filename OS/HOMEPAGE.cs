@@ -1,6 +1,5 @@
 ﻿using OS.Data_Access_Layer;
 using OS.Data_Entity;
-using RSACryptography;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -12,8 +11,11 @@ namespace OS
 {
 	public partial class HOMEPAGE : MASTERFORM
 	{
+		public long valsize = 0;
+		public long valFUllsize = 4187593114; //4294967296;//3.90GB
+											  //public long valFUllsize = 1048576;//2.00MB
 		private AUDITLOG lg = new AUDITLOG();
-
+		private static readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
 		public HOMEPAGE()
 		{
 			InitializeComponent();
@@ -21,15 +23,74 @@ namespace OS
 
 		private void HOMEPAGE_Load(object sender, EventArgs e)
 		{
-			LLBNAME.Text = "Welcome " + CryptographyHelper.Decrypt(SESSIONKEYS.FullName.ToString());
-			if (SESSIONKEYS.Role.ToString().Trim() == "Y")
+			string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\OS.sdf"));
+			LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
+			LLBNAME.Text = "Welcome " + SESSIONKEYS.FullName.ToString() + SESSIONKEYS.CompanyName.ToString();
+
+			if (GetMatching())
 			{
-				groupBox2.Visible = true;
+				if (SESSIONKEYS.Role.ToString().Trim() == "Y")
+				{
+					groupBox2.Visible = true;
+				}
+				else
+				{
+					groupBox2.Visible = false;
+				}
 			}
 			else
 			{
-				groupBox2.Visible = false;
+				DialogResult dialog = MessageBox.Show("The Following Database size Reached Upto 4.00 GB. Please Contact The Admin.", "HomePage", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				if (SESSIONKEYS.Role.ToString().Trim() != "Y")
+				{
+					Login l = new Login();
+					//lg.CURRVALUE = "LOG OUT";
+					//lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DB STORAGE FULL";
+					//lg.TYPE = "SELECTED";
+					//lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+					SESSIONKEYS.UserID = "";
+					SESSIONKEYS.Role = "";
+					SESSIONKEYS.FullName = "";
+					l.Show();
+					Close();
+				}
 			}
+		}
+
+		public bool GetMatching()
+		{
+			if (valFUllsize >= valsize)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public string FormatSize(long bytes)
+		{
+			valsize = bytes;
+			int counter = 0;
+			decimal number = bytes;
+			while (Math.Round(number / 1024) >= 1)
+			{
+				number = number / 1024;
+				counter++;
+			}
+			return string.Format("{0:n1}{1} ", number, suffixes[counter]);
+		}
+
+		private long GetFileSize(string FilePath)
+		{
+			if (File.Exists(FilePath))
+			{
+				return new FileInfo(FilePath).Length;
+			}
+			return 0;
 		}
 
 		private class RoundedButton : Button
@@ -71,73 +132,81 @@ namespace OS
 		{
 			MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON md = new MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON();
 			md.Show();
-			Hide();
+			Close();
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
 			MASTER_FOR_RECORDING_INSIDER_PROFILE ir = new MASTER_FOR_RECORDING_INSIDER_PROFILE();
 			ir.Show();
-			Hide();
+			Close();
 		}
 
 		private void button3_Click(object sender, EventArgs e)
 		{
 			RECORDING_OF_SHARING_OF_UPSI up = new RECORDING_OF_SHARING_OF_UPSI();
 			up.Show();
-			Hide();
+			Close();
 		}
 
 		private void button5_Click(object sender, EventArgs e)
 		{
 			LIST_OF_CONNECTED_PERSON cp = new LIST_OF_CONNECTED_PERSON();
 			cp.Show();
-			Hide();
+			Close();
 		}
 
 		private void button4_Click(object sender, EventArgs e)
 		{
 			LIST_OF_INSIDERS i = new LIST_OF_INSIDERS();
 			i.Show();
-			Hide();
+			Close();
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
 			REPORTS_OF_SHARING_OF_UPSI up = new REPORTS_OF_SHARING_OF_UPSI();
 			up.Show();
-			Hide();
+			Close();
 		}
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-			Login l = new Login();
-			lg.CURRVALUE = "LOG OUT";
-			lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
-			lg.TYPE = "SELECTED";
-			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-			lg.ID = SESSIONKEYS.UserID.ToString();
-			string json = new MasterClass().SAVE_LOG(lg);
+			try
+			{
+				Login l = new Login();
+				lg.CURRVALUE = "LOG OUT";
+				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
+				lg.TYPE = "SELECTED";
+				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+				lg.ID = SESSIONKEYS.UserID.ToString();
+				string json = new MasterClass().SAVE_LOG(lg);
 
-			SESSIONKEYS.UserID = "";
-			SESSIONKEYS.Role = "";
-			SESSIONKEYS.FullName = "";
-			l.Show();
-			Hide();
+				SESSIONKEYS.UserID = "";
+				SESSIONKEYS.Role = "";
+				SESSIONKEYS.FullName = "";
+				l.Show();
+				Close();
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void button7_Click(object sender, EventArgs e)
 		{
 			MASTER_DATA_OF_COMPANY d = new MASTER_DATA_OF_COMPANY();
 			d.Show();
-			Hide();
+			Close();
 		}
 
 		private void button8_Click(object sender, EventArgs e)
 		{
 			AUDIT_TRAIL a = new AUDIT_TRAIL();
 			a.Show();
-			Hide();
+			Close();
 		}
 
 		private void button9_Click(object sender, EventArgs e)
@@ -172,9 +241,15 @@ namespace OS
 
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				DialogResult dialog = MessageBox.Show("Data Backup Failed.", "Back Up Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			finally
+			{
+				string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\OS.sdf"));
+				LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
 			}
 		}
 
@@ -182,7 +257,7 @@ namespace OS
 		{
 			try
 			{
-				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Restore Data?\nNote:-Please Back Up the Existing Data", "Restore Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Restore Data?\nPlease note that all your earlier data will be wiped out", "Restore Data", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 				if (dialogResult == DialogResult.Yes)
 				{
 					DialogResult ofd = folderBrowserDialog1.ShowDialog();
@@ -222,18 +297,23 @@ namespace OS
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
 				DialogResult dialog = MessageBox.Show("Data Restore Failed.", "Restore Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-
+			finally
+			{
+				string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\OS.sdf"));
+				LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
+			}
 		}
 
 		private void button11_Click(object sender, EventArgs e)
 		{
 			CREATELOGIN l = new CREATELOGIN();
 			l.Show();
-			Hide();
+			Close();
 		}
 
 		private void button12_Click(object sender, EventArgs e)
@@ -277,11 +357,18 @@ namespace OS
 					DialogResult dialog = MessageBox.Show("Locked the Database Successfully.", "Lock Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					Login l = new Login();
 					l.Show();
-					Hide();
+					Close();
 
 				}
 
 			}
+		}
+
+		private void button13_Click(object sender, EventArgs e)
+		{
+			List_of_PAN_s_Registered_under_Database pn = new List_of_PAN_s_Registered_under_Database();
+			pn.Show();
+			Close();
 		}
 	}
 }

@@ -20,21 +20,23 @@ namespace OS
 		private void CREATELOGIN_Load(object sender, EventArgs e)
 		{
 			Login l = new Login();
-
 			try
 			{
 				if (SESSIONKEYS.UserID.ToString() == "")
 				{
-					Hide();
+					Close();
 					l.Show();
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				Hide();
+				new MasterClass().SAVETEXTLOG(ex);
+				Close();
 				l.Show();
 			}
 			FIllData();
+			txtUPSIDateofsharing.CustomFormat = " ";
+			txtUPSIEffctiveUpto.CustomFormat = " ";
 		}
 
 		public void FIllData()
@@ -56,9 +58,10 @@ namespace OS
 					val = "UPDATE";
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				throw;
+				new MasterClass().SAVETEXTLOG(ex);
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -66,27 +69,37 @@ namespace OS
 		{
 			HOMEPAGE h = new HOMEPAGE();
 			h.Show();
-			Hide();
+			Close();
 		}
 
 		private void SetLoading(bool displayLoader)
 		{
-			if (displayLoader)
+			try
 			{
-				Invoke((MethodInvoker)delegate
+				if (displayLoader)
 				{
-					//picLoader.Visible = true;
-					Cursor = Cursors.WaitCursor;
-					Thread.Sleep(4000);
-				});
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = true;
+						Cursor = Cursors.WaitCursor;
+						//Thread.Sleep(4000);
+					});
+				}
+				else
+				{
+					Invoke((MethodInvoker)delegate
+					{
+						//picLoader.Visible = false;
+						Cursor = Cursors.Default;
+					});
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				Invoke((MethodInvoker)delegate
-				{
-					//picLoader.Visible = false;
-					Cursor = Cursors.Default;
-				});
+				new MasterClass().SAVETEXTLOG(ex);
+				//Login l = new Login();
+				//l.Show();
+				//Close();
 			}
 		}
 
@@ -104,6 +117,8 @@ namespace OS
 					//	DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					//}
 					//else
+					int value = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
+
 					if (MasterClass.GETISTI() == "TEMP")
 					{
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -118,7 +133,7 @@ namespace OS
 						SESSIONKEYS.Role = "";
 						SESSIONKEYS.FullName = "";
 						l.Show();
-						Hide();
+						Close();
 					}
 					//else if (txtFullname.Text == "")
 					//{
@@ -136,12 +151,24 @@ namespace OS
 					{
 						DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
+					else if (txtUPSIDateofsharing.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (txtUPSIEffctiveUpto.Text == "")
+					{
+						DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else if (value > 0)
+					{
+						DialogResult dialog = MessageBox.Show("To Date cant be less than From Date.", "Sharing of UPSI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
 					else
 					{
 						string ds;
 						if (val == "UPDATE")
 						{
-							ds = new MasterClass().executeQueryForDB("UPDATE T_LOGIN SET PASSWORD = '" + CryptographyHelper.Encrypt(txtPassword.Text) + "' WHERE ADMIN = 'N'").ToString();
+							ds = new MasterClass().executeQueryForDB("UPDATE T_LOGIN SET DATEFROM = '" + txtUPSIDateofsharing.Value.ToString("yyyy-MM-dd 00:00:00") + "',DATETO = '" + txtUPSIEffctiveUpto.Value.ToString("yyyy-MM-dd 00:00:00") + "', PASSWORD = '" + CryptographyHelper.Encrypt(txtPassword.Text) + "' WHERE ADMIN = 'N'").ToString();
 
 							lg.CURRVALUE = "LOGIN CREATION";
 							lg.TYPE = "UPDATED";
@@ -162,7 +189,7 @@ namespace OS
 						}
 						else
 						{
-							ds = new MasterClass().executeQuery("INSERT INTO T_LOGIN (FULLNAME,MOBILENO,EMAIL,PASSWORD,ENTEREDBY,ENTEREDON,ADMIN ,ACTIVE ,LOCK) VALUES('" + CryptographyHelper.Encrypt(txtFullname.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + txtUsername.Text + "','" + CryptographyHelper.Encrypt(txtPassword.Text) + "','" + SESSIONKEYS.UserID.ToString() + "',GETDATE(),'N','Y','N');").ToString();
+							ds = new MasterClass().executeQuery("INSERT INTO T_LOGIN (FULLNAME,MOBILENO,EMAIL,PASSWORD,ENTEREDBY,ENTEREDON,DATEFROM,DATETO,ADMIN ,ACTIVE ,LOCK) VALUES('" + CryptographyHelper.Encrypt(txtFullname.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + txtUsername.Text + "','" + CryptographyHelper.Encrypt(txtPassword.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + txtUPSIDateofsharing.Value.ToString("yyyy-MM-dd 00:00:00") + "','" + txtUPSIEffctiveUpto.Value.ToString("yyyy-MM-dd 00:00:00") + "','N','Y','N');").ToString();
 
 							lg.CURRVALUE = "LOGIN CREATION";
 							lg.TYPE = "INSERTED";
@@ -188,10 +215,22 @@ namespace OS
 
 				SetLoading(false);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
 				DialogResult dialog = MessageBox.Show("Data Not Saved. Please Check Your Internet Connection.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void txtUPSIDateofsharing_ValueChanged(object sender, EventArgs e)
+		{
+			txtUPSIDateofsharing.CustomFormat = "dd-MM-yyyy";
+		}
+
+		private void txtUPSIEffctiveUpto_ValueChanged(object sender, EventArgs e)
+		{
+			txtUPSIEffctiveUpto.CustomFormat = "dd-MM-yyyy";
 		}
 	}
 }
