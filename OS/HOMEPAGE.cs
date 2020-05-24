@@ -23,7 +23,7 @@ namespace OS
 
 		private void HOMEPAGE_Load(object sender, EventArgs e)
 		{
-			string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\OS.sdf"));
+			string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\The-PIT-Archive.sdf"));
 			LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
 			LLBNAME.Text = "Welcome " + SESSIONKEYS.FullName.ToString() + SESSIONKEYS.CompanyName.ToString();
 
@@ -58,6 +58,8 @@ namespace OS
 				}
 			}
 		}
+
+		#region HOMEPAGE
 
 		public bool GetMatching()
 		{
@@ -228,7 +230,7 @@ namespace OS
 						new MasterClass().SAVE_LOG(lg);
 
 						string backupPath = folderBrowserDialog1.SelectedPath;
-						string fileName = "OS.sdf";
+						string fileName = "The-PIT-Archive.sdf";
 						string sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 						string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
@@ -248,7 +250,7 @@ namespace OS
 			}
 			finally
 			{
-				string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\OS.sdf"));
+				string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\The-PIT-Archive.sdf"));
 				LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
 			}
 		}
@@ -272,13 +274,13 @@ namespace OS
 						new MasterClass().SAVE_LOG(lg);
 
 						string backupPath = folderBrowserDialog1.SelectedPath;
-						string fileName = "OS.sdf";
+						string fileName = "The-PIT-Archive.sdf";
 						string sourcePath = backupPath;
 						string restorePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-						//if (File.Exists("OS.sdf"))
+						//if (File.Exists("The-PIT-Archive.sdf"))
 						//{
-						//	System.IO.File.Move("OS.sdf", "OS" + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss") + ".sdf");
+						//	System.IO.File.Move("The-PIT-Archive.sdf", "The-PIT-Archive" + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss") + ".sdf");
 						//}
 
 						string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
@@ -304,7 +306,7 @@ namespace OS
 			}
 			finally
 			{
-				string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\OS.sdf"));
+				string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\The-PIT-Archive.sdf"));
 				LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
 			}
 		}
@@ -335,7 +337,7 @@ namespace OS
 					new MasterClass().SAVE_LOG(lg);
 
 					string backupPath = folderBrowserDialog1.SelectedPath;
-					string fileName = "OS.sdf";
+					string fileName = "The-PIT-Archive.sdf";
 					string sourcePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 					string sourceFile = System.IO.Path.Combine(sourcePath, fileName);
@@ -349,9 +351,9 @@ namespace OS
 					lg.DESCRIPTION = "BACK UP DATA";
 					new MasterClass().SAVE_LOG(lg);
 
-					if (File.Exists("OS.sdf"))
+					if (File.Exists("The-PIT-Archive.sdf"))
 					{
-						File.Delete("OS.sdf");
+						File.Delete("The-PIT-Archive.sdf");
 					}
 
 					DialogResult dialog = MessageBox.Show("Locked the Database Successfully.", "Lock Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -370,6 +372,8 @@ namespace OS
 			pn.Show();
 			Close();
 		}
+
+		#endregion
 	}
 }
 

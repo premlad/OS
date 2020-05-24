@@ -199,7 +199,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();
@@ -294,7 +294,7 @@ namespace OS
 						PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 
 						string CPID = "UPSI" + new MasterClass().GETUPSIID();
-						string ds = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI(UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N') ;").ToString();
+						string ds = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI(UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','Y','N') ;").ToString();
 						string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
 
 						lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
@@ -566,8 +566,16 @@ namespace OS
 				Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
-					int val = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
-					int val2 = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIUPSIavaailabe.Value);
+					int val = 0;
+					int val2 = 0;
+					if (txtUPSIEffctiveUpto.Text.ToString().Trim() != "")
+					{
+						val = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIEffctiveUpto.Value);
+					}
+					if (txtUPSIUPSIavaailabe.Text.ToString().Trim() != "")
+					{
+						val2 = DateTime.Compare(txtUPSIDateofsharing.Value, txtUPSIUPSIavaailabe.Value);
+					}
 					if (new MasterClass().GETLOCKDB() == "Y")
 					{
 						DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -578,7 +586,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();
@@ -647,7 +655,7 @@ namespace OS
 
 						DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_UPSI_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
 
-						string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_UPSI SET UPSIID = '" + CryptographyHelper.Encrypt(PRO.UPSIID) + "',RECIPIENTNAME = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "',RECIPIENTCAT = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PANNO) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',UPSINATURE = '" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "',SHARINGPURPOSE = '" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "',SHARINGDATE = '" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "',EFFECTIVEUPTO = '" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "',REMARKS = '" + CryptographyHelper.Encrypt(PRO.REMARKS) + "',NDASIGNED = '" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "',UPSIAVAILABLE = '" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+						string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_UPSI SET UPSIID = '" + CryptographyHelper.Encrypt(PRO.UPSIID) + "',RECIPIENTNAME = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "',RECIPIENTCAT = '" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PANNO) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',UPSINATURE = '" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "',SHARINGPURPOSE = '" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "',SHARINGDATE = '" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "',EFFECTIVEUPTO = '" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "',REMARKS = '" + CryptographyHelper.Encrypt(PRO.REMARKS) + "',NDASIGNED = '" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "',UPSIAVAILABLE = '" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
 
 						string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.UPSIID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
 
@@ -674,7 +682,7 @@ namespace OS
 						btncacncelINSCON.Visible = false;
 						btnaddINSCON.Visible = true;
 						FillConnectPersonID();
-						button3.PerformClick();
+						button2.PerformClick();
 					}
 				});
 
@@ -707,7 +715,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();
@@ -762,7 +770,7 @@ namespace OS
 						{
 							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_UPSI  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
 
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.UPSIID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_UPSI_LOG (TID,UPSIID,RECIPIENTNAME,RECIPIENTCAT,PANNO,ADDRESS,UPSINATURE,SHARINGPURPOSE,SHARINGDATE,EFFECTIVEUPTO,REMARKS,NDASIGNED,UPSIAVAILABLE,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.UPSIID) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTNAME) + "','" + CryptographyHelper.Encrypt(PRO.RECIPIENTCAT) + "','" + CryptographyHelper.Encrypt(PRO.PANNO) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.UPSINATURE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGPURPOSE) + "','" + CryptographyHelper.Encrypt(PRO.SHARINGDATE) + "','" + CryptographyHelper.Encrypt(PRO.EFFECTIVEUPTO) + "','" + CryptographyHelper.Encrypt(PRO.REMARKS) + "','" + CryptographyHelper.Encrypt(PRO.NDASIGNED) + "','" + CryptographyHelper.Encrypt(PRO.UPSIAVAILABLE) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N') ;").ToString();
 
 							lg.CURRVALUE = "SHARING OF UPSI PROFILE TAB";
 							lg.TYPE = "DELETED";
@@ -782,7 +790,7 @@ namespace OS
 								btncacncelINSCON.Visible = false;
 								btnaddINSCON.Visible = true;
 								FillConnectPersonID();
-								button3.PerformClick();
+								button2.PerformClick();
 							}
 							else
 							{
@@ -835,8 +843,6 @@ namespace OS
 			h.Show();
 			Close();
 		}
-
-		#endregion
 
 		private void button2_Click(object sender, EventArgs e)
 		{
@@ -902,5 +908,7 @@ namespace OS
 		{
 			txtUPSIUPSIavaailabe.CustomFormat = "dd-MM-yyyy";
 		}
+
+		#endregion
 	}
 }

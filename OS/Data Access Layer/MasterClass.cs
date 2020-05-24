@@ -90,15 +90,15 @@ namespace OS.Data_Access_Layer
 		public string GETCPID()
 		{
 			DataSet ds = new MasterClass().getDataSet("select CONNECTPERSONID from T_INS_PER WHERE ACTIVE = 'Y'");
-			List<string> termsList = new List<string>();
+			List<int> termsList = new List<int>();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 				{
 					string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CONNECTPERSONID"].ToString());
-					termsList.Add(a.Substring(2));
+					termsList.Add(Convert.ToInt32(a.Substring(2)));
 				}
-				string[] b = termsList.ToArray();
+				int[] b = termsList.ToArray();
 				int val = Convert.ToInt32(b.Max()) + Convert.ToInt32(1);
 				return val.ToString();
 			}
@@ -111,16 +111,16 @@ namespace OS.Data_Access_Layer
 		public string GETIPID()
 		{
 			DataSet ds = new MasterClass().getDataSet("select RECEPIENTID from T_INS_PRO WHERE ACTIVE = 'Y'");
-			List<string> termsList = new List<string>();
+			List<int> termsList = new List<int>();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 				{
 					string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString());
-					termsList.Add(a.Substring(2));
+					termsList.Add(Convert.ToInt32(a.Substring(2)));
 				}
-				string[] b = termsList.ToArray();
-				int val = Convert.ToInt32(b.Max()) + Convert.ToInt32(1);
+				int[] b = termsList.ToArray();
+				int val = Convert.ToInt32(b.Max()) + 1;
 				return val.ToString();
 			}
 			else
@@ -132,15 +132,15 @@ namespace OS.Data_Access_Layer
 		public string GETUPSIID()
 		{
 			DataSet ds = new MasterClass().getDataSet("select UPSIID from T_INS_UPSI WHERE ACTIVE = 'Y'");
-			List<string> termsList = new List<string>();
+			List<int> termsList = new List<int>();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
 				for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 				{
 					string a = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString());
-					termsList.Add(a.Substring(4));
+					termsList.Add(Convert.ToInt32(a.Substring(4)));
 				}
-				string[] b = termsList.ToArray();
+				int[] b = termsList.ToArray();
 				int val = Convert.ToInt32(b.Max()) + Convert.ToInt32(1);
 				return val.ToString();
 			}
@@ -217,10 +217,30 @@ namespace OS.Data_Access_Layer
 			return UTF8Encoding.UTF8.GetString(resultArray);
 		}
 
+		public static string GETIST(string d)
+		{
+			try
+			{
+				if (d == "" || d == null)
+				{
+					return "";
+				}
+				else
+				{
+					DateTime a = Convert.ToDateTime(d);
+					return a.ToString("yyyy-MM-dd HH:mm:ss tt", CultureInfo.InvariantCulture);
+				}
+			}
+			catch (Exception)
+			{
+				return d;
+			}
+		}
+
 		public static string GETIST()
 		{
 			DateTime dateTime_Indian = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, India_Standard_Time);
-			return dateTime_Indian.ToString("yyyy-MM-dd hh:mm:ss");
+			return dateTime_Indian.ToString("yyyy-MM-dd HH:mm:ss");
 		}
 
 		public static string GETISTI()
@@ -240,8 +260,8 @@ namespace OS.Data_Access_Layer
 				DateTime currentDateTime = DateTime.Now;
 				DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
 				DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
-
-				if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+				string a = dt.ToString("dd-MM-yyyy HH");
+				if (dt.ToString("dd-MM-yyyy HH") != dtt.ToString("dd-MM-yyyy HH"))
 				{
 					return "TEMP";
 				}
@@ -287,7 +307,7 @@ namespace OS.Data_Access_Layer
 				DateTime dt = dateTime.AddMinutes(-dateTime.Minute).AddSeconds(-dateTime.Second);
 				DateTime dtt = currentDateTime.AddMinutes(-currentDateTime.Minute).AddSeconds(-currentDateTime.Second);
 				SESSIONKEYS.datetimeog = dateTime;
-				if (dt.ToString("dd-MM-yyyy hh") != dtt.ToString("dd-MM-yyyy hh"))
+				if (dt.ToString("dd-MM-yyyy HH") != dtt.ToString("dd-MM-yyyy HH"))
 				{
 					return "TEMP";
 				}
@@ -483,7 +503,8 @@ namespace OS.Data_Access_Layer
 
 					for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
 					{
-						stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
+						stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value.ToString()) + "\t";
+						//stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value) + "\t";
 					}
 
 					stOutput += stLine + "\r\n";
@@ -694,7 +715,6 @@ namespace OS.Data_Access_Layer
 					return "Unknown latitude and longitude.";
 					//Console.WriteLine("Unknown latitude and longitude.");
 				}
-				return "Unknown latitude and longitude.";
 			}
 			catch (Exception e)
 			{

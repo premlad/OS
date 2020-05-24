@@ -1,0 +1,6 @@
+Exception file created: 20-May-20 12:32:55 PM
+System.ArgumentException: Column 'EMAILID' does not belong to table Table.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method)
+   at OS.LIST_OF_CONNECTED_PERSON.FillDataGrid() in C:\TB DATA\BACKUP MAU\UREKA PROJECTS\OS\OS SETUP\OS\LIST OF CONNECTED PERSON.cs:line 80

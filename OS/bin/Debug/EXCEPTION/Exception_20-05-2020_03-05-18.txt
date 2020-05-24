@@ -1,0 +1,2 @@
+Exception file created: 20-May-20 3:42:18 PM
+The column name is not valid. [ Node name (if any) = ,Column name = EMAILID ]

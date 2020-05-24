@@ -34,18 +34,6 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(REPORTS_OF_SHARING_OF_UPSI));
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
-			this.UPSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.InsiderIDCOnnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Pan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Pannoofaffl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.detailsofUPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Datteime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.NDSsigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DateofEntry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Dateofsecofnetry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.datehwnupsi = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.button1 = new OS.ButtonLastest();
 			this.btnDownloadPrinter = new OS.ButtonLastest();
 			this.btnDownloadPDF = new OS.ButtonLastest();
@@ -57,6 +45,21 @@
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
 			this.button2 = new OS.ButtonLastest();
+			this.UPSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.InsiderIDCOnnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.NameUPSI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Pan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Pannoofaffl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.detailsofUPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Datteime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.effectiveupto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.NDSsigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DateofEntry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Dateofsecofnetry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.datehwnupsi = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -91,12 +94,15 @@
 			this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UPSID,
             this.InsiderIDCOnnID,
-            this.Name,
+            this.NameUPSI,
             this.Category,
             this.Pan,
+            this.address,
             this.Pannoofaffl,
             this.detailsofUPID,
             this.Datteime,
+            this.effectiveupto,
+            this.remarks,
             this.NDSsigned,
             this.DateofEntry,
             this.Dateofsecofnetry,
@@ -116,90 +122,6 @@
 			this.dataGridViewTable.ReadOnly = true;
 			this.dataGridViewTable.Size = new System.Drawing.Size(1345, 582);
 			this.dataGridViewTable.TabIndex = 6;
-			// 
-			// UPSID
-			// 
-			this.UPSID.HeaderText = "UPSI ID";
-			this.UPSID.Name = "UPSID";
-			this.UPSID.ReadOnly = true;
-			this.UPSID.Width = 79;
-			// 
-			// InsiderIDCOnnID
-			// 
-			this.InsiderIDCOnnID.HeaderText = "Insider ID | Connected ID";
-			this.InsiderIDCOnnID.Name = "InsiderIDCOnnID";
-			this.InsiderIDCOnnID.ReadOnly = true;
-			this.InsiderIDCOnnID.Width = 114;
-			// 
-			// Name
-			// 
-			this.Name.HeaderText = "Name";
-			this.Name.Name = "Name";
-			this.Name.ReadOnly = true;
-			this.Name.Width = 74;
-			// 
-			// Category
-			// 
-			this.Category.HeaderText = "Category of Recipient";
-			this.Category.Name = "Category";
-			this.Category.ReadOnly = true;
-			this.Category.Width = 105;
-			// 
-			// Pan
-			// 
-			this.Pan.HeaderText = "Pan No";
-			this.Pan.Name = "Pan";
-			this.Pan.ReadOnly = true;
-			this.Pan.Width = 74;
-			// 
-			// Pannoofaffl
-			// 
-			this.Pannoofaffl.HeaderText = "PAN No. of Affiliates, in case the recipient is an entity";
-			this.Pannoofaffl.Name = "Pannoofaffl";
-			this.Pannoofaffl.ReadOnly = true;
-			this.Pannoofaffl.Width = 168;
-			// 
-			// detailsofUPID
-			// 
-			this.detailsofUPID.HeaderText = "Details of UPSI along with reason of sharing";
-			this.detailsofUPID.Name = "detailsofUPID";
-			this.detailsofUPID.ReadOnly = true;
-			this.detailsofUPID.Width = 161;
-			// 
-			// Datteime
-			// 
-			this.Datteime.HeaderText = "Date and Time of Sharing";
-			this.Datteime.Name = "Datteime";
-			this.Datteime.ReadOnly = true;
-			this.Datteime.Width = 122;
-			// 
-			// NDSsigned
-			// 
-			this.NDSsigned.HeaderText = "Whether NDA has been signed and Notice of confidentiality has been given?";
-			this.NDSsigned.Name = "NDSsigned";
-			this.NDSsigned.ReadOnly = true;
-			this.NDSsigned.Width = 244;
-			// 
-			// DateofEntry
-			// 
-			this.DateofEntry.HeaderText = "Date of first entry with User Name";
-			this.DateofEntry.Name = "DateofEntry";
-			this.DateofEntry.ReadOnly = true;
-			this.DateofEntry.Width = 124;
-			// 
-			// Dateofsecofnetry
-			// 
-			this.Dateofsecofnetry.HeaderText = "Date of second and all entry with User Name";
-			this.Dateofsecofnetry.Name = "Dateofsecofnetry";
-			this.Dateofsecofnetry.ReadOnly = true;
-			this.Dateofsecofnetry.Width = 150;
-			// 
-			// datehwnupsi
-			// 
-			this.datehwnupsi.HeaderText = "Date when UPSI became publicly available";
-			this.datehwnupsi.Name = "datehwnupsi";
-			this.datehwnupsi.ReadOnly = true;
-			this.datehwnupsi.Width = 184;
 			// 
 			// button1
 			// 
@@ -327,6 +249,111 @@
 			this.button2.UseVisualStyleBackColor = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
+			// UPSID
+			// 
+			this.UPSID.HeaderText = "UPSI ID";
+			this.UPSID.Name = "UPSID";
+			this.UPSID.ReadOnly = true;
+			this.UPSID.Width = 86;
+			// 
+			// InsiderIDCOnnID
+			// 
+			this.InsiderIDCOnnID.HeaderText = "Insider ID | Connected ID";
+			this.InsiderIDCOnnID.Name = "InsiderIDCOnnID";
+			this.InsiderIDCOnnID.ReadOnly = true;
+			this.InsiderIDCOnnID.Width = 164;
+			// 
+			// NameUPSI
+			// 
+			this.NameUPSI.HeaderText = "Name";
+			this.NameUPSI.Name = "NameUPSI";
+			this.NameUPSI.ReadOnly = true;
+			this.NameUPSI.Width = 74;
+			// 
+			// Category
+			// 
+			this.Category.HeaderText = "Category of Recipient";
+			this.Category.Name = "Category";
+			this.Category.ReadOnly = true;
+			this.Category.Width = 161;
+			// 
+			// Pan
+			// 
+			this.Pan.HeaderText = "PAN No. or any other Identifier ID ";
+			this.Pan.Name = "Pan";
+			this.Pan.ReadOnly = true;
+			this.Pan.Width = 157;
+			// 
+			// address
+			// 
+			this.address.HeaderText = "Address";
+			this.address.Name = "address";
+			this.address.ReadOnly = true;
+			this.address.Width = 89;
+			// 
+			// Pannoofaffl
+			// 
+			this.Pannoofaffl.HeaderText = "PAN No. of Affiliates, in case the recipient is an entity";
+			this.Pannoofaffl.Name = "Pannoofaffl";
+			this.Pannoofaffl.ReadOnly = true;
+			this.Pannoofaffl.Width = 221;
+			// 
+			// detailsofUPID
+			// 
+			this.detailsofUPID.HeaderText = "Details of UPSI along with reason of sharing";
+			this.detailsofUPID.Name = "detailsofUPID";
+			this.detailsofUPID.ReadOnly = true;
+			this.detailsofUPID.Width = 186;
+			// 
+			// Datteime
+			// 
+			this.Datteime.HeaderText = "Date and Time of Sharing";
+			this.Datteime.Name = "Datteime";
+			this.Datteime.ReadOnly = true;
+			this.Datteime.Width = 136;
+			// 
+			// effectiveupto
+			// 
+			this.effectiveupto.HeaderText = "Effective Upto";
+			this.effectiveupto.Name = "effectiveupto";
+			this.effectiveupto.ReadOnly = true;
+			this.effectiveupto.Width = 118;
+			// 
+			// remarks
+			// 
+			this.remarks.HeaderText = "Remarks";
+			this.remarks.Name = "remarks";
+			this.remarks.ReadOnly = true;
+			this.remarks.Width = 93;
+			// 
+			// NDSsigned
+			// 
+			this.NDSsigned.HeaderText = "Whether NDA has been signed and Notice of confidentiality has been given?";
+			this.NDSsigned.Name = "NDSsigned";
+			this.NDSsigned.ReadOnly = true;
+			this.NDSsigned.Width = 244;
+			// 
+			// DateofEntry
+			// 
+			this.DateofEntry.HeaderText = "Date of first entry with User Name";
+			this.DateofEntry.Name = "DateofEntry";
+			this.DateofEntry.ReadOnly = true;
+			this.DateofEntry.Width = 124;
+			// 
+			// Dateofsecofnetry
+			// 
+			this.Dateofsecofnetry.HeaderText = "Date of second and all entry with User Name";
+			this.Dateofsecofnetry.Name = "Dateofsecofnetry";
+			this.Dateofsecofnetry.ReadOnly = true;
+			this.Dateofsecofnetry.Width = 150;
+			// 
+			// datehwnupsi
+			// 
+			this.datehwnupsi.HeaderText = "Date when UPSI became publicly available";
+			this.datehwnupsi.Name = "datehwnupsi";
+			this.datehwnupsi.ReadOnly = true;
+			this.datehwnupsi.Width = 184;
+			// 
 			// REPORTS_OF_SHARING_OF_UPSI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,8 +369,7 @@
 			this.Controls.Add(this.txtInsiderID);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.panel1);
-			//this.Name = "REPORTS_OF_SHARING_OF_UPSI";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Name = "REPORTS_OF_SHARING_OF_UPSI";
 			this.Text = "REPORTS OF SHARING OF UPSI";
 			this.Load += new System.EventHandler(this.REPORTS_OF_SHARING_OF_UPSI_Load);
 			this.Controls.SetChildIndex(this.panel1, 0);
@@ -372,23 +398,26 @@
 		private System.Windows.Forms.Label label4;
 		private System.Drawing.Printing.PrintDocument printDocument1;
 		private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn UPSID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn InsiderIDCOnnID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Pan;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Pannoofaffl;
-		private System.Windows.Forms.DataGridViewTextBoxColumn detailsofUPID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Datteime;
-		private System.Windows.Forms.DataGridViewTextBoxColumn NDSsigned;
-		private System.Windows.Forms.DataGridViewTextBoxColumn DateofEntry;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Dateofsecofnetry;
-		private System.Windows.Forms.DataGridViewTextBoxColumn datehwnupsi;
 		private ButtonLastest button1;
 		private ButtonLastest btnDownloadPrinter;
 		private ButtonLastest btnDownloadPDF;
 		private ButtonLastest btnDownloadexcel;
 		private ButtonLastest btnSearch;
 		private ButtonLastest button2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn UPSID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn InsiderIDCOnnID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn NameUPSI;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Pan;
+		private System.Windows.Forms.DataGridViewTextBoxColumn address;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Pannoofaffl;
+		private System.Windows.Forms.DataGridViewTextBoxColumn detailsofUPID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Datteime;
+		private System.Windows.Forms.DataGridViewTextBoxColumn effectiveupto;
+		private System.Windows.Forms.DataGridViewTextBoxColumn remarks;
+		private System.Windows.Forms.DataGridViewTextBoxColumn NDSsigned;
+		private System.Windows.Forms.DataGridViewTextBoxColumn DateofEntry;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Dateofsecofnetry;
+		private System.Windows.Forms.DataGridViewTextBoxColumn datehwnupsi;
 	}
 }

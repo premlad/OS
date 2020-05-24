@@ -1,0 +1,2 @@
+Exception file created: 20-May-20 1:06:50 PM
+Large objects (ntext and image) cannot be used in ORDER BY clauses.

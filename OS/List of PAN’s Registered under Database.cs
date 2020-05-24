@@ -38,6 +38,8 @@ namespace OS
 			FillDataGrid();
 		}
 
+		#region LIST OF PAN'S REGISTERED IN DB
+
 		private void SetLoading(bool displayLoader)
 		{
 			try
@@ -80,17 +82,24 @@ namespace OS
 				{
 					dataGridViewTable.Rows.Clear();
 					dataGridViewTable.Refresh();
-					DataSet ds = new MasterClass().getDataSet("SELECT NAMEINSIDER AS [NAME],PANNO,'' AS [DEMATAC] FROM T_INS_PRO WHERE ACTIVE = 'Y'");
-					DataSet ds1 = new MasterClass().getDataSet("SELECT EMPNAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC] FROM T_INS_PER WHERE ACTIVE = 'Y'");
-					DataSet ds2 = new MasterClass().getDataSet("SELECT NAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC] FROM T_INS_PER_DT WHERE ACTIVE = 'Y'");
+					DataSet ds = new MasterClass().getDataSet("SELECT NAMEINSIDER AS [NAME],PANNO,'' AS [DEMATAC],OTHERIDENTIFIER,PANNOAFFILIATES FROM T_INS_PRO");
+					DataSet ds1 = new MasterClass().getDataSet("SELECT EMPNAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC],OTHERIDENTIFIER FROM T_INS_PER");
+					DataSet ds2 = new MasterClass().getDataSet("SELECT NAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC] FROM T_INS_PER_DT");
 					if (ds.Tables[0].Rows.Count > 0)
 					{
 						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 						{
-							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()).Trim() != "") {
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()) == "")
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
 								dataGridViewTable.Rows.Add(row);
 							}
+							else
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()) + " | PAN No. of Affiliates : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+								dataGridViewTable.Rows.Add(row);
+							}
+
 						}
 					}
 
@@ -98,11 +107,8 @@ namespace OS
 					{
 						for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
 						{
-							if (CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString()).Trim() != "")
-							{
-								string[] row = { CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["DEMATAC"].ToString()) };
-								dataGridViewTable.Rows.Add(row);
-							}
+							string[] row = { CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+							dataGridViewTable.Rows.Add(row);
 						}
 					}
 
@@ -112,7 +118,7 @@ namespace OS
 						{
 							if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()).Trim() != "")
 							{
-								string[] row = { CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+								string[] row = { CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()), "", CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["DEMATAC"].ToString()) };
 								dataGridViewTable.Rows.Add(row);
 							}
 						}
@@ -239,5 +245,7 @@ namespace OS
 				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "List of PAN’s Registered under Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		#endregion
 	}
 }

@@ -139,7 +139,7 @@
 			this.label23.BackColor = System.Drawing.Color.Transparent;
 			this.label23.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label23.ForeColor = System.Drawing.Color.Red;
-			this.label23.Location = new System.Drawing.Point(670, 128);
+			this.label23.Location = new System.Drawing.Point(742, 128);
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(17, 19);
 			this.label23.TabIndex = 70;
@@ -174,7 +174,7 @@
 			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
 			dataGridViewCellStyle2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
 			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
@@ -221,9 +221,9 @@
 			this.label22.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label22.Location = new System.Drawing.Point(496, 128);
 			this.label22.Name = "label22";
-			this.label22.Size = new System.Drawing.Size(164, 19);
+			this.label22.Size = new System.Drawing.Size(235, 19);
 			this.label22.TabIndex = 67;
-			this.label22.Text = "Any Other Identifier No.";
+			this.label22.Text = "If not PAN, Any Other Identifier No.";
 			// 
 			// label21
 			// 
@@ -338,7 +338,7 @@
 			this.btnaddINSCONdeelete.Name = "btnaddINSCONdeelete";
 			this.btnaddINSCONdeelete.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCONdeelete.TabIndex = 17;
-			this.btnaddINSCONdeelete.Text = "DELETE";
+			this.btnaddINSCONdeelete.Text = "NOMORE IP";
 			this.btnaddINSCONdeelete.UseVisualStyleBackColor = false;
 			this.btnaddINSCONdeelete.Visible = false;
 			this.btnaddINSCONdeelete.Click += new System.EventHandler(this.btnaddINSCONdeelete_Click);
@@ -701,7 +701,7 @@
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(252, 40);
 			this.button3.TabIndex = 32;
-			this.button3.Text = "UPDATE/DELETE";
+			this.button3.Text = "UPDATE";
 			this.button3.UseVisualStyleBackColor = false;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 

@@ -4,6 +4,7 @@ using RSACryptography;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -38,6 +39,7 @@ namespace OS
 				Close();
 				l.Show();
 			}
+			dataGridViewPhonemobile.DefaultCellStyle.ForeColor = Color.Black;
 			FillConnectPersonID();
 		}
 
@@ -175,7 +177,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();
@@ -309,7 +311,7 @@ namespace OS
 							if (error == 0)
 							{
 								string CPID = "IP" + new MasterClass().GETIPID();
-								string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PRO (RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','Y','N') ;").ToString();
+								string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PRO (RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','Y','N') ;").ToString();
 								string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
 
 								lg.CURRVALUE = "INSIDER PROFILE TAB";
@@ -523,7 +525,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();
@@ -541,10 +543,6 @@ namespace OS
 					else if (txtINSPROnameofinsider.Text == "")
 					{
 						DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (txtMobileINSPRONumber.Text == "")
-					{
-						DialogResult dialog = MessageBox.Show("Enter Mobile No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
 					{
@@ -580,7 +578,10 @@ namespace OS
 								for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
 								{
 									string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
-									termsList.Add(a);
+									if (a.Trim() != "")
+									{
+										termsList.Add(a);
+									}
 								}
 								b = termsList.ToArray();
 							}
@@ -589,7 +590,10 @@ namespace OS
 								for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
 								{
 									string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
-									termsList.Add(a);
+									if (a.Trim() != "")
+									{
+										termsList.Add(a);
+									}
 								}
 								b = termsList.ToArray();
 							}
@@ -644,7 +648,7 @@ namespace OS
 							{
 								DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_PRO_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
 
-								string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+								string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
 
 								string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
 
@@ -667,7 +671,7 @@ namespace OS
 									btncacncelINSCON.Visible = false;
 									btnaddINSCON.Visible = true;
 									txtINSPROreceipeitnID.Enabled = true;
-									button3.PerformClick();
+									button2.PerformClick();
 								}
 								else
 								{
@@ -708,7 +712,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();
@@ -749,14 +753,14 @@ namespace OS
 						if (dialogResult == DialogResult.Yes)
 						{
 
-							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + MasterClass.GETIST() + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
 
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("DELETED") + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("NO MORE IP TAG") + "','Y','N') ;").ToString();
 
 							lg.CURRVALUE = "INSIDER PROFILE TAB";
-							lg.TYPE = "DELETED";
+							lg.TYPE = "NOMORE IP";
 							lg.ID = perlogid;
-							lg.DESCRIPTION = "DELETED VALUE :- " + PRO.RECEPIENT_ID;
+							lg.DESCRIPTION = "NOMORE IP :- " + PRO.RECEPIENT_ID;
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 							//lg.ID = SESSIONKEYS.UserID.ToString();
 							new MasterClass().SAVE_LOG(lg);
@@ -770,7 +774,7 @@ namespace OS
 								btnaddINSCONdeelete.Visible = false;
 								btncacncelINSCON.Visible = false;
 								btnaddINSCON.Visible = true;
-								button3.PerformClick();
+								button2.PerformClick();
 							}
 							else
 							{
@@ -851,8 +855,6 @@ namespace OS
 			txtlandlineINSPRONumber.Enabled = true;
 		}
 
-		#endregion
-
 		private void btnINSCONaddnumber_Click(object sender, EventArgs e)
 		{
 			if (txtPANNOINSPRONumber.Text == "")
@@ -874,7 +876,10 @@ namespace OS
 					for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
 					{
 						string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
-						termsList.Add(a);
+						if (a.Trim() != "")
+						{
+							termsList.Add(a);
+						}
 					}
 					b = termsList.ToArray();
 				}
@@ -883,7 +888,10 @@ namespace OS
 					for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
 					{
 						string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
-						termsList.Add(a);
+						if (a.Trim() != "")
+						{
+							termsList.Add(a);
+						}
 					}
 					b = termsList.ToArray();
 				}
@@ -918,5 +926,7 @@ namespace OS
 				DialogResult dialog = MessageBox.Show("You cant Remove the Header Row.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		#endregion
 	}
 }

@@ -13,6 +13,7 @@
 		public string OTHERIDENTIFIER { get; set; }
 		public string DEMAT_AC_NO { get; set; }
 		public string MOBILE_NO { get; set; }
+		public string EMAILID { get; set; }
 		public string GRADUATION_INSTITUTIONS { get; set; }
 		public string PAST_EMPLOYEES { get; set; }
 		public T_INS_PER_IMMEDAITE_RELATIVES[] RELATIVEARRAY { get; set; }

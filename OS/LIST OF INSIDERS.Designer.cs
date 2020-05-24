@@ -47,6 +47,10 @@
 			this.btnDownloadPrinter = new OS.ButtonLastest();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
+			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+			this.button1 = new OS.ButtonLastest();
+			this.button2 = new OS.ButtonLastest();
 			this.InsiderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.NameoftheInsider = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.CategoryofReceipt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,10 +63,7 @@
 			this.LandlineNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.EmailId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Dateofentryusername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-			this.button1 = new OS.ButtonLastest();
-			this.button2 = new OS.ButtonLastest();
+			this.NomoreIPTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -266,7 +267,8 @@
             this.MobileNo,
             this.LandlineNo,
             this.EmailId,
-            this.Dateofentryusername});
+            this.Dateofentryusername,
+            this.NomoreIPTag});
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
 			dataGridViewCellStyle3.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -283,13 +285,50 @@
 			this.dataGridViewTable.Size = new System.Drawing.Size(1345, 582);
 			this.dataGridViewTable.TabIndex = 6;
 			// 
+			// printPreviewDialog1
+			// 
+			this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+			this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+			this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+			this.printPreviewDialog1.Enabled = true;
+			this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+			this.printPreviewDialog1.Name = "printPreviewDialog1";
+			this.printPreviewDialog1.Visible = false;
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.DodgerBlue;
+			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
+			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.Location = new System.Drawing.Point(471, 53);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(112, 40);
+			this.button1.TabIndex = 88;
+			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.DodgerBlue;
+			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.Location = new System.Drawing.Point(640, 53);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(112, 40);
+			this.button2.TabIndex = 105;
+			this.button2.Text = "CLOSE";
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
 			// InsiderId
 			// 
 			this.InsiderId.HeaderText = "Insider Id";
 			this.InsiderId.Name = "InsiderId";
 			this.InsiderId.ReadOnly = true;
 			this.InsiderId.ToolTipText = "Insider Id";
-			this.InsiderId.Width = 87;
+			this.InsiderId.Width = 94;
 			// 
 			// NameoftheInsider
 			// 
@@ -378,42 +417,12 @@
 			this.Dateofentryusername.ToolTipText = "Date of Entry - Username";
 			this.Dateofentryusername.Width = 122;
 			// 
-			// printPreviewDialog1
+			// NomoreIPTag
 			// 
-			this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-			this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-			this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-			this.printPreviewDialog1.Enabled = true;
-			this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-			this.printPreviewDialog1.Name = "printPreviewDialog1";
-			this.printPreviewDialog1.Visible = false;
-			// 
-			// button1
-			// 
-			this.button1.BackColor = System.Drawing.Color.DodgerBlue;
-			this.button1.BackgroundImage = global::OS.Properties.Resources.icons8_refresh;
-			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(471, 53);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(112, 40);
-			this.button1.TabIndex = 88;
-			this.button1.UseVisualStyleBackColor = false;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// button2
-			// 
-			this.button2.BackColor = System.Drawing.Color.DodgerBlue;
-			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(640, 53);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(112, 40);
-			this.button2.TabIndex = 105;
-			this.button2.Text = "CLOSE";
-			this.button2.UseVisualStyleBackColor = false;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
+			this.NomoreIPTag.HeaderText = "Status";
+			this.NomoreIPTag.Name = "NomoreIPTag";
+			this.NomoreIPTag.ReadOnly = true;
+			this.NomoreIPTag.Width = 77;
 			// 
 			// LIST_OF_INSIDERS
 			// 
@@ -437,7 +446,6 @@
 			this.Controls.Add(this.txtFromDate);
 			this.Controls.Add(this.label15);
 			this.Name = "LIST_OF_INSIDERS";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "LIST OF INSIDERS";
 			this.Load += new System.EventHandler(this.LIST_OF_INSIDERS_Load);
 			this.Controls.SetChildIndex(this.label15, 0);
@@ -477,6 +485,12 @@
 		private System.Windows.Forms.DataGridView dataGridViewTable;
 		private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
 		private System.Drawing.Printing.PrintDocument printDocument1;
+		private ButtonLastest btnSearch;
+		private ButtonLastest btnDownloadexcel;
+		private ButtonLastest btnDownloadPDF;
+		private ButtonLastest btnDownloadPrinter;
+		private ButtonLastest button1;
+		private ButtonLastest button2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn InsiderId;
 		private System.Windows.Forms.DataGridViewTextBoxColumn NameoftheInsider;
 		private System.Windows.Forms.DataGridViewTextBoxColumn CategoryofReceipt;
@@ -489,11 +503,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn LandlineNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn EmailId;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Dateofentryusername;
-		private ButtonLastest btnSearch;
-		private ButtonLastest btnDownloadexcel;
-		private ButtonLastest btnDownloadPDF;
-		private ButtonLastest btnDownloadPrinter;
-		private ButtonLastest button1;
-		private ButtonLastest button2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn NomoreIPTag;
 	}
 }

@@ -1,0 +1,6 @@
+Exception file created: 5/20/2020 8:03:47 PM
+System.FormatException: The string was not recognized as a valid DateTime. There is an unknown word starting at index 0.
+   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   at System.Windows.Forms.Control.Invoke(Delegate method)
+   at OS.LIST_OF_CONNECTED_PERSON.FillDataGrid() in C:\TB DATA\BACKUP MAU\UREKA PROJECTS\OS\OS SETUP\OS\LIST OF CONNECTED PERSON.cs:line 82

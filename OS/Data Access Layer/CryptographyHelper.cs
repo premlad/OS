@@ -22,7 +22,12 @@ namespace RSACryptography
 			{
 				GetKeyFromEncryptionString(PublicKey, out int keySize, out string publicKeyXml);
 
-				byte[] encrypted = Encrypt(Encoding.UTF8.GetBytes(plainText), keySize, publicKeyXml);
+				string a = plainText;
+				a = a.Replace("\r\n", "");
+				a = a.Replace(Environment.NewLine, "");
+				a = a.Replace("\t", "");
+
+				byte[] encrypted = Encrypt(Encoding.UTF8.GetBytes(a), keySize, publicKeyXml);
 
 				return Convert.ToBase64String(encrypted);
 			}
@@ -66,12 +71,14 @@ namespace RSACryptography
 			}
 			else
 			{
-
 				GetKeyFromEncryptionString(PrivateKey, out int keySize, out string publicAndPrivateKeyXml);
 
 				byte[] decrypted = Decrypt(Convert.FromBase64String(encryptedText), keySize, publicAndPrivateKeyXml);
-
-				return Encoding.UTF8.GetString(decrypted);
+				string a = Encoding.UTF8.GetString(decrypted);
+				a = a.Replace("\r\n", "");
+				a = a.Replace(Environment.NewLine, "");
+				a = a.Replace("\t", "");
+				return a;
 			}
 		}
 

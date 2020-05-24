@@ -109,7 +109,7 @@ namespace OS
 			{
 				SetLoading(true);
 
-				Thread.Sleep(2000);
+				//Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
 					//if (new MasterClass().GETLOCKDB() == "Y")
@@ -124,7 +124,7 @@ namespace OS
 						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						Login l = new Login();
 						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "LOG OUT SUCCESSFULLY WITH DATA TAMPERING";
+						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.ID = SESSIONKEYS.UserID.ToString();

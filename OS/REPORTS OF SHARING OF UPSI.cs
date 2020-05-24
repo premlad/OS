@@ -4,7 +4,6 @@ using RSACryptography;
 using System;
 using System.Data;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace OS
@@ -73,6 +72,7 @@ namespace OS
 			}
 		}
 
+		#region REPORTS OF SHARING OF UPSI
 
 		private void FillDataGrid()
 		{
@@ -80,7 +80,7 @@ namespace OS
 			{
 				SetLoading(true);
 
-				Thread.Sleep(2000);
+				//Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
 					dataGridViewTable.Rows.Clear();
@@ -111,9 +111,17 @@ namespace OS
 							{
 								nda = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NDASIGNED"].ToString()).Split('|');
 							}
+							if (ds.Tables[0].Rows[i]["MODIFIEDON"].ToString() == "")
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), nda[1], "Details of UPSI : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSINATURE"].ToString()) + " Reason of Sharing : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString())), MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EFFECTIVEUPTO"].ToString())), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["REMARKS"].ToString()), nda[0], (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "", CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
+								dataGridViewTable.Rows.Add(row);
+							}
+							else
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), nda[1], "Details of UPSI : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSINATURE"].ToString()) + " Reason of Sharing : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString())), MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EFFECTIVEUPTO"].ToString())), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["REMARKS"].ToString()), nda[0], (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MODIFIEDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
+								dataGridViewTable.Rows.Add(row);
+							}
 
-							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), nda[1], CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString()), nda[0], (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "", CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
-							dataGridViewTable.Rows.Add(row);
 						}
 					}
 				});
@@ -151,7 +159,7 @@ namespace OS
 			{
 				SetLoading(true);
 
-				Thread.Sleep(2000);
+				//Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
 					dataGridViewTable.Rows.Clear();
@@ -185,8 +193,16 @@ namespace OS
 									nda = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NDASIGNED"].ToString()).Split('|');
 								}
 
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), nda[1], CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString()), nda[0], (ds.Tables[0].Rows[i]["ENTEREDON"].ToString() + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "", CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
-								dataGridViewTable.Rows.Add(row);
+								if (ds.Tables[0].Rows[i]["MODIFIEDON"].ToString() == "")
+								{
+									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), nda[1], "Details of UPSI : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSINATURE"].ToString()) + " Reason of Sharing : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString()), nda[0], (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "", CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
+									dataGridViewTable.Rows.Add(row);
+								}
+								else
+								{
+									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIID"].ToString()), vabc[1], vabc[0], cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), nda[1], "Details of UPSI : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSINATURE"].ToString()) + " Reason of Sharing : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGPURPOSE"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["SHARINGDATE"].ToString()), nda[0], (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MODIFIEDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["UPSIAVAILABLE"].ToString()) };
+									dataGridViewTable.Rows.Add(row);
+								}
 							}
 
 						}
@@ -338,5 +354,7 @@ namespace OS
 			h.Show();
 			Close();
 		}
+
+		#endregion
 	}
 }

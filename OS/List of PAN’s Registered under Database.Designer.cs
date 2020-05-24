@@ -36,8 +36,9 @@
 			this.btnDownloadexcel = new OS.ButtonLastest();
 			this.label6 = new System.Windows.Forms.Label();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
-			this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.NamePn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Panno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Otheriden = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Dematacnp = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -134,8 +135,9 @@
 			this.dataGridViewTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
 			this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Name,
+            this.NamePn,
             this.Panno,
+            this.Otheriden,
             this.Dematacnp});
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(12, 92);
@@ -144,26 +146,33 @@
 			this.dataGridViewTable.Size = new System.Drawing.Size(1341, 592);
 			this.dataGridViewTable.TabIndex = 112;
 			// 
-			// Name
+			// NamePn
 			// 
-			this.Name.HeaderText = "Name";
-			this.Name.Name = "Name";
-			this.Name.ReadOnly = true;
-			this.Name.Width = 74;
+			this.NamePn.HeaderText = "Name";
+			this.NamePn.Name = "NamePn";
+			this.NamePn.ReadOnly = true;
+			this.NamePn.Width = 74;
 			// 
 			// Panno
 			// 
 			this.Panno.HeaderText = "PAN No.";
 			this.Panno.Name = "Panno";
 			this.Panno.ReadOnly = true;
-			this.Panno.Width = 89;
+			this.Panno.Width = 82;
+			// 
+			// Otheriden
+			// 
+			this.Otheriden.HeaderText = "If not PAN, Any Other Identifier No.";
+			this.Otheriden.Name = "Otheriden";
+			this.Otheriden.ReadOnly = true;
+			this.Otheriden.Width = 160;
 			// 
 			// Dematacnp
 			// 
 			this.Dematacnp.HeaderText = "Demat A/c No.";
 			this.Dematacnp.Name = "Dematacnp";
 			this.Dematacnp.ReadOnly = true;
-			this.Dematacnp.Width = 131;
+			this.Dematacnp.Width = 99;
 			// 
 			// List_of_PAN_s_Registered_under_Database
 			// 
@@ -178,9 +187,8 @@
 			this.Controls.Add(this.btnDownloadexcel);
 			this.Controls.Add(this.label6);
 			this.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			//this.Name = "List_of_PAN_s_Registered_under_Database";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "List of PAN’s Registered under Database";
+			this.Name = "List_of_PAN_s_Registered_under_Database";
+			this.Text = "LIST OF PAN\'S REGISTERED IN DATABASE";
 			this.Load += new System.EventHandler(this.List_of_PAN_s_Registered_under_Database_Load);
 			this.Controls.SetChildIndex(this.label6, 0);
 			this.Controls.SetChildIndex(this.btnDownloadexcel, 0);
@@ -198,13 +206,14 @@
 		#endregion
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.DataGridView dataGridViewTable;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Panno;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Dematacnp;
 		private ButtonLastest button2;
 		private ButtonLastest button1;
 		private ButtonLastest btnDownloadPrinter;
 		private ButtonLastest btnDownloadPDF;
 		private ButtonLastest btnDownloadexcel;
+		private System.Windows.Forms.DataGridViewTextBoxColumn NamePn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Panno;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Otheriden;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Dematacnp;
 	}
 }

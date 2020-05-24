@@ -5,7 +5,6 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace OS
@@ -43,20 +42,23 @@ namespace OS
 			FillDataGrid();
 		}
 
+		#region AUDIT TRAIL
+
 		private void FillDataGrid()
 		{
 			try
 			{
 				SetLoading(true);
 
-				Thread.Sleep(2000);
+				//Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
 
 					dataGridViewTable.Rows.Clear();
 					dataGridViewTable.Refresh();
 
-					DataSet ds = new MasterClass().getDataSet("SELECT * FROM M_LOG_AUDIT ORDER BY ENTEREDON DESC");
+					DataSet ds = new MasterClass().getDataSet("SELECT TOP(10) * FROM M_LOG_AUDIT ORDER BY ID DESC");
+
 					if (ds.Tables[0].Rows.Count > 0)
 					{
 						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -68,11 +70,11 @@ namespace OS
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()).Trim() == "CONNECTED PERSON TAB")
 							{
 								string[] val = ds.Tables[0].Rows[i]["TID"].ToString().Split('|');
-								sgrow = new MasterClass().getDataSet("SELECT TID,CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Address],RESIADDRESS AS [Residentail Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A / c No], MOBILENO AS [Mobile No],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[0] + "'");
+								sgrow = new MasterClass().getDataSet("SELECT TID,CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Permanent Address],RESIADDRESS AS [Correspondence Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A/c No], MOBILENO AS [Mobile No], EMAILID AS [Email ID],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[0] + "'");
 
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()).Trim() == "UPDATED")
 								{
-									updtrow = new MasterClass().getDataSet("SELECT CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Address],RESIADDRESS AS [Residentail Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A / c No], MOBILENO AS [Mobile No],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[1] + "'");
+									updtrow = new MasterClass().getDataSet("SELECT CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Permanent Address],RESIADDRESS AS [Correspondence Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A/c No], MOBILENO AS [Mobile No], EMAILID AS [Email ID],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[1] + "'");
 
 									string[] columnNames = updtrow.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
 
@@ -90,7 +92,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -149,7 +151,7 @@ namespace OS
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()).Trim() == "CONNECTED PERSON TAB RELATIVE RELATIONSHIP")
 							{
 								string[] val = ds.Tables[0].Rows[i]["TID"].ToString().Split('|');
-								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
+								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()).Trim() == "UPDATED")
 								{
 									if (val.Length < 2)
@@ -172,7 +174,7 @@ namespace OS
 									}
 									else
 									{
-										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
+										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
 
 										string[] columnNames = updtrow.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
 
@@ -190,7 +192,7 @@ namespace OS
 												output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 											}
 										}
-										output += Environment.NewLine + "\nPrevious Value :- ";
+										output += "Previous Value :- ";
 
 										for (int j = 0; j < columnNames.Length; j++)
 										{
@@ -248,7 +250,7 @@ namespace OS
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()).Trim() == "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP")
 							{
 								string[] val = ds.Tables[0].Rows[i]["TID"].ToString().Split('|');
-								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
+								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()).Trim() == "UPDATED")
 								{
 									if (val.Length < 2)
@@ -273,7 +275,7 @@ namespace OS
 									else
 									{
 
-										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
+										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
 
 										string[] columnNames = updtrow.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
 
@@ -291,7 +293,7 @@ namespace OS
 												output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 											}
 										}
-										output += Environment.NewLine + "\nPrevious Value :- ";
+										output += "Previous Value :- ";
 
 										for (int j = 0; j < columnNames.Length; j++)
 										{
@@ -371,7 +373,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -453,7 +455,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -533,7 +535,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -596,9 +598,22 @@ namespace OS
 								a = dsLogin.Tables[0].Rows[0]["EMAIL"].ToString();
 							}
 
+							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()) == "UPDATED")
+							{
+								if (updtvalue != "")
+								{
+									string[] row = { a.Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DESCRIPTION"].ToString()), MasterClass.GETIST(ds.Tables[0].Rows[i]["ENTEREDON"].ToString()), updtvalue, output };
+									dataGridViewTable.Rows.Add(row);
+								}
+							}
+							else
+							{
+								string[] row = { a.Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DESCRIPTION"].ToString()), MasterClass.GETIST(ds.Tables[0].Rows[i]["ENTEREDON"].ToString()), updtvalue, output };
+								dataGridViewTable.Rows.Add(row);
+							}
 
-							string[] row = { a.Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DESCRIPTION"].ToString()), ds.Tables[0].Rows[i]["ENTEREDON"].ToString(), updtvalue, output };
-							dataGridViewTable.Rows.Add(row);
+
+
 						}
 					}
 
@@ -679,7 +694,7 @@ namespace OS
 			{
 				SetLoading(true);
 
-				Thread.Sleep(2000);
+				//Thread.Sleep(2000);
 				Invoke((MethodInvoker)delegate
 				{
 
@@ -712,11 +727,11 @@ namespace OS
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()).Trim() == "CONNECTED PERSON TAB")
 							{
 								string[] val = ds.Tables[0].Rows[i]["TID"].ToString().Split('|');
-								sgrow = new MasterClass().getDataSet("SELECT TID,CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Address],RESIADDRESS AS [Residentail Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A / c No], MOBILENO AS [Mobile No],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[0] + "'");
+								sgrow = new MasterClass().getDataSet("SELECT TID,CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Permanent Address],RESIADDRESS AS [Correspondence Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A/c No], MOBILENO AS [Mobile No], EMAILID AS [Email ID],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[0] + "'");
 
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()).Trim() == "UPDATED")
 								{
-									updtrow = new MasterClass().getDataSet("SELECT CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Address],RESIADDRESS AS [Residentail Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A / c No], MOBILENO AS [Mobile No],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[1] + "'");
+									updtrow = new MasterClass().getDataSet("SELECT CONNECTPERSONID AS [Connect Person Id],EMPNAME AS [Name of the Employee],CURRDESIGNATION AS [Current Designation],ADDRESS AS [Permanent Address],RESIADDRESS AS [Correspondence Address], OTHERIDENTIFIER AS [Other Identifier], PANNO AS[PAN], DEMATACNO AS [Demat A/c No], MOBILENO AS [Mobile No], EMAILID AS [Email ID],GRADUATIONINSTI AS [Graduation Institution], PASTEMP AS [Past Employee] FROM T_INS_PER_LOG WHERE ID = '" + val[1] + "'");
 
 									string[] columnNames = updtrow.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
 
@@ -734,7 +749,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -793,7 +808,7 @@ namespace OS
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()).Trim() == "CONNECTED PERSON TAB RELATIVE RELATIONSHIP")
 							{
 								string[] val = ds.Tables[0].Rows[i]["TID"].ToString().Split('|');
-								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
+								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()).Trim() == "UPDATED")
 								{
 									if (val.Length < 2)
@@ -816,7 +831,7 @@ namespace OS
 									}
 									else
 									{
-										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
+										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
 
 										string[] columnNames = updtrow.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
 
@@ -834,7 +849,7 @@ namespace OS
 												output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 											}
 										}
-										output += Environment.NewLine + "\nPrevious Value :- ";
+										output += "Previous Value :- ";
 
 										for (int j = 0; j < columnNames.Length; j++)
 										{
@@ -892,7 +907,7 @@ namespace OS
 							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()).Trim() == "CONNECTED PERSON TAB FINANCIAL RELATIONSHIP")
 							{
 								string[] val = ds.Tables[0].Rows[i]["TID"].ToString().Split('|');
-								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
+								sgrow = new MasterClass().getDataSet("SELECT TID,NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[0] + "'");
 								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()).Trim() == "UPDATED")
 								{
 									if (val.Length < 2)
@@ -917,7 +932,7 @@ namespace OS
 									else
 									{
 
-										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat Ac No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
+										updtrow = new MasterClass().getDataSet("SELECT NAME AS [Name],ADDRESS AS [Address],RELATIONSHIP AS [Relationship],[MOBILENO] AS [Mobile No],PANNO AS [Pan No],[DEMATACNO] AS [Demat A/c No],TYPE as [TYPE] FROM T_INS_PER_DT_LOG WHERE ID = '" + val[1] + "'");
 
 										string[] columnNames = updtrow.Tables[0].Columns.Cast<DataColumn>().Select(x => x.ColumnName).ToArray();
 
@@ -935,7 +950,7 @@ namespace OS
 												output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 											}
 										}
-										output += Environment.NewLine + "\nPrevious Value :- ";
+										output += "Previous Value :- ";
 
 										for (int j = 0; j < columnNames.Length; j++)
 										{
@@ -1015,7 +1030,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -1097,7 +1112,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -1177,7 +1192,7 @@ namespace OS
 											output += " | " + columnNames1[j] + " - " + CryptographyHelper.Decrypt(sgrow.Tables[0].Rows[0][j].ToString()).Trim();
 										}
 									}
-									output += Environment.NewLine + "\nPrevious Value :- ";
+									output += "Previous Value :- ";
 
 
 									for (int j = 0; j < columnNames.Length; j++)
@@ -1240,11 +1255,27 @@ namespace OS
 								a = dsLogin.Tables[0].Rows[0]["EMAIL"].ToString();
 							}
 
+							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()) == "UPDATED")
+							{
+								if (updtvalue != "")
+								{
+									string[] row = { a.Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DESCRIPTION"].ToString()), MasterClass.GETIST(ds.Tables[0].Rows[i]["ENTEREDON"].ToString()), updtvalue, output };
+									dataGridViewTable.Rows.Add(row);
+								}
+							}
+							else
+							{
+								string[] row = { a.Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DESCRIPTION"].ToString()), MasterClass.GETIST(ds.Tables[0].Rows[i]["ENTEREDON"].ToString()), updtvalue, output };
+								dataGridViewTable.Rows.Add(row);
+							}
 
-							string[] row = { a.Trim(), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OPERATION"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DESCRIPTION"].ToString()), ds.Tables[0].Rows[i]["ENTEREDON"].ToString(), updtvalue, output };
-							dataGridViewTable.Rows.Add(row);
+
+
 						}
 					}
+
+					dataGridViewTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
 				});
 
 				SetLoading(false);
@@ -1347,5 +1378,8 @@ namespace OS
 				DialogResult dialog = MessageBox.Show("Name Already Exists in the Location or The File is Already Opened.", "Audit Report", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
+
+		#endregion
+
 	}
 }

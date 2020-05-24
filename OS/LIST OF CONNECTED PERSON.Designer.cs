@@ -31,25 +31,6 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewTable = new System.Windows.Forms.DataGridView();
-			this.ConnectPersonID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.NameofEMployee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.CurrrentDesignation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.residentaddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Pan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.otheridentifier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.DematAcno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.PhoneNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.InstiGrad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.PastEMp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Addressrf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.PhoneNorf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Pannorf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Dematacnrf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.usernamedat = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.button1 = new OS.ButtonLastest();
 			this.btnDownloadPrinter = new OS.ButtonLastest();
 			this.btnDownloadPDF = new OS.ButtonLastest();
@@ -65,6 +46,27 @@
 			this.txtFromDate = new System.Windows.Forms.DateTimePicker();
 			this.label15 = new System.Windows.Forms.Label();
 			this.button2 = new OS.ButtonLastest();
+			this.ConnectPersonID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.NameofEMployee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.CurrrentDesignation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.residentaddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Pan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.otheridentifier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DematAcno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.PhoneNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Emai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.InstiGrad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.PastEMp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.NameType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Addressrf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.PhoneNorf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Pannorf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Dematacnrf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.usernamedat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.nomorecptag = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
 			this.SuspendLayout();
@@ -98,16 +100,18 @@
             this.otheridentifier,
             this.DematAcno,
             this.PhoneNo,
+            this.Emai,
             this.InstiGrad,
             this.PastEMp,
             this.Type,
-            this.Name,
+            this.NameType,
             this.Addressrf,
             this.Relationship,
             this.PhoneNorf,
             this.Pannorf,
             this.Dematacnrf,
-            this.usernamedat});
+            this.usernamedat,
+            this.nomorecptag});
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
 			this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
@@ -115,139 +119,6 @@
 			this.dataGridViewTable.ReadOnly = true;
 			this.dataGridViewTable.Size = new System.Drawing.Size(1345, 582);
 			this.dataGridViewTable.TabIndex = 7;
-			// 
-			// ConnectPersonID
-			// 
-			this.ConnectPersonID.HeaderText = "Connect Person ID";
-			this.ConnectPersonID.Name = "ConnectPersonID";
-			this.ConnectPersonID.ReadOnly = true;
-			this.ConnectPersonID.Width = 129;
-			// 
-			// NameofEMployee
-			// 
-			this.NameofEMployee.HeaderText = "Name of Employee";
-			this.NameofEMployee.Name = "NameofEMployee";
-			this.NameofEMployee.ReadOnly = true;
-			this.NameofEMployee.Width = 145;
-			// 
-			// CurrrentDesignation
-			// 
-			this.CurrrentDesignation.HeaderText = "Current Designation";
-			this.CurrrentDesignation.Name = "CurrrentDesignation";
-			this.CurrrentDesignation.ReadOnly = true;
-			this.CurrrentDesignation.Width = 150;
-			// 
-			// Address
-			// 
-			this.Address.HeaderText = "Permanent Address";
-			this.Address.Name = "Address";
-			this.Address.ReadOnly = true;
-			this.Address.Width = 150;
-			// 
-			// residentaddress
-			// 
-			this.residentaddress.HeaderText = "Residentail Address";
-			this.residentaddress.Name = "residentaddress";
-			this.residentaddress.ReadOnly = true;
-			this.residentaddress.Width = 150;
-			// 
-			// Pan
-			// 
-			this.Pan.HeaderText = "Pan No";
-			this.Pan.Name = "Pan";
-			this.Pan.ReadOnly = true;
-			this.Pan.Width = 74;
-			// 
-			// otheridentifier
-			// 
-			this.otheridentifier.HeaderText = "Other Identifier No.";
-			this.otheridentifier.Name = "otheridentifier";
-			this.otheridentifier.ReadOnly = true;
-			this.otheridentifier.Width = 125;
-			// 
-			// DematAcno
-			// 
-			this.DematAcno.HeaderText = "Demat A.c No";
-			this.DematAcno.Name = "DematAcno";
-			this.DematAcno.ReadOnly = true;
-			this.DematAcno.Width = 98;
-			// 
-			// PhoneNo
-			// 
-			this.PhoneNo.HeaderText = "Phone No";
-			this.PhoneNo.Name = "PhoneNo";
-			this.PhoneNo.ReadOnly = true;
-			this.PhoneNo.Width = 90;
-			// 
-			// InstiGrad
-			// 
-			this.InstiGrad.HeaderText = "Graduation Institutions";
-			this.InstiGrad.Name = "InstiGrad";
-			this.InstiGrad.ReadOnly = true;
-			this.InstiGrad.Width = 165;
-			// 
-			// PastEMp
-			// 
-			this.PastEMp.HeaderText = "Past Employees";
-			this.PastEMp.Name = "PastEMp";
-			this.PastEMp.ReadOnly = true;
-			this.PastEMp.Width = 126;
-			// 
-			// Type
-			// 
-			this.Type.HeaderText = "Type";
-			this.Type.Name = "Type";
-			this.Type.ReadOnly = true;
-			this.Type.Width = 66;
-			// 
-			// Name
-			// 
-			this.Name.HeaderText = "Name";
-			this.Name.Name = "Name";
-			this.Name.ReadOnly = true;
-			this.Name.Width = 74;
-			// 
-			// Addressrf
-			// 
-			this.Addressrf.HeaderText = "Address";
-			this.Addressrf.Name = "Addressrf";
-			this.Addressrf.ReadOnly = true;
-			this.Addressrf.Width = 89;
-			// 
-			// Relationship
-			// 
-			this.Relationship.HeaderText = "Relationship";
-			this.Relationship.Name = "Relationship";
-			this.Relationship.ReadOnly = true;
-			this.Relationship.Width = 115;
-			// 
-			// PhoneNorf
-			// 
-			this.PhoneNorf.HeaderText = "Phone No";
-			this.PhoneNorf.Name = "PhoneNorf";
-			this.PhoneNorf.ReadOnly = true;
-			this.PhoneNorf.Width = 90;
-			// 
-			// Pannorf
-			// 
-			this.Pannorf.HeaderText = "Pan No";
-			this.Pannorf.Name = "Pannorf";
-			this.Pannorf.ReadOnly = true;
-			this.Pannorf.Width = 74;
-			// 
-			// Dematacnrf
-			// 
-			this.Dematacnrf.HeaderText = "Demat A.c No";
-			this.Dematacnrf.Name = "Dematacnrf";
-			this.Dematacnrf.ReadOnly = true;
-			this.Dematacnrf.Width = 98;
-			// 
-			// usernamedat
-			// 
-			this.usernamedat.HeaderText = "Date of Entry with Username";
-			this.usernamedat.Name = "usernamedat";
-			this.usernamedat.ReadOnly = true;
-			this.usernamedat.Width = 141;
 			// 
 			// button1
 			// 
@@ -436,6 +307,153 @@
 			this.button2.UseVisualStyleBackColor = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
+			// ConnectPersonID
+			// 
+			this.ConnectPersonID.HeaderText = "Connect Person ID";
+			this.ConnectPersonID.Name = "ConnectPersonID";
+			this.ConnectPersonID.ReadOnly = true;
+			this.ConnectPersonID.Width = 129;
+			// 
+			// NameofEMployee
+			// 
+			this.NameofEMployee.HeaderText = "Name of Employee";
+			this.NameofEMployee.Name = "NameofEMployee";
+			this.NameofEMployee.ReadOnly = true;
+			this.NameofEMployee.Width = 145;
+			// 
+			// CurrrentDesignation
+			// 
+			this.CurrrentDesignation.HeaderText = "Current Designation";
+			this.CurrrentDesignation.Name = "CurrrentDesignation";
+			this.CurrrentDesignation.ReadOnly = true;
+			this.CurrrentDesignation.Width = 150;
+			// 
+			// Address
+			// 
+			this.Address.HeaderText = "Permanent Address";
+			this.Address.Name = "Address";
+			this.Address.ReadOnly = true;
+			this.Address.Width = 150;
+			// 
+			// residentaddress
+			// 
+			this.residentaddress.HeaderText = "Correspondence Address";
+			this.residentaddress.Name = "residentaddress";
+			this.residentaddress.ReadOnly = true;
+			this.residentaddress.Width = 184;
+			// 
+			// Pan
+			// 
+			this.Pan.HeaderText = "Pan No";
+			this.Pan.Name = "Pan";
+			this.Pan.ReadOnly = true;
+			this.Pan.Width = 74;
+			// 
+			// otheridentifier
+			// 
+			this.otheridentifier.HeaderText = "Other Identifier No.";
+			this.otheridentifier.Name = "otheridentifier";
+			this.otheridentifier.ReadOnly = true;
+			this.otheridentifier.Width = 125;
+			// 
+			// DematAcno
+			// 
+			this.DematAcno.HeaderText = "Demat A/c No";
+			this.DematAcno.Name = "DematAcno";
+			this.DematAcno.ReadOnly = true;
+			this.DematAcno.Width = 99;
+			// 
+			// PhoneNo
+			// 
+			this.PhoneNo.HeaderText = "Landline/Mobile No.";
+			this.PhoneNo.Name = "PhoneNo";
+			this.PhoneNo.ReadOnly = true;
+			this.PhoneNo.Width = 150;
+			// 
+			// Emai
+			// 
+			this.Emai.HeaderText = "Email ID of Employee";
+			this.Emai.Name = "Emai";
+			this.Emai.ReadOnly = true;
+			this.Emai.Width = 158;
+			// 
+			// InstiGrad
+			// 
+			this.InstiGrad.HeaderText = "Graduation Institutions";
+			this.InstiGrad.Name = "InstiGrad";
+			this.InstiGrad.ReadOnly = true;
+			this.InstiGrad.Width = 165;
+			// 
+			// PastEMp
+			// 
+			this.PastEMp.HeaderText = "Past Employees";
+			this.PastEMp.Name = "PastEMp";
+			this.PastEMp.ReadOnly = true;
+			this.PastEMp.Width = 126;
+			// 
+			// Type
+			// 
+			this.Type.HeaderText = "Type";
+			this.Type.Name = "Type";
+			this.Type.ReadOnly = true;
+			this.Type.Width = 66;
+			// 
+			// NameType
+			// 
+			this.NameType.HeaderText = "Name";
+			this.NameType.Name = "NameType";
+			this.NameType.ReadOnly = true;
+			this.NameType.Width = 74;
+			// 
+			// Addressrf
+			// 
+			this.Addressrf.HeaderText = "Address";
+			this.Addressrf.Name = "Addressrf";
+			this.Addressrf.ReadOnly = true;
+			this.Addressrf.Width = 89;
+			// 
+			// Relationship
+			// 
+			this.Relationship.HeaderText = "Relationship";
+			this.Relationship.Name = "Relationship";
+			this.Relationship.ReadOnly = true;
+			this.Relationship.Width = 115;
+			// 
+			// PhoneNorf
+			// 
+			this.PhoneNorf.HeaderText = "Landline/Mobile No.";
+			this.PhoneNorf.Name = "PhoneNorf";
+			this.PhoneNorf.ReadOnly = true;
+			this.PhoneNorf.Width = 150;
+			// 
+			// Pannorf
+			// 
+			this.Pannorf.HeaderText = "Pan No";
+			this.Pannorf.Name = "Pannorf";
+			this.Pannorf.ReadOnly = true;
+			this.Pannorf.Width = 74;
+			// 
+			// Dematacnrf
+			// 
+			this.Dematacnrf.HeaderText = "Demat A/c No";
+			this.Dematacnrf.Name = "Dematacnrf";
+			this.Dematacnrf.ReadOnly = true;
+			this.Dematacnrf.Width = 99;
+			// 
+			// usernamedat
+			// 
+			this.usernamedat.HeaderText = "Date of Entry with Username";
+			this.usernamedat.Name = "usernamedat";
+			this.usernamedat.ReadOnly = true;
+			this.usernamedat.Width = 141;
+			// 
+			// nomorecptag
+			// 
+			this.nomorecptag.HeaderText = "Status";
+			this.nomorecptag.Name = "nomorecptag";
+			this.nomorecptag.ReadOnly = true;
+			this.nomorecptag.Width = 77;
+			// 
 			// LIST_OF_CONNECTED_PERSON
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -458,7 +476,7 @@
 			this.Controls.Add(this.label15);
 			this.Controls.Add(this.panel1);
 			this.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Name = "LIST_OF_CONNECTED_PERSON";
 			this.Text = "LIST OF CONNECTED PERSON";
 			this.Load += new System.EventHandler(this.LIST_OF_CONNECTED_PERSON_Load);
 			this.Controls.SetChildIndex(this.panel1, 0);
@@ -497,6 +515,12 @@
 		private System.Windows.Forms.DateTimePicker txtFromDate;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.DataGridView dataGridViewTable;
+		private ButtonLastest button1;
+		private ButtonLastest btnDownloadPrinter;
+		private ButtonLastest btnDownloadPDF;
+		private ButtonLastest btnDownloadexcel;
+		private ButtonLastest btnSearch;
+		private ButtonLastest button2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ConnectPersonID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn NameofEMployee;
 		private System.Windows.Forms.DataGridViewTextBoxColumn CurrrentDesignation;
@@ -506,21 +530,17 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn otheridentifier;
 		private System.Windows.Forms.DataGridViewTextBoxColumn DematAcno;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PhoneNo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Emai;
 		private System.Windows.Forms.DataGridViewTextBoxColumn InstiGrad;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PastEMp;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+		private System.Windows.Forms.DataGridViewTextBoxColumn NameType;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Addressrf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Relationship;
 		private System.Windows.Forms.DataGridViewTextBoxColumn PhoneNorf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Pannorf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Dematacnrf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn usernamedat;
-		private ButtonLastest button1;
-		private ButtonLastest btnDownloadPrinter;
-		private ButtonLastest btnDownloadPDF;
-		private ButtonLastest btnDownloadexcel;
-		private ButtonLastest btnSearch;
-		private ButtonLastest button2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn nomorecptag;
 	}
 }
