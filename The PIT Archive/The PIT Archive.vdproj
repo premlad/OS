@@ -15,127 +15,127 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+        "MsmKey" = "8:_1CA4F263E4DD439CA6A60B77C23F51EC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_20B2DFAA0FBE43BC816D3089A25AFB21"
+        "MsmKey" = "8:_28CA04110A314561858F9D5CF3999F85"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2C825329C4E64612BD4663BD64BE9A2B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3281E78627D34EA5BFEF5AEACAAE90E2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_345E4E626F664E06A42C3AD02B3C84BF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_3BA41F4F82B14D951E8B6E6544345562"
-        "OwnerKey" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+        "OwnerKey" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_3BA41F4F82B14D951E8B6E6544345562"
-        "OwnerKey" = "8:_87A1E76D0EBF4F60965B562DD2C82518"
+        "OwnerKey" = "8:_A136EFE7F6A74E26A4044F2C0D5C13D2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4C43C9D5796D4D57B23CE2946E868FB8"
+        "MsmKey" = "8:_469C1861354E4CC39911927A5D890976"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5B5A62082F5F45DABB66C7244D64DA12"
+        "MsmKey" = "8:_549BD31A56924BFFAC6A604336976729"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6734A2D6C9B74F2EA9961D2D9ACE53B5"
+        "MsmKey" = "8:_609BF6CBD7D9481082487310B15CA00F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6853CF5BAF2340DE91641262828A91B4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_87A1E76D0EBF4F60965B562DD2C82518"
+        "MsmKey" = "8:_8A68E6C237DC43308D5E2152E13C01A7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_91E3AA48B1AAD28F9E6AAEFFE9FD406E"
-        "OwnerKey" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+        "OwnerKey" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9C176D4693D04D578FD32ED942B86A23"
+        "MsmKey" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A88AB0123EAE40CE8B0863A78533F928"
+        "MsmKey" = "8:_A136EFE7F6A74E26A4044F2C0D5C13D2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_B11E73963C049191A1182BA5FC775A68"
-        "OwnerKey" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+        "OwnerKey" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_BE8E13E2B18D4AE4B1D3C5738EDE5DEB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BFC7C649B8534270AD90390ACAD9D815"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CB41BFF8CAC748A18A3693669F5CCB07"
+        "MsmKey" = "8:_B7B93B8813884BF6B6774921B5C7EC78"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D0E9700C907D555E235A8DE3EBB33561"
-        "OwnerKey" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+        "OwnerKey" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D0E9700C907D555E235A8DE3EBB33561"
-        "OwnerKey" = "8:_87A1E76D0EBF4F60965B562DD2C82518"
+        "OwnerKey" = "8:_A136EFE7F6A74E26A4044F2C0D5C13D2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E5597632AC514156AD62CC9DDDC86086"
+        "MsmKey" = "8:_D635E9294E6C44A8831A921656396045"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_EB4EC23AE5194BEBB59987CEE8D040ED"
+        "MsmKey" = "8:_E5EFA433D9924913972AF87CD602E0AC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_ECC7E36BB040429CAA6BEB648DA7F996"
+        "MsmKey" = "8:_F953F3DA215D4C17B8902F8B479692C3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -148,19 +148,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_87A1E76D0EBF4F60965B562DD2C82518"
+        "OwnerKey" = "8:_A136EFE7F6A74E26A4044F2C0D5C13D2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BE8E13E2B18D4AE4B1D3C5738EDE5DEB"
+        "OwnerKey" = "8:_D635E9294E6C44A8831A921656396045"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+        "OwnerKey" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -253,17 +253,17 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_6C0B2A58EF33478DB57D8455F22B51E4"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_74ECA1CB76E74F68B683D57056C8601E"
             {
             "Name" = "8:Primary output from OS (Active)"
             "Condition" = "8:"
-            "Object" = "8:_1CDFAA21D8F148F0BE4A685494289A20"
+            "Object" = "8:_9B2D2B7477C14137A2FFC7B7F772F470"
             "FileType" = "3:2"
             "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_D9079DBB_9000_4689_841B_4CBABFE26B20"
+            "Identifier" = "8:_A078368D_C0CB_4264_A119_0ED70A1CBDBB"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:/LicenseKey=[EDITA1]"
             }
@@ -290,7 +290,27 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_20B2DFAA0FBE43BC816D3089A25AFB21"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1CA4F263E4DD439CA6A60B77C23F51EC"
+            {
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceca35.dll"
+            "TargetName" = "8:sqlceca35.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_28CA04110A314561858F9D5CF3999F85"
             {
             "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceqp35.dll"
             "TargetName" = "8:sqlceqp35.dll"
@@ -301,6 +321,66 @@
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2C825329C4E64612BD4663BD64BE9A2B"
+            {
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3281E78627D34EA5BFEF5AEACAAE90E2"
+            {
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceme35.dll"
+            "TargetName" = "8:sqlceme35.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_345E4E626F664E06A42C3AD02B3C84BF"
+            {
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\The PIT Archive.pdb"
+            "TargetName" = "8:The PIT Archive.pdb"
+            "Tag" = "8:"
+            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -341,10 +421,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C43C9D5796D4D57B23CE2946E868FB8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_469C1861354E4CC39911927A5D890976"
             {
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceca35.dll"
-            "TargetName" = "8:sqlceca35.dll"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceer35EN.dll"
+            "TargetName" = "8:sqlceer35EN.dll"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
@@ -361,30 +441,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5B5A62082F5F45DABB66C7244D64DA12"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_549BD31A56924BFFAC6A604336976729"
             {
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\The PIT Archive.exe.config"
-            "TargetName" = "8:The PIT Archive.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6734A2D6C9B74F2EA9961D2D9ACE53B5"
-            {
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\icons8-scan-stock-96.ico"
-            "TargetName" = "8:icons8-scan-stock-96.ico"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceoledb35.dll"
+            "TargetName" = "8:sqlceoledb35.dll"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
@@ -401,10 +461,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6853CF5BAF2340DE91641262828A91B4"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_609BF6CBD7D9481082487310B15CA00F"
             {
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlcecompact35.dll"
-            "TargetName" = "8:sqlcecompact35.dll"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlcese35.dll"
+            "TargetName" = "8:sqlcese35.dll"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
@@ -421,28 +481,17 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_87A1E76D0EBF4F60965B562DD2C82518"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A68E6C237DC43308D5E2152E13C01A7"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:The PIT Archive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_87A1E76D0EBF4F60965B562DD2C82518"
-                    {
-                    "Name" = "8:The PIT Archive.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\The PIT Archive.exe"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\itextsharp.xml"
+            "TargetName" = "8:itextsharp.xml"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -483,30 +532,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C176D4693D04D578FD32ED942B86A23"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A136EFE7F6A74E26A4044F2C0D5C13D2"
             {
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlcese35.dll"
-            "TargetName" = "8:sqlcese35.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A88AB0123EAE40CE8B0863A78533F928"
-            {
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\The PIT Archive.pdb"
-            "TargetName" = "8:The PIT Archive.pdb"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:The PIT Archive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A136EFE7F6A74E26A4044F2C0D5C13D2"
+                    {
+                    "Name" = "8:The PIT Archive.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\The PIT Archive.exe"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
@@ -554,68 +594,17 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BE8E13E2B18D4AE4B1D3C5738EDE5DEB"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7B93B8813884BF6B6774921B5C7EC78"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_BE8E13E2B18D4AE4B1D3C5738EDE5DEB"
-                    {
-                    "Name" = "8:System.Data.SqlServerCe.Entity.dll"
-                    "Attributes" = "3:514"
-                    }
-                }
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\System.Data.SqlServerCe.Entity.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\icons8-scan-stock-96.ico"
+            "TargetName" = "8:icons8-scan-stock-96.ico"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BFC7C649B8534270AD90390ACAD9D815"
-            {
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceme35.dll"
-            "TargetName" = "8:sqlceme35.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CB41BFF8CAC748A18A3693669F5CCB07"
-            {
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceoledb35.dll"
-            "TargetName" = "8:sqlceoledb35.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -656,10 +645,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E5597632AC514156AD62CC9DDDC86086"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D635E9294E6C44A8831A921656396045"
             {
-            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlceer35EN.dll"
-            "TargetName" = "8:sqlceer35EN.dll"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Data.SqlServerCe.Entity, Version=4.0.0.1, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D635E9294E6C44A8831A921656396045"
+                    {
+                    "Name" = "8:System.Data.SqlServerCe.Entity.dll"
+                    "Attributes" = "3:514"
+                    }
+                }
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\System.Data.SqlServerCe.Entity.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
@@ -676,10 +676,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB4EC23AE5194BEBB59987CEE8D040ED"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E5EFA433D9924913972AF87CD602E0AC"
             {
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\itextsharp.xml"
-            "TargetName" = "8:itextsharp.xml"
+            "SourcePath" = "8:C:\\Program Files (x86)\\Microsoft SQL Server Compact Edition\\v3.5\\sqlcecompact35.dll"
+            "TargetName" = "8:sqlcecompact35.dll"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
@@ -696,17 +696,17 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ECC7E36BB040429CAA6BEB648DA7F996"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F953F3DA215D4C17B8902F8B479692C3"
             {
-            "SourcePath" = "8:..\\OS\\bin\\Debug\\LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
+            "SourcePath" = "8:..\\OS\\bin\\Debug\\The PIT Archive.exe.config"
+            "TargetName" = "8:The PIT Archive.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -732,17 +732,6 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_54AA78FA2EA649009F438E006EAEB279"
-                    {
-                    "Name" = "8:EXCEPTION"
-                    "AlwaysCreate" = "11:TRUE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_37A4B433CE4646F89763AED58EF2A5EB"
-                        "Folders"
-                        {
-                        }
-                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_7087739E56C042B88E475F3B0E5242ED"
@@ -783,15 +772,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:The PIT Archive"
-        "ProductCode" = "8:{6EBEDC49-E83A-4C2D-864F-3291752A0436}"
-        "PackageCode" = "8:{57A41E45-70CA-48FB-8140-D6C2606BD6C7}"
+        "ProductCode" = "8:{6C61B930-2E8C-4E57-81EB-3946645C9C2C}"
+        "PackageCode" = "8:{D1E0A3F7-7989-4526-B35C-C0BEB27DE261}"
         "UpgradeCode" = "8:{3C3A8C20-E796-469D-9FCB-43F64EA71068}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.8"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Orion Legal Supplies"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -801,7 +790,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_B7B93B8813884BF6B6774921B5C7EC78"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -904,18 +893,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6D300DED1CC94F25986A1743EB6D5459"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_33AC8F8E956D4135B15B46211D7FCD08"
             {
-            "Name" = "8:Shortcut to The PIT Archive.exe"
+            "Name" = "8:The PIT Archive"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_87A1E76D0EBF4F60965B562DD2C82518"
+            "Target" = "8:_A136EFE7F6A74E26A4044F2C0D5C13D2"
             "Folder" = "8:_7087739E56C042B88E475F3B0E5242ED"
             "WorkingFolder" = "8:_44E23205DF4C42A69D5CCD44C975D897"
-            "Icon" = "8:_6734A2D6C9B74F2EA9961D2D9ACE53B5"
+            "Icon" = "8:_B7B93B8813884BF6B6774921B5C7EC78"
             "Feature" = "8:"
             }
         }
@@ -1062,7 +1051,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_ECC7E36BB040429CAA6BEB648DA7F996"
+                            "Value" = "8:_2C825329C4E64612BD4663BD64BE9A2B"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -1620,7 +1609,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1CDFAA21D8F148F0BE4A685494289A20"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9B2D2B7477C14137A2FFC7B7F772F470"
             {
             "SourcePath" = "8:..\\OS\\obj\\Debug\\The PIT Archive.exe"
             "TargetName" = "8:"

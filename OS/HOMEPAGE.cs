@@ -23,6 +23,15 @@ namespace OS
 
 		private void HOMEPAGE_Load(object sender, EventArgs e)
 		{
+			if (SESSIONKEYS.counteremail == 0)
+			{
+				checkBox1.Checked = false;
+			}
+			else
+			{
+				checkBox1.Checked = true;
+			}
+
 			string path = FormatSize(GetFileSize(Directory.GetCurrentDirectory() + "\\The-PIT-Archive.sdf"));
 			LBLGETSIZE.Text = path.ToString() + " / 4.00 GB Used.";
 			LLBNAME.Text = "Welcome " + SESSIONKEYS.FullName.ToString() + SESSIONKEYS.CompanyName.ToString();
@@ -373,7 +382,30 @@ namespace OS
 			Close();
 		}
 
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				if (checkBox1.Checked == true)
+				{
+					new MasterClass().executeQuery("UPDATE T_LOGIN SET SENDEMAIL = '1'");
+					SESSIONKEYS.counteremail = 1;
+				}
+				else
+				{
+					new MasterClass().executeQuery("UPDATE T_LOGIN SET SENDEMAIL = '0'");
+					SESSIONKEYS.counteremail = 0;
+				}
+			}
+			catch (Exception)
+			{
+				DialogResult dialog = MessageBox.Show("Something Went Wrong.", "Send Email", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
 		#endregion
+
+
 	}
 }
 

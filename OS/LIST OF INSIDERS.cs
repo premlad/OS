@@ -63,45 +63,59 @@ namespace OS
 				SetLoading(true);
 
 				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				dataGridViewTable.Rows.Clear();
+				dataGridViewTable.Refresh();
+				DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO P INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE L.ACTIVE = 'Y'");
+				if (ds.Tables[0].Rows.Count > 0)
 				{
-					dataGridViewTable.Rows.Clear();
-					dataGridViewTable.Refresh();
-					DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO P INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE L.ACTIVE = 'Y'");
-					if (ds.Tables[0].Rows.Count > 0)
+					for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 					{
-						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+						if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()) == text)
 						{
-							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()) == text)
+							string cat = "";
+
+							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Contains("|"))
 							{
-								string cat = "";
 
-								if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Contains("|"))
-								{
+								string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Split('|');
+								cat = abc[0] + " - " + abc[1];
+							}
+							else
+							{
+								cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
+							}
 
-									string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Split('|');
-									cat = abc[0] + " - " + abc[1];
-								}
-								else
+							string mod = "";
+							if (ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() != "" || ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() != null)
+							{
+								if (ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() == "1")
 								{
-									cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
+									mod = MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MODIFIEDON"].ToString())) + " - " + "ADMIN";
 								}
-								if (ds.Tables[0].Rows[i]["ACTIVE"].ToString().Trim() == "Y")
+								else if (ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() == "2")
 								{
-									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "IP" };
-									dataGridViewTable.Rows.Add(row);
+									mod = MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MODIFIEDON"].ToString())) + " - " + "COMPLIANCE_OFFICER";
 								}
-								else
-								{
-									string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "NOMORE IP" };
-									dataGridViewTable.Rows.Add(row);
-								}
+							}
 
+							if (ds.Tables[0].Rows[i]["ACTIVE"].ToString().Trim() == "Y")
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), mod, "IP" };
+								dataGridViewTable.Rows.Add(row);
+							}
+							else
+							{
+								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), mod, "NOMORE IP" };
+								dataGridViewTable.Rows.Add(row);
 							}
 
 						}
+
 					}
-				});
+				}
+				//});
 
 				SetLoading(false);
 			}
@@ -120,30 +134,30 @@ namespace OS
 				SetLoading(true);
 
 				//Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (dataGridViewTable.Rows.Count > 0)
 				{
-					if (dataGridViewTable.Rows.Count > 0)
+					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+
+					SaveFileDialog sfd = new SaveFileDialog
 					{
-						lg.CURRVALUE = "INSIDER PROFILE TAB";
-						lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
+						Filter = "Excel Documents (*.xls)|*.xls",
+						FileName = "LIST OF INSIDERS.xls"
+					};
 
-						SaveFileDialog sfd = new SaveFileDialog
-						{
-							Filter = "Excel Documents (*.xls)|*.xls",
-							FileName = "LIST OF INSIDERS.xls"
-						};
-
-						if (sfd.ShowDialog() == DialogResult.OK)
-						{
-							new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
-							MessageBox.Show("Exported Data Successfully in Excel Sheet.", "List of Insider", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-						}
+					if (sfd.ShowDialog() == DialogResult.OK)
+					{
+						new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
+						MessageBox.Show("Exported Data Successfully in Excel Sheet.", "List of Insider", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					}
-				});
+				}
+				//});
 
 				SetLoading(false);
 			}
@@ -161,35 +175,35 @@ namespace OS
 			{
 				SetLoading(true);
 
-				//Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				////Thread.Sleep(2000);
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (dataGridViewTable.Rows.Count > 0)
 				{
-					if (dataGridViewTable.Rows.Count > 0)
-					{
-						lg.CURRVALUE = "INSIDER PROFILE TAB";
-						lg.DESCRIPTION = "DOWNLOADED PDF FILE";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
+					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.DESCRIPTION = "DOWNLOADED PDF FILE";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
 
 
-						SaveFileDialog sfd = new SaveFileDialog
-						{
-							Filter = "PDF (*.pdf)|*.pdf",
-							FileName = "LIST OF INSIDERS.pdf"
-						};
-						if (sfd.ShowDialog() == DialogResult.OK)
-						{
-							new MasterClass().ToPDF(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
-							MessageBox.Show("Exported Data Successfully in PDF Sheet.", "List of Insider", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-						}
-					}
-					else
+					SaveFileDialog sfd = new SaveFileDialog
 					{
-						MessageBox.Show("No Record To Export !!!", "Info");
+						Filter = "PDF (*.pdf)|*.pdf",
+						FileName = "LIST OF INSIDERS.pdf"
+					};
+					if (sfd.ShowDialog() == DialogResult.OK)
+					{
+						new MasterClass().ToPDF(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
+						MessageBox.Show("Exported Data Successfully in PDF Sheet.", "List of Insider", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					}
-				});
+				}
+				else
+				{
+					MessageBox.Show("No Record To Export !!!", "Info");
+				}
+				//});
 
 				SetLoading(false);
 			}
@@ -239,20 +253,27 @@ namespace OS
 			{
 				if (displayLoader)
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.WaitCursor != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = true;
 						Cursor = Cursors.WaitCursor;
 						//Thread.Sleep(4000);
-					});
+						//});
+					}
 				}
 				else
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.Default != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = false;
 						Cursor = Cursors.Default;
-					});
+						//});
+					}
+
 				}
 			}
 			catch (Exception ex)
@@ -307,41 +328,54 @@ namespace OS
 				SetLoading(true);
 
 				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				dataGridViewTable.Rows.Clear();
+				dataGridViewTable.Refresh();
+				DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO P INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE L.ACTIVE = 'Y'");
+				if (ds.Tables[0].Rows.Count > 0)
 				{
-					dataGridViewTable.Rows.Clear();
-					dataGridViewTable.Refresh();
-					DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO P INNER JOIN T_LOGIN L ON L.ID = P.ENTEREDBY WHERE L.ACTIVE = 'Y'");
-					if (ds.Tables[0].Rows.Count > 0)
+					for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 					{
-						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+						string cat = "";
+
+						if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Contains("|"))
 						{
-							string cat = "";
 
-							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Contains("|"))
-							{
+							string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Split('|');
+							cat = abc[0] + " - " + abc[1];
+						}
+						else
+						{
+							cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
+						}
 
-								string[] abc = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString()).Split('|');
-								cat = abc[0] + " - " + abc[1];
-							}
-							else
+						string mod = "";
+						if (ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() != "" || ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() != null)
+						{
+							if (ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() == "1")
 							{
-								cat = CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["CATEGORYRECEIPT"].ToString());
+								mod = MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MODIFIEDON"].ToString())) + " - " + "ADMIN";
 							}
-
-							if (ds.Tables[0].Rows[i]["ACTIVE"].ToString().Trim() == "Y")
+							else if (ds.Tables[0].Rows[i]["MODIFIEDBY"].ToString().Trim() == "2")
 							{
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "IP" };
-								dataGridViewTable.Rows.Add(row);
-							}
-							else
-							{
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), "NOMORE IP" };
-								dataGridViewTable.Rows.Add(row);
+								mod = MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MODIFIEDON"].ToString())) + " - " + "COMPLIANCE_OFFICER";
 							}
 						}
+
+						if (ds.Tables[0].Rows[i]["ACTIVE"].ToString().Trim() == "Y")
+						{
+							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), mod, "IP" };
+							dataGridViewTable.Rows.Add(row);
+						}
+						else
+						{
+							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["RECEPIENTID"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAMEINSIDER"].ToString()), cat, CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ADDRESS"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["AADHARNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["MOBILENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["LANDLINENO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["EMAILID"].ToString()), (MasterClass.GETIST(CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["ENTEREDON"].ToString())) + " - " + ds.Tables[0].Rows[i]["EMAIL"].ToString()).Trim(), mod, "NOMORE IP" };
+							dataGridViewTable.Rows.Add(row);
+						}
 					}
-				});
+				}
+				//});
 
 				SetLoading(false);
 			}

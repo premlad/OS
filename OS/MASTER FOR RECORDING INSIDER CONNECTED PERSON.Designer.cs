@@ -136,6 +136,9 @@
 			this.button1 = new OS.ButtonLastest();
 			this.button2 = new OS.ButtonLastest();
 			this.button3 = new OS.ButtonLastest();
+			this.btnupdatefinanrel = new OS.ButtonLastest();
+			this.btnaddrelafinaci = new OS.ButtonLastest();
+			this.lblidforcp = new System.Windows.Forms.Label();
 			this.groupBox3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewmaterialfinancial)).BeginInit();
 			this.groupBox2.SuspendLayout();
@@ -152,10 +155,10 @@
 			this.btnaddINSCON.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnaddINSCON.Enabled = false;
 			this.btnaddINSCON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnaddINSCON.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCON.Location = new System.Drawing.Point(43, 653);
+			this.btnaddINSCON.Font = new System.Drawing.Font("SF Pro Display", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnaddINSCON.Location = new System.Drawing.Point(1281, 71);
 			this.btnaddINSCON.Name = "btnaddINSCON";
-			this.btnaddINSCON.Size = new System.Drawing.Size(252, 40);
+			this.btnaddINSCON.Size = new System.Drawing.Size(77, 124);
 			this.btnaddINSCON.TabIndex = 32;
 			this.btnaddINSCON.Text = "ADD";
 			this.btnaddINSCON.UseVisualStyleBackColor = false;
@@ -178,11 +181,12 @@
 			this.groupBox3.Controls.Add(this.label24);
 			this.groupBox3.Controls.Add(this.txtINSCONfinancialfullname);
 			this.groupBox3.Controls.Add(this.label25);
+			this.groupBox3.Enabled = false;
 			this.groupBox3.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox3.ForeColor = System.Drawing.Color.White;
-			this.groupBox3.Location = new System.Drawing.Point(704, 357);
+			this.groupBox3.Location = new System.Drawing.Point(648, 357);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(654, 290);
+			this.groupBox3.Size = new System.Drawing.Size(624, 290);
 			this.groupBox3.TabIndex = 31;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "The Person With Whom, I share Material Financial Relationship";
@@ -218,7 +222,7 @@
 			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewmaterialfinancial.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-			this.dataGridViewmaterialfinancial.Size = new System.Drawing.Size(641, 151);
+			this.dataGridViewmaterialfinancial.Size = new System.Drawing.Size(601, 151);
 			this.dataGridViewmaterialfinancial.TabIndex = 40;
 			this.dataGridViewmaterialfinancial.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewmaterialfinancial_CellMouseDoubleClick);
 			// 
@@ -269,7 +273,7 @@
 			this.btnmaterial.BackgroundImage = global::OS.Properties.Resources.icons8_add_new;
 			this.btnmaterial.Enabled = false;
 			this.btnmaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnmaterial.Location = new System.Drawing.Point(589, 83);
+			this.btnmaterial.Location = new System.Drawing.Point(567, 83);
 			this.btnmaterial.Name = "btnmaterial";
 			this.btnmaterial.Size = new System.Drawing.Size(41, 40);
 			this.btnmaterial.TabIndex = 26;
@@ -285,7 +289,7 @@
 			this.txtINSCONfinancialaddress.MaxLength = 500;
 			this.txtINSCONfinancialaddress.Multiline = true;
 			this.txtINSCONfinancialaddress.Name = "txtINSCONfinancialaddress";
-			this.txtINSCONfinancialaddress.Size = new System.Drawing.Size(412, 26);
+			this.txtINSCONfinancialaddress.Size = new System.Drawing.Size(379, 26);
 			this.txtINSCONfinancialaddress.TabIndex = 23;
 			// 
 			// label20
@@ -427,11 +431,12 @@
 			this.groupBox2.Controls.Add(this.label12);
 			this.groupBox2.Controls.Add(this.txtINSCONrelativefullnam);
 			this.groupBox2.Controls.Add(this.label31);
+			this.groupBox2.Enabled = false;
 			this.groupBox2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox2.ForeColor = System.Drawing.Color.White;
 			this.groupBox2.Location = new System.Drawing.Point(12, 357);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(654, 290);
+			this.groupBox2.Size = new System.Drawing.Size(617, 290);
 			this.groupBox2.TabIndex = 30;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "My Immediate Relative\'s";
@@ -467,7 +472,7 @@
 			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewISNCONrelativetable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-			this.dataGridViewISNCONrelativetable.Size = new System.Drawing.Size(641, 151);
+			this.dataGridViewISNCONrelativetable.Size = new System.Drawing.Size(601, 151);
 			this.dataGridViewISNCONrelativetable.TabIndex = 39;
 			this.dataGridViewISNCONrelativetable.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewISNCONrelativetable_CellMouseDoubleClick);
 			// 
@@ -519,7 +524,7 @@
 			this.btnddrelative.BackgroundImage = global::OS.Properties.Resources.icons8_add_new;
 			this.btnddrelative.Enabled = false;
 			this.btnddrelative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnddrelative.Location = new System.Drawing.Point(589, 83);
+			this.btnddrelative.Location = new System.Drawing.Point(567, 83);
 			this.btnddrelative.Name = "btnddrelative";
 			this.btnddrelative.Size = new System.Drawing.Size(41, 40);
 			this.btnddrelative.TabIndex = 26;
@@ -535,7 +540,7 @@
 			this.txtINSCONrelativeaddress.MaxLength = 500;
 			this.txtINSCONrelativeaddress.Multiline = true;
 			this.txtINSCONrelativeaddress.Name = "txtINSCONrelativeaddress";
-			this.txtINSCONrelativeaddress.Size = new System.Drawing.Size(412, 26);
+			this.txtINSCONrelativeaddress.Size = new System.Drawing.Size(379, 26);
 			this.txtINSCONrelativeaddress.TabIndex = 23;
 			// 
 			// label19
@@ -720,7 +725,7 @@
 			this.groupBox1.ForeColor = System.Drawing.Color.White;
 			this.groupBox1.Location = new System.Drawing.Point(12, 58);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(1346, 293);
+			this.groupBox1.Size = new System.Drawing.Size(1260, 293);
 			this.groupBox1.TabIndex = 29;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Connected Person Info";
@@ -731,7 +736,7 @@
 			this.label33.BackColor = System.Drawing.Color.Transparent;
 			this.label33.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label33.ForeColor = System.Drawing.Color.Red;
-			this.label33.Location = new System.Drawing.Point(1256, 74);
+			this.label33.Location = new System.Drawing.Point(1147, 77);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(17, 19);
 			this.label33.TabIndex = 54;
@@ -742,7 +747,7 @@
 			this.txtEmailemp.BackColor = System.Drawing.Color.MintCream;
 			this.txtEmailemp.Enabled = false;
 			this.txtEmailemp.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtEmailemp.Location = new System.Drawing.Point(1104, 95);
+			this.txtEmailemp.Location = new System.Drawing.Point(995, 98);
 			this.txtEmailemp.MaxLength = 50;
 			this.txtEmailemp.Name = "txtEmailemp";
 			this.txtEmailemp.Size = new System.Drawing.Size(234, 27);
@@ -753,7 +758,7 @@
 			this.label32.AutoSize = true;
 			this.label32.BackColor = System.Drawing.Color.Transparent;
 			this.label32.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label32.Location = new System.Drawing.Point(1100, 73);
+			this.label32.Location = new System.Drawing.Point(991, 76);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(148, 19);
 			this.label32.TabIndex = 52;
@@ -765,7 +770,7 @@
 			this.label30.BackColor = System.Drawing.Color.Transparent;
 			this.label30.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label30.ForeColor = System.Drawing.Color.Red;
-			this.label30.Location = new System.Drawing.Point(159, 128);
+			this.label30.Location = new System.Drawing.Point(178, 128);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(17, 19);
 			this.label30.TabIndex = 51;
@@ -777,7 +782,7 @@
 			this.label29.BackColor = System.Drawing.Color.Transparent;
 			this.label29.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label29.ForeColor = System.Drawing.Color.Red;
-			this.label29.Location = new System.Drawing.Point(820, 73);
+			this.label29.Location = new System.Drawing.Point(790, 76);
 			this.label29.Name = "label29";
 			this.label29.Size = new System.Drawing.Size(17, 19);
 			this.label29.TabIndex = 50;
@@ -789,7 +794,7 @@
 			this.label28.BackColor = System.Drawing.Color.Transparent;
 			this.label28.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label28.ForeColor = System.Drawing.Color.Red;
-			this.label28.Location = new System.Drawing.Point(163, 76);
+			this.label28.Location = new System.Drawing.Point(182, 77);
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(17, 19);
 			this.label28.TabIndex = 49;
@@ -801,7 +806,7 @@
 			this.label27.BackColor = System.Drawing.Color.Transparent;
 			this.label27.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label27.ForeColor = System.Drawing.Color.Red;
-			this.label27.Location = new System.Drawing.Point(426, 22);
+			this.label27.Location = new System.Drawing.Point(413, 23);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(17, 19);
 			this.label27.TabIndex = 48;
@@ -813,7 +818,7 @@
 			this.label26.BackColor = System.Drawing.Color.Transparent;
 			this.label26.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label26.ForeColor = System.Drawing.Color.Red;
-			this.label26.Location = new System.Drawing.Point(167, 22);
+			this.label26.Location = new System.Drawing.Point(186, 23);
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(17, 19);
 			this.label26.TabIndex = 47;
@@ -822,7 +827,7 @@
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(444, 99);
+			this.checkBox1.Location = new System.Drawing.Point(416, 102);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(160, 23);
 			this.checkBox1.TabIndex = 46;
@@ -835,11 +840,11 @@
 			this.permanentaddress.BackColor = System.Drawing.Color.MintCream;
 			this.permanentaddress.Enabled = false;
 			this.permanentaddress.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.permanentaddress.Location = new System.Drawing.Point(646, 95);
+			this.permanentaddress.Location = new System.Drawing.Point(616, 98);
 			this.permanentaddress.MaxLength = 500;
 			this.permanentaddress.Multiline = true;
 			this.permanentaddress.Name = "permanentaddress";
-			this.permanentaddress.Size = new System.Drawing.Size(418, 26);
+			this.permanentaddress.Size = new System.Drawing.Size(373, 26);
 			this.permanentaddress.TabIndex = 45;
 			// 
 			// label11
@@ -847,7 +852,7 @@
 			this.label11.AutoSize = true;
 			this.label11.BackColor = System.Drawing.Color.Transparent;
 			this.label11.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.Location = new System.Drawing.Point(642, 73);
+			this.label11.Location = new System.Drawing.Point(612, 76);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(177, 19);
 			this.label11.TabIndex = 44;
@@ -858,8 +863,8 @@
 			this.txtotheridentifier.BackColor = System.Drawing.Color.MintCream;
 			this.txtotheridentifier.Enabled = false;
 			this.txtotheridentifier.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtotheridentifier.Location = new System.Drawing.Point(804, 44);
-			this.txtotheridentifier.MaxLength = 200;
+			this.txtotheridentifier.Location = new System.Drawing.Point(755, 44);
+			this.txtotheridentifier.MaxLength = 500;
 			this.txtotheridentifier.Name = "txtotheridentifier";
 			this.txtotheridentifier.Size = new System.Drawing.Size(234, 27);
 			this.txtotheridentifier.TabIndex = 43;
@@ -868,10 +873,10 @@
 			// 
 			this.label8.AutoSize = true;
 			this.label8.BackColor = System.Drawing.Color.Transparent;
-			this.label8.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label8.Location = new System.Drawing.Point(800, 22);
+			this.label8.Font = new System.Drawing.Font("SF Pro Display", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label8.Location = new System.Drawing.Point(751, 22);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(235, 19);
+			this.label8.Size = new System.Drawing.Size(207, 16);
 			this.label8.TabIndex = 42;
 			this.label8.Text = "If not PAN, Any Other Identifier No.";
 			// 
@@ -890,7 +895,7 @@
 			this.dataGridViewPastEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewPastEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.pastemployeegridview});
-			this.dataGridViewPastEmployee.Location = new System.Drawing.Point(1039, 182);
+			this.dataGridViewPastEmployee.Location = new System.Drawing.Point(934, 182);
 			this.dataGridViewPastEmployee.Name = "dataGridViewPastEmployee";
 			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
@@ -900,7 +905,7 @@
 			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewPastEmployee.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-			this.dataGridViewPastEmployee.Size = new System.Drawing.Size(299, 105);
+			this.dataGridViewPastEmployee.Size = new System.Drawing.Size(295, 105);
 			this.dataGridViewPastEmployee.TabIndex = 41;
 			this.dataGridViewPastEmployee.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPastEmployee_CellMouseDoubleClick);
 			// 
@@ -926,7 +931,7 @@
 			this.dataGridViewGraduationInstitution.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewGraduationInstitution.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.graduationinstiytuiondatagridview});
-			this.dataGridViewGraduationInstitution.Location = new System.Drawing.Point(691, 182);
+			this.dataGridViewGraduationInstitution.Location = new System.Drawing.Point(633, 183);
 			this.dataGridViewGraduationInstitution.Name = "dataGridViewGraduationInstitution";
 			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
@@ -936,7 +941,7 @@
 			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridViewGraduationInstitution.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-			this.dataGridViewGraduationInstitution.Size = new System.Drawing.Size(299, 105);
+			this.dataGridViewGraduationInstitution.Size = new System.Drawing.Size(295, 105);
 			this.dataGridViewGraduationInstitution.TabIndex = 40;
 			this.dataGridViewGraduationInstitution.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewGraduationInstitution_CellMouseDoubleClick);
 			// 
@@ -954,9 +959,9 @@
 			this.dataGridViewDematAcoount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewDematAcoount.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.datagridviewdematacno});
-			this.dataGridViewDematAcoount.Location = new System.Drawing.Point(349, 182);
+			this.dataGridViewDematAcoount.Location = new System.Drawing.Point(332, 182);
 			this.dataGridViewDematAcoount.Name = "dataGridViewDematAcoount";
-			this.dataGridViewDematAcoount.Size = new System.Drawing.Size(299, 105);
+			this.dataGridViewDematAcoount.Size = new System.Drawing.Size(295, 105);
 			this.dataGridViewDematAcoount.TabIndex = 39;
 			this.dataGridViewDematAcoount.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewDematAcoount_CellMouseDoubleClick);
 			// 
@@ -974,9 +979,9 @@
 			this.dataGridViewPhonemobile.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewPhonemobile.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PhoneNo});
-			this.dataGridViewPhonemobile.Location = new System.Drawing.Point(16, 182);
+			this.dataGridViewPhonemobile.Location = new System.Drawing.Point(35, 182);
 			this.dataGridViewPhonemobile.Name = "dataGridViewPhonemobile";
-			this.dataGridViewPhonemobile.Size = new System.Drawing.Size(299, 105);
+			this.dataGridViewPhonemobile.Size = new System.Drawing.Size(291, 105);
 			this.dataGridViewPhonemobile.TabIndex = 38;
 			this.dataGridViewPhonemobile.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPhonemobile_CellMouseDoubleClick);
 			// 
@@ -991,7 +996,7 @@
 			this.btnINSCONpastemployees.BackgroundImage = global::OS.Properties.Resources.icons8_add_new;
 			this.btnINSCONpastemployees.Enabled = false;
 			this.btnINSCONpastemployees.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnINSCONpastemployees.Location = new System.Drawing.Point(1297, 136);
+			this.btnINSCONpastemployees.Location = new System.Drawing.Point(1188, 137);
 			this.btnINSCONpastemployees.Name = "btnINSCONpastemployees";
 			this.btnINSCONpastemployees.Size = new System.Drawing.Size(41, 40);
 			this.btnINSCONpastemployees.TabIndex = 37;
@@ -1003,10 +1008,10 @@
 			this.txtINSCONpastemployee.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONpastemployee.Enabled = false;
 			this.txtINSCONpastemployee.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONpastemployee.Location = new System.Drawing.Point(1039, 150);
+			this.txtINSCONpastemployee.Location = new System.Drawing.Point(934, 150);
 			this.txtINSCONpastemployee.MaxLength = 100;
 			this.txtINSCONpastemployee.Name = "txtINSCONpastemployee";
-			this.txtINSCONpastemployee.Size = new System.Drawing.Size(240, 27);
+			this.txtINSCONpastemployee.Size = new System.Drawing.Size(242, 27);
 			this.txtINSCONpastemployee.TabIndex = 36;
 			// 
 			// label15
@@ -1014,7 +1019,7 @@
 			this.label15.AutoSize = true;
 			this.label15.BackColor = System.Drawing.Color.Transparent;
 			this.label15.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label15.Location = new System.Drawing.Point(1035, 128);
+			this.label15.Location = new System.Drawing.Point(930, 128);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(137, 19);
 			this.label15.TabIndex = 35;
@@ -1025,7 +1030,7 @@
 			this.btnINSCONGraduationInstitution.BackgroundImage = global::OS.Properties.Resources.icons8_add_new;
 			this.btnINSCONGraduationInstitution.Enabled = false;
 			this.btnINSCONGraduationInstitution.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnINSCONGraduationInstitution.Location = new System.Drawing.Point(949, 136);
+			this.btnINSCONGraduationInstitution.Location = new System.Drawing.Point(883, 136);
 			this.btnINSCONGraduationInstitution.Name = "btnINSCONGraduationInstitution";
 			this.btnINSCONGraduationInstitution.Size = new System.Drawing.Size(41, 40);
 			this.btnINSCONGraduationInstitution.TabIndex = 33;
@@ -1037,10 +1042,10 @@
 			this.txtINSCONgraduationinstitution.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONgraduationinstitution.Enabled = false;
 			this.txtINSCONgraduationinstitution.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONgraduationinstitution.Location = new System.Drawing.Point(691, 150);
+			this.txtINSCONgraduationinstitution.Location = new System.Drawing.Point(633, 150);
 			this.txtINSCONgraduationinstitution.MaxLength = 100;
 			this.txtINSCONgraduationinstitution.Name = "txtINSCONgraduationinstitution";
-			this.txtINSCONgraduationinstitution.Size = new System.Drawing.Size(240, 27);
+			this.txtINSCONgraduationinstitution.Size = new System.Drawing.Size(237, 27);
 			this.txtINSCONgraduationinstitution.TabIndex = 32;
 			// 
 			// label14
@@ -1048,7 +1053,7 @@
 			this.label14.AutoSize = true;
 			this.label14.BackColor = System.Drawing.Color.Transparent;
 			this.label14.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label14.Location = new System.Drawing.Point(687, 128);
+			this.label14.Location = new System.Drawing.Point(629, 128);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(156, 19);
 			this.label14.TabIndex = 31;
@@ -1059,7 +1064,7 @@
 			this.btnINSCONadddematacno.BackgroundImage = global::OS.Properties.Resources.icons8_add_new;
 			this.btnINSCONadddematacno.Enabled = false;
 			this.btnINSCONadddematacno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnINSCONadddematacno.Location = new System.Drawing.Point(607, 136);
+			this.btnINSCONadddematacno.Location = new System.Drawing.Point(586, 137);
 			this.btnINSCONadddematacno.Name = "btnINSCONadddematacno";
 			this.btnINSCONadddematacno.Size = new System.Drawing.Size(41, 40);
 			this.btnINSCONadddematacno.TabIndex = 29;
@@ -1071,10 +1076,10 @@
 			this.txtINSCONdemataccountno.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONdemataccountno.Enabled = false;
 			this.txtINSCONdemataccountno.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONdemataccountno.Location = new System.Drawing.Point(349, 150);
+			this.txtINSCONdemataccountno.Location = new System.Drawing.Point(332, 150);
 			this.txtINSCONdemataccountno.MaxLength = 16;
 			this.txtINSCONdemataccountno.Name = "txtINSCONdemataccountno";
-			this.txtINSCONdemataccountno.Size = new System.Drawing.Size(240, 27);
+			this.txtINSCONdemataccountno.Size = new System.Drawing.Size(243, 27);
 			this.txtINSCONdemataccountno.TabIndex = 28;
 			// 
 			// label13
@@ -1082,7 +1087,7 @@
 			this.label13.AutoSize = true;
 			this.label13.BackColor = System.Drawing.Color.Transparent;
 			this.label13.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label13.Location = new System.Drawing.Point(345, 128);
+			this.label13.Location = new System.Drawing.Point(328, 128);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(106, 19);
 			this.label13.TabIndex = 27;
@@ -1093,7 +1098,7 @@
 			this.btnINSCONaddnumber.BackgroundImage = global::OS.Properties.Resources.icons8_add_new;
 			this.btnINSCONaddnumber.Enabled = false;
 			this.btnINSCONaddnumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnINSCONaddnumber.Location = new System.Drawing.Point(274, 136);
+			this.btnINSCONaddnumber.Location = new System.Drawing.Point(285, 137);
 			this.btnINSCONaddnumber.Name = "btnINSCONaddnumber";
 			this.btnINSCONaddnumber.Size = new System.Drawing.Size(41, 40);
 			this.btnINSCONaddnumber.TabIndex = 25;
@@ -1105,10 +1110,10 @@
 			this.txtMobileINSCONNumber.BackColor = System.Drawing.Color.MintCream;
 			this.txtMobileINSCONNumber.Enabled = false;
 			this.txtMobileINSCONNumber.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtMobileINSCONNumber.Location = new System.Drawing.Point(16, 150);
+			this.txtMobileINSCONNumber.Location = new System.Drawing.Point(35, 150);
 			this.txtMobileINSCONNumber.MaxLength = 100;
 			this.txtMobileINSCONNumber.Name = "txtMobileINSCONNumber";
-			this.txtMobileINSCONNumber.Size = new System.Drawing.Size(240, 27);
+			this.txtMobileINSCONNumber.Size = new System.Drawing.Size(244, 27);
 			this.txtMobileINSCONNumber.TabIndex = 23;
 			this.txtMobileINSCONNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
 			// 
@@ -1117,7 +1122,7 @@
 			this.label10.AutoSize = true;
 			this.label10.BackColor = System.Drawing.Color.Transparent;
 			this.label10.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label10.Location = new System.Drawing.Point(12, 128);
+			this.label10.Location = new System.Drawing.Point(31, 128);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(139, 19);
 			this.label10.TabIndex = 22;
@@ -1128,11 +1133,11 @@
 			this.txtINSCONaddressmaster.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONaddressmaster.Enabled = false;
 			this.txtINSCONaddressmaster.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONaddressmaster.Location = new System.Drawing.Point(16, 98);
+			this.txtINSCONaddressmaster.Location = new System.Drawing.Point(35, 99);
 			this.txtINSCONaddressmaster.MaxLength = 500;
 			this.txtINSCONaddressmaster.Multiline = true;
 			this.txtINSCONaddressmaster.Name = "txtINSCONaddressmaster";
-			this.txtINSCONaddressmaster.Size = new System.Drawing.Size(418, 26);
+			this.txtINSCONaddressmaster.Size = new System.Drawing.Size(373, 26);
 			this.txtINSCONaddressmaster.TabIndex = 21;
 			// 
 			// label9
@@ -1140,7 +1145,7 @@
 			this.label9.AutoSize = true;
 			this.label9.BackColor = System.Drawing.Color.Transparent;
 			this.label9.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label9.Location = new System.Drawing.Point(12, 76);
+			this.label9.Location = new System.Drawing.Point(31, 77);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(139, 19);
 			this.label9.TabIndex = 20;
@@ -1151,7 +1156,7 @@
 			this.txtINSCONcurrentdesigantion.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONcurrentdesigantion.Enabled = false;
 			this.txtINSCONcurrentdesigantion.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONcurrentdesigantion.Location = new System.Drawing.Point(1104, 44);
+			this.txtINSCONcurrentdesigantion.Location = new System.Drawing.Point(995, 44);
 			this.txtINSCONcurrentdesigantion.MaxLength = 50;
 			this.txtINSCONcurrentdesigantion.Name = "txtINSCONcurrentdesigantion";
 			this.txtINSCONcurrentdesigantion.Size = new System.Drawing.Size(234, 27);
@@ -1162,7 +1167,7 @@
 			this.label7.AutoSize = true;
 			this.label7.BackColor = System.Drawing.Color.Transparent;
 			this.label7.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(1100, 22);
+			this.label7.Location = new System.Drawing.Point(991, 22);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(140, 19);
 			this.label7.TabIndex = 17;
@@ -1173,7 +1178,7 @@
 			this.txtINSCONpannomaster.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONpannomaster.Enabled = false;
 			this.txtINSCONpannomaster.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONpannomaster.Location = new System.Drawing.Point(546, 44);
+			this.txtINSCONpannomaster.Location = new System.Drawing.Point(515, 44);
 			this.txtINSCONpannomaster.MaxLength = 10;
 			this.txtINSCONpannomaster.Name = "txtINSCONpannomaster";
 			this.txtINSCONpannomaster.Size = new System.Drawing.Size(234, 27);
@@ -1184,7 +1189,7 @@
 			this.label5.AutoSize = true;
 			this.label5.BackColor = System.Drawing.Color.Transparent;
 			this.label5.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(542, 22);
+			this.label5.Location = new System.Drawing.Point(511, 22);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(64, 19);
 			this.label5.TabIndex = 14;
@@ -1196,7 +1201,7 @@
 			this.label6.BackColor = System.Drawing.Color.Transparent;
 			this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label6.ForeColor = System.Drawing.Color.Red;
-			this.label6.Location = new System.Drawing.Point(613, 22);
+			this.label6.Location = new System.Drawing.Point(582, 22);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(17, 19);
 			this.label6.TabIndex = 16;
@@ -1207,7 +1212,7 @@
 			this.txtINSCONnameofemployee.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONnameofemployee.Enabled = false;
 			this.txtINSCONnameofemployee.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONnameofemployee.Location = new System.Drawing.Point(288, 44);
+			this.txtINSCONnameofemployee.Location = new System.Drawing.Point(275, 45);
 			this.txtINSCONnameofemployee.MaxLength = 50;
 			this.txtINSCONnameofemployee.Name = "txtINSCONnameofemployee";
 			this.txtINSCONnameofemployee.Size = new System.Drawing.Size(234, 27);
@@ -1218,7 +1223,7 @@
 			this.label3.AutoSize = true;
 			this.label3.BackColor = System.Drawing.Color.Transparent;
 			this.label3.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(284, 22);
+			this.label3.Location = new System.Drawing.Point(271, 23);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(134, 19);
 			this.label3.TabIndex = 11;
@@ -1230,7 +1235,7 @@
 			this.label4.BackColor = System.Drawing.Color.Transparent;
 			this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.ForeColor = System.Drawing.Color.Red;
-			this.label4.Location = new System.Drawing.Point(382, 22);
+			this.label4.Location = new System.Drawing.Point(369, 23);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(17, 19);
 			this.label4.TabIndex = 13;
@@ -1243,7 +1248,7 @@
 			this.txtINSCONconnectperson.BackColor = System.Drawing.Color.MintCream;
 			this.txtINSCONconnectperson.Enabled = false;
 			this.txtINSCONconnectperson.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtINSCONconnectperson.Location = new System.Drawing.Point(16, 44);
+			this.txtINSCONconnectperson.Location = new System.Drawing.Point(35, 45);
 			this.txtINSCONconnectperson.MaxLength = 50;
 			this.txtINSCONconnectperson.Name = "txtINSCONconnectperson";
 			this.txtINSCONconnectperson.Size = new System.Drawing.Size(234, 27);
@@ -1255,7 +1260,7 @@
 			this.label2.AutoSize = true;
 			this.label2.BackColor = System.Drawing.Color.Transparent;
 			this.label2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(12, 22);
+			this.label2.Location = new System.Drawing.Point(31, 23);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(148, 19);
 			this.label2.TabIndex = 8;
@@ -1276,7 +1281,7 @@
 			this.btnaddINSCONdeelete.Enabled = false;
 			this.btnaddINSCONdeelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnaddINSCONdeelete.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(816, 653);
+			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(548, 653);
 			this.btnaddINSCONdeelete.Name = "btnaddINSCONdeelete";
 			this.btnaddINSCONdeelete.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCONdeelete.TabIndex = 35;
@@ -1290,10 +1295,10 @@
 			this.btnupdateINSCON.BackColor = System.Drawing.Color.DodgerBlue;
 			this.btnupdateINSCON.Enabled = false;
 			this.btnupdateINSCON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnupdateINSCON.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnupdateINSCON.Location = new System.Drawing.Point(300, 653);
+			this.btnupdateINSCON.Font = new System.Drawing.Font("SF Pro Display", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnupdateINSCON.Location = new System.Drawing.Point(1281, 221);
 			this.btnupdateINSCON.Name = "btnupdateINSCON";
-			this.btnupdateINSCON.Size = new System.Drawing.Size(252, 40);
+			this.btnupdateINSCON.Size = new System.Drawing.Size(77, 124);
 			this.btnupdateINSCON.TabIndex = 33;
 			this.btnupdateINSCON.Text = "UPDATE";
 			this.btnupdateINSCON.UseVisualStyleBackColor = false;
@@ -1306,7 +1311,7 @@
 			this.btncacncelINSCON.Enabled = false;
 			this.btncacncelINSCON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btncacncelINSCON.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btncacncelINSCON.Location = new System.Drawing.Point(558, 653);
+			this.btncacncelINSCON.Location = new System.Drawing.Point(290, 653);
 			this.btncacncelINSCON.Name = "btncacncelINSCON";
 			this.btncacncelINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btncacncelINSCON.TabIndex = 34;
@@ -1320,7 +1325,7 @@
 			this.button1.BackColor = System.Drawing.Color.DodgerBlue;
 			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.button1.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(1074, 653);
+			this.button1.Location = new System.Drawing.Point(806, 653);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(252, 40);
 			this.button1.TabIndex = 41;
@@ -1354,12 +1359,56 @@
 			this.button3.UseVisualStyleBackColor = false;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
+			// btnupdatefinanrel
+			// 
+			this.btnupdatefinanrel.BackColor = System.Drawing.Color.DodgerBlue;
+			this.btnupdatefinanrel.Enabled = false;
+			this.btnupdatefinanrel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnupdatefinanrel.Font = new System.Drawing.Font("SF Pro Display", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnupdatefinanrel.Location = new System.Drawing.Point(1281, 522);
+			this.btnupdatefinanrel.Name = "btnupdatefinanrel";
+			this.btnupdatefinanrel.Size = new System.Drawing.Size(77, 124);
+			this.btnupdatefinanrel.TabIndex = 66;
+			this.btnupdatefinanrel.Text = "UPDATE\r\nREL \r\n/ \r\nFIN";
+			this.btnupdatefinanrel.UseVisualStyleBackColor = false;
+			this.btnupdatefinanrel.Visible = false;
+			this.btnupdatefinanrel.Click += new System.EventHandler(this.btnupdatefinanrel_Click);
+			// 
+			// btnaddrelafinaci
+			// 
+			this.btnaddrelafinaci.BackColor = System.Drawing.Color.DodgerBlue;
+			this.btnaddrelafinaci.Enabled = false;
+			this.btnaddrelafinaci.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnaddrelafinaci.Font = new System.Drawing.Font("SF Pro Display", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnaddrelafinaci.Location = new System.Drawing.Point(1281, 372);
+			this.btnaddrelafinaci.Name = "btnaddrelafinaci";
+			this.btnaddrelafinaci.Size = new System.Drawing.Size(77, 124);
+			this.btnaddrelafinaci.TabIndex = 65;
+			this.btnaddrelafinaci.Text = "ADD \r\nREL \r\n/ \r\nFIN";
+			this.btnaddrelafinaci.UseVisualStyleBackColor = false;
+			this.btnaddrelafinaci.Click += new System.EventHandler(this.btnaddrelafinaci_Click);
+			// 
+			// lblidforcp
+			// 
+			this.lblidforcp.AutoSize = true;
+			this.lblidforcp.BackColor = System.Drawing.Color.Transparent;
+			this.lblidforcp.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblidforcp.Location = new System.Drawing.Point(19, 36);
+			this.lblidforcp.Name = "lblidforcp";
+			this.lblidforcp.Size = new System.Drawing.Size(148, 19);
+			this.lblidforcp.TabIndex = 67;
+			this.lblidforcp.Text = "Connected Person ID";
+			this.lblidforcp.Visible = false;
+			// 
 			// MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.ClientSize = new System.Drawing.Size(1370, 730);
+			this.Controls.Add(this.lblidforcp);
+			this.Controls.Add(this.btnupdatefinanrel);
+			this.Controls.Add(this.btnaddrelafinaci);
 			this.Controls.Add(this.cmdINSCONSAVEID);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button3);
@@ -1388,6 +1437,9 @@
 			this.Controls.SetChildIndex(this.button3, 0);
 			this.Controls.SetChildIndex(this.button2, 0);
 			this.Controls.SetChildIndex(this.cmdINSCONSAVEID, 0);
+			this.Controls.SetChildIndex(this.btnaddrelafinaci, 0);
+			this.Controls.SetChildIndex(this.btnupdatefinanrel, 0);
+			this.Controls.SetChildIndex(this.lblidforcp, 0);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewmaterialfinancial)).EndInit();
@@ -1505,5 +1557,8 @@
 		public System.Windows.Forms.TextBox txtEmailemp;
 		private System.Windows.Forms.Label label32;
 		private System.Windows.Forms.Label label33;
+		private ButtonLastest btnupdatefinanrel;
+		private ButtonLastest btnaddrelafinaci;
+		private System.Windows.Forms.Label lblidforcp;
 	}
 }

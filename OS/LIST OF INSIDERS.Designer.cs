@@ -63,6 +63,7 @@
 			this.LandlineNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.EmailId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Dateofentryusername = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.modified = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.NomoreIPTag = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -268,6 +269,7 @@
             this.LandlineNo,
             this.EmailId,
             this.Dateofentryusername,
+            this.modified,
             this.NomoreIPTag});
 			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -411,11 +413,18 @@
 			// 
 			// Dateofentryusername
 			// 
-			this.Dateofentryusername.HeaderText = "Date of Entry - Username";
+			this.Dateofentryusername.HeaderText = "Created Date & Time of Entry with Username";
 			this.Dateofentryusername.Name = "Dateofentryusername";
 			this.Dateofentryusername.ReadOnly = true;
-			this.Dateofentryusername.ToolTipText = "Date of Entry - Username";
-			this.Dateofentryusername.Width = 122;
+			this.Dateofentryusername.ToolTipText = "Created Date & Time of Entry with Username";
+			this.Dateofentryusername.Width = 209;
+			// 
+			// modified
+			// 
+			this.modified.HeaderText = "Last Modified Date & Time Entry with Username";
+			this.modified.Name = "modified";
+			this.modified.ReadOnly = true;
+			this.modified.Width = 226;
 			// 
 			// NomoreIPTag
 			// 
@@ -503,6 +512,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn LandlineNo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn EmailId;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Dateofentryusername;
+		private System.Windows.Forms.DataGridViewTextBoxColumn modified;
 		private System.Windows.Forms.DataGridViewTextBoxColumn NomoreIPTag;
 	}
 }

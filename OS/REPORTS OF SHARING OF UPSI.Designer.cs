@@ -342,10 +342,10 @@
 			// 
 			// Dateofsecofnetry
 			// 
-			this.Dateofsecofnetry.HeaderText = "Date of second and all entry with User Name";
+			this.Dateofsecofnetry.HeaderText = "Last Modified Date & Time Entry with Username";
 			this.Dateofsecofnetry.Name = "Dateofsecofnetry";
 			this.Dateofsecofnetry.ReadOnly = true;
-			this.Dateofsecofnetry.Width = 150;
+			this.Dateofsecofnetry.Width = 159;
 			// 
 			// datehwnupsi
 			// 

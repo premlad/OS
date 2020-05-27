@@ -209,7 +209,7 @@
 			this.txtidentifierno.Enabled = false;
 			this.txtidentifierno.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtidentifierno.Location = new System.Drawing.Point(500, 150);
-			this.txtidentifierno.MaxLength = 12;
+			this.txtidentifierno.MaxLength = 500;
 			this.txtidentifierno.Name = "txtidentifierno";
 			this.txtidentifierno.Size = new System.Drawing.Size(329, 27);
 			this.txtidentifierno.TabIndex = 5;

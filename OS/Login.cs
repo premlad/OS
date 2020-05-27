@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace OS
@@ -25,20 +24,27 @@ namespace OS
 			{
 				if (displayLoader)
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.WaitCursor != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = true;
 						Cursor = Cursors.WaitCursor;
 						//Thread.Sleep(4000);
-					});
+						//});
+					}
 				}
 				else
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.Default != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = false;
 						Cursor = Cursors.Default;
-					});
+						//});
+					}
+
 				}
 			}
 			catch (Exception ex)
@@ -57,76 +63,78 @@ namespace OS
 				SetLoading(true);
 
 				//Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (txtusername.Text == "")
 				{
-					if (txtusername.Text == "")
+					DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (txtpassword.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (MasterClass.GETISTII() == "TEMP")
+				{
+					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (new CheckDB().CreateDbForFirstInstance() == "EXISTS")
+				{
+					DataSet ds;
+					if (txtusername.Text.ToUpper().Trim() == "COMPLIANCE_OFFICER")
 					{
-						DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						//ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN,DATEFROM,DATETO FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y' AND CONVERT(DATETIME,DATEFROM) >= CONVERT(DATETIME,'" + SESSIONKEYS.datetimeog.ToString("yyyy-MM-dd") + "') AND CONVERT(DATETIME,DATETO) <= CONVERT(DATETIME,'" + SESSIONKEYS.datetimeog.ToString("yyyy-MM-dd") + "')");
+						ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN,DATEFROM,DATETO,SENDEMAIL FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y' AND CONVERT(DATETIME,'" + SESSIONKEYS.datetimeog.ToString("yyyy-MM-dd") + "') BETWEEN CONVERT(DATETIME,DATEFROM) AND CONVERT(DATETIME,DATETO) ");
 					}
-					else if (txtpassword.Text == "")
+					else
 					{
-						DialogResult dialog = MessageBox.Show("Provide Values.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN,DATEFROM,DATETO,SENDEMAIL FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y'");
 					}
-					else if (MasterClass.GETISTII() == "TEMP")
-					{
-						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (new CheckDB().CreateDbForFirstInstance() == "EXISTS")
-					{
-						DataSet ds;
-						if (txtusername.Text == "COMPLIANCE_OFFICER")
-						{
-							//ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN,DATEFROM,DATETO FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y' AND CONVERT(DATETIME,DATEFROM) >= CONVERT(DATETIME,'" + SESSIONKEYS.datetimeog.ToString("yyyy-MM-dd") + "') AND CONVERT(DATETIME,DATETO) <= CONVERT(DATETIME,'" + SESSIONKEYS.datetimeog.ToString("yyyy-MM-dd") + "')");
-							ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN,DATEFROM,DATETO FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y' AND CONVERT(DATETIME,'" + SESSIONKEYS.datetimeog.ToString("yyyy-MM-dd") + "') BETWEEN CONVERT(DATETIME,DATEFROM) AND CONVERT(DATETIME,DATETO) ");
-						}
-						else
-						{
-							ds = new MasterClass().getDataSet("SELECT ID,PASSWORD,FULLNAME,ADMIN,DATEFROM,DATETO FROM T_LOGIN WHERE EMAIL = '" + txtusername.Text + "' AND ACTIVE = 'Y'");
-						}
 
-						DataSet dss = new MasterClass().getDataSet("SELECT COMPANYNAME FROM T_INS_COMPANY WHERE ACTIVE = 'Y'");
-						if (ds.Tables[0].Rows.Count > 0)
+					DataSet dss = new MasterClass().getDataSet("SELECT COMPANYNAME FROM T_INS_COMPANY WHERE ACTIVE = 'Y'");
+					if (ds.Tables[0].Rows.Count > 0)
+					{
+						if (txtpassword.Text == CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PASSWORD"].ToString()))
 						{
-							if (txtpassword.Text == CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["PASSWORD"].ToString()))
+							SESSIONKEYS.UserID = ds.Tables[0].Rows[0]["ID"].ToString();
+							SESSIONKEYS.Role = ds.Tables[0].Rows[0]["ADMIN"].ToString();
+							SESSIONKEYS.counteremail = Convert.ToInt32(ds.Tables[0].Rows[0]["SENDEMAIL"]);
+							if (dss.Tables[0].Rows.Count > 0)
 							{
-								SESSIONKEYS.UserID = ds.Tables[0].Rows[0]["ID"].ToString();
-								SESSIONKEYS.Role = ds.Tables[0].Rows[0]["ADMIN"].ToString();
-								if (dss.Tables[0].Rows.Count > 0)
-								{
-									SESSIONKEYS.FullName = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["FULLNAME"].ToString());
-									SESSIONKEYS.CompanyName = " of " + CryptographyHelper.Decrypt(dss.Tables[0].Rows[0]["COMPANYNAME"].ToString()) + ".";
-								}
-								else
-								{
-									SESSIONKEYS.FullName = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["FULLNAME"].ToString());
-									SESSIONKEYS.CompanyName = " of <<Company Name>>.";
-								}
-								lg.CURRVALUE = "LOG IN";
-								lg.DESCRIPTION = "LOG IN SUCCESSFULLY";
-								lg.TYPE = "SELECTED";
-								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-								lg.ID = SESSIONKEYS.UserID.ToString();
-								string json = new MasterClass().SAVE_LOG(lg);
-								DialogResult dialog = MessageBox.Show("Login Successfully.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-								HOMEPAGE h = new HOMEPAGE();
-								h.Show();
-								Hide();
+								SESSIONKEYS.FullName = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["FULLNAME"].ToString());
+								SESSIONKEYS.CompanyName = " of " + CryptographyHelper.Decrypt(dss.Tables[0].Rows[0]["COMPANYNAME"].ToString()) + ".";
 							}
 							else
 							{
-								DialogResult dialog = MessageBox.Show("Invalid Username or Password.\nEnter Correct Username or Password.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+								SESSIONKEYS.FullName = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["FULLNAME"].ToString());
+								SESSIONKEYS.CompanyName = " of <<Company Name>>.";
 							}
+							lg.CURRVALUE = "LOG IN";
+							lg.DESCRIPTION = "LOG IN SUCCESSFULLY";
+							lg.TYPE = "SELECTED";
+							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+							lg.ID = SESSIONKEYS.UserID.ToString();
+							string json = new MasterClass().SAVE_LOG(lg);
+							DialogResult dialog = MessageBox.Show("Login Successfully.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							HOMEPAGE h = new HOMEPAGE();
+							h.Show();
+							Hide();
 						}
 						else
 						{
-							DialogResult dialog = MessageBox.Show("Invalid Username or Password.\nEnter Correct Username or Password.\nPlease Contact System Administrator for More Details", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							DialogResult dialog = MessageBox.Show("Invalid Username or Password.\nEnter Correct Username or Password.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						}
 					}
-				});
+					else
+					{
+						DialogResult dialog = MessageBox.Show("Invalid Username or Password.\nEnter Correct Username or Password.\nPlease Contact System Administrator for More Details", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+				//});
 				SetLoading(false);
 			}
 			catch (Exception ex)
 			{
+				SetLoading(false);
 				new MasterClass().SAVETEXTLOG(ex);
 				DialogResult dialog = MessageBox.Show("Please Check Your Internet Connection.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}

@@ -66,6 +66,7 @@
 			this.Pannorf = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Dematacnrf = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.usernamedat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.modifiedentry = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.nomorecptag = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
@@ -111,6 +112,7 @@
             this.Pannorf,
             this.Dematacnrf,
             this.usernamedat,
+            this.modifiedentry,
             this.nomorecptag});
 			this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridViewTable.GridColor = System.Drawing.SystemColors.Control;
@@ -442,10 +444,17 @@
 			// 
 			// usernamedat
 			// 
-			this.usernamedat.HeaderText = "Date of Entry with Username";
+			this.usernamedat.HeaderText = "Created Date & Time of Entry with Username";
 			this.usernamedat.Name = "usernamedat";
 			this.usernamedat.ReadOnly = true;
-			this.usernamedat.Width = 141;
+			this.usernamedat.Width = 209;
+			// 
+			// modifiedentry
+			// 
+			this.modifiedentry.HeaderText = "Last Modified Date & Time Entry with Username";
+			this.modifiedentry.Name = "modifiedentry";
+			this.modifiedentry.ReadOnly = true;
+			this.modifiedentry.Width = 226;
 			// 
 			// nomorecptag
 			// 
@@ -541,6 +550,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Pannorf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Dematacnrf;
 		private System.Windows.Forms.DataGridViewTextBoxColumn usernamedat;
+		private System.Windows.Forms.DataGridViewTextBoxColumn modifiedentry;
 		private System.Windows.Forms.DataGridViewTextBoxColumn nomorecptag;
 	}
 }

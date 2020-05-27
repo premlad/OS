@@ -78,20 +78,27 @@ namespace OS
 			{
 				if (displayLoader)
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.WaitCursor != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = true;
 						Cursor = Cursors.WaitCursor;
 						//Thread.Sleep(4000);
-					});
+						//});
+					}
 				}
 				else
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.Default != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = false;
 						Cursor = Cursors.Default;
-					});
+						//});
+					}
+
 				}
 			}
 			catch (Exception ex)
@@ -101,32 +108,6 @@ namespace OS
 				//l.Show();
 				//Close();
 			}
-			//if (displayLoader)
-			//{
-			//	Invoke((MethodInvoker)delegate
-			//	{
-			//		string a = Cursor.ToString();
-			//		if (a != "[Cursor: WaitCursor]")
-			//		{
-			//			//picLoader.Visible = true;
-			//			Cursor = Cursors.WaitCursor;
-			//			//Thread.Sleep(4000);
-			//		}
-			//	});
-			//}
-			//else
-			//{
-			//	//if(Cursor.Dispose)
-			//	string a = Cursor.ToString();
-			//	if (a != "[Cursor: Default]")
-			//	{
-			//		Invoke((MethodInvoker)delegate
-			//		{
-			//			//picLoader.Visible = false;
-			//			Cursor = Cursors.Default;
-			//		});
-			//	}
-			//}
 		}
 
 		private void btnaddINSCON_Click(object sender, EventArgs e)
@@ -136,93 +117,93 @@ namespace OS
 				SetLoading(true);
 
 				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (new MasterClass().GETLOCKDB() == "Y")
 				{
-					if (new MasterClass().GETLOCKDB() == "Y")
+					DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+		if (MasterClass.GETISTI() == "TEMP")
+				{
+					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Login l = new Login();
+					lg.CURRVALUE = "LOG OUT";
+					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+					SESSIONKEYS.UserID = "";
+					SESSIONKEYS.Role = "";
+					SESSIONKEYS.FullName = "";
+					SetLoading(false);
+					l.Show();
+					Close();
+				}
+				else if (txtCompanyName.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Please Enter Company Name.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (!new MasterClass().IsValidEmail(txtEmailID.Text))
+				{
+					DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				{
+					string ds;
+					if (val == "UPDATE")
 					{
-						DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else
-			if (MasterClass.GETISTI() == "TEMP")
-					{
-						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Login l = new Login();
-						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
-						lg.TYPE = "SELECTED";
+						DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_COMPANY_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
+
+						ds = new MasterClass().executeQueryForDB("UPDATE T_INS_COMPANY SET COMPANYNAME = '" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "',REGOFFICE = '" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "',CORPORATEOFFICE = '" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "',MOBILENO = '" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "',EMAILID = '" + CryptographyHelper.Encrypt(txtEmailID.Text) + "',CIN = '" + CryptographyHelper.Encrypt(txtCIN.Text) + "',BSECODE = '" + CryptographyHelper.Encrypt(txtBSE.Text) + "',NSECODE = '" + CryptographyHelper.Encrypt(txtNSE.Text) + "',ISIN = '" + CryptographyHelper.Encrypt(txtISIN.Text) + "',OFFICERNAME = '" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "',DESIGNATION = '" + CryptographyHelper.Encrypt(txtDesignation.Text) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' ;").ToString();
+						string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY_LOG(TID,COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
+
+
+
+						lg.CURRVALUE = "MASTER DATA OF COMPANY PROFILE TAB";
+						lg.TYPE = "UPDATED";
+						lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
+						lg.DESCRIPTION = "UPDATED IN MASTER DATA OF COMPANY";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
-						SESSIONKEYS.UserID = "";
-						SESSIONKEYS.Role = "";
-						SESSIONKEYS.FullName = "";
-						SetLoading(false);
-						l.Show();
-						Close();
-					}
-					else if (txtCompanyName.Text == "")
-					{
-						DialogResult dialog = MessageBox.Show("Please Enter Company Name.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (!new MasterClass().IsValidEmail(txtEmailID.Text))
-					{
-						DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else
-					{
-						string ds;
-						if (val == "UPDATE")
+						//lg.ID = SESSIONKEYS.UserID.ToString();
+						new MasterClass().SAVE_LOG(lg);
+
+						if (Convert.ToInt32(ds) > 0)
 						{
-							DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_COMPANY_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
-
-							ds = new MasterClass().executeQueryForDB("UPDATE T_INS_COMPANY SET COMPANYNAME = '" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "',REGOFFICE = '" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "',CORPORATEOFFICE = '" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "',MOBILENO = '" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "',EMAILID = '" + CryptographyHelper.Encrypt(txtEmailID.Text) + "',CIN = '" + CryptographyHelper.Encrypt(txtCIN.Text) + "',BSECODE = '" + CryptographyHelper.Encrypt(txtBSE.Text) + "',NSECODE = '" + CryptographyHelper.Encrypt(txtNSE.Text) + "',ISIN = '" + CryptographyHelper.Encrypt(txtISIN.Text) + "',OFFICERNAME = '" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "',DESIGNATION = '" + CryptographyHelper.Encrypt(txtDesignation.Text) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' ;").ToString();
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY_LOG(TID,COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
-
-
-
-							lg.CURRVALUE = "MASTER DATA OF COMPANY PROFILE TAB";
-							lg.TYPE = "UPDATED";
-							lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
-							lg.DESCRIPTION = "UPDATED IN MASTER DATA OF COMPANY";
-							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							//lg.ID = SESSIONKEYS.UserID.ToString();
-							new MasterClass().SAVE_LOG(lg);
-
-							if (Convert.ToInt32(ds) > 0)
-							{
-								DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
-							}
-							else
-							{
-								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							}
+							DialogResult dialog = MessageBox.Show("Updated Data Successfully.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						}
 						else
 						{
-							ds = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY(COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','Y','N') ;").ToString();
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY_LOG(TID,COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
-
-							lg.CURRVALUE = "MASTER DATA OF COMPANY PROFILE TAB";
-							lg.TYPE = "INSERTED";
-							lg.ID = perlogid;
-							lg.DESCRIPTION = "INSERTED IN MASTER DATA OF COMPANY";
-							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-							//lg.ID = SESSIONKEYS.UserID.ToString();
-							new MasterClass().SAVE_LOG(lg);
-
-							if (Convert.ToInt32(ds) > 0)
-							{
-								DialogResult dialog = MessageBox.Show("Save Data Successfully.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
-							}
-							else
-							{
-								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
-							}
+							DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						}
-
-						FIllData();
 					}
-				});
+					else
+					{
+						ds = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY(COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','Y','N') ;").ToString();
+						string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_COMPANY_LOG(TID,COMPANYNAME,REGOFFICE,CORPORATEOFFICE,MOBILENO,LANDLINENO,EMAILID,CIN,BSECODE,NSECODE,ISIN,OFFICERNAME,DESIGNATION,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(txtCompanyName.Text) + "','" + CryptographyHelper.Encrypt(txtregisteredOffice.Text) + "','" + CryptographyHelper.Encrypt(txtCorporateOffice.Text) + "','" + CryptographyHelper.Encrypt(txtMobileNo.Text) + "','" + CryptographyHelper.Encrypt(txtLandLineNo.Text) + "','" + CryptographyHelper.Encrypt(txtEmailID.Text) + "','" + CryptographyHelper.Encrypt(txtCIN.Text) + "','" + CryptographyHelper.Encrypt(txtBSE.Text) + "','" + CryptographyHelper.Encrypt(txtNSE.Text) + "','" + CryptographyHelper.Encrypt(txtISIN.Text) + "','" + CryptographyHelper.Encrypt(txtOfficerName.Text) + "','" + CryptographyHelper.Encrypt(txtDesignation.Text) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
+
+						lg.CURRVALUE = "MASTER DATA OF COMPANY PROFILE TAB";
+						lg.TYPE = "INSERTED";
+						lg.ID = perlogid;
+						lg.DESCRIPTION = "INSERTED IN MASTER DATA OF COMPANY";
+						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
+						new MasterClass().SAVE_LOG(lg);
+
+						if (Convert.ToInt32(ds) > 0)
+						{
+							DialogResult dialog = MessageBox.Show("Save Data Successfully.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						}
+						else
+						{
+							DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Company Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
+					}
+
+					FIllData();
+				}
+				//});
 
 				SetLoading(false);
 			}

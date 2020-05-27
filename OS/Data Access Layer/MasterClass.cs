@@ -23,6 +23,7 @@ namespace OS.Data_Access_Layer
 {
 	internal class MasterClass
 	{
+		public string ErrorlienNo, ErrorMsg, ErrorLocation, extype, exurl, FromMail, ToMail, word, Sub, HostAdd, EmailHead, EmailSing;
 		public SqlCeConnection con = new SqlCeConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
 		//Data Source=(localdb)\MSSqlCeLocalDB;AttachDbFilename=C:\Users\MAULI\source\repos\OS\OS\OS.mdf;Initial Catalog=OS;Integrated Security=True
 		//public SqlCeConnection con = new SqlCeConnection(@"Data Source=(localdb)\MSSqlCeLocalDB;AttachDbFilename=|DataDirectory|\OS.mdf;Integrated Security=True;Connect Timeout=10000;User Instance=True");
@@ -42,21 +43,67 @@ namespace OS.Data_Access_Layer
 			return new MasterClass().executeQuery("INSERT INTO M_LOG_AUDIT(NAME,OPERATION,DESCRIPTION,TID,ENTEREDBY,ENTEREDON) VALUES ('" + CryptographyHelper.Encrypt(obj.CURRVALUE) + "', '" + CryptographyHelper.Encrypt(obj.TYPE) + "', '" + CryptographyHelper.Encrypt(obj.DESCRIPTION) + "', '" + obj.ID + "', '" + obj.ENTEREDBY + "', '" + GETIST() + "'); ").ToString();
 		}
 
+		//public void SAVETEXTLOG(Exception e)
+		//{
+		//	string TXTPATH = Directory.GetCurrentDirectory() + "\\EXCEPTION\\" + "Exception_" + DateTime.Now.ToString("dd-MM-yyyy_hh-MM-ss") + ".txt";
+		//	FileInfo fi = new FileInfo(TXTPATH);
+		//	try
+		//	{
+		//		if (fi.Exists)
+		//		{
+		//			fi.Delete();
+		//		}
+
+		//		using (StreamWriter sw = fi.CreateText())
+		//		{
+		//			sw.WriteLine("Exception file created: {0}", DateTime.Now.ToString());
+		//			sw.WriteLine(e.ToString());
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		SAVETEXTLOG(ex);
+		//	}
+		//}
+
 		public void SAVETEXTLOG(Exception e)
 		{
-			string TXTPATH = Directory.GetCurrentDirectory() + "\\EXCEPTION\\" + "Exception_" + DateTime.Now.ToString("dd-MM-yyyy_hh-MM-ss") + ".txt";
-			FileInfo fi = new FileInfo(TXTPATH);
 			try
 			{
-				if (fi.Exists)
+				string username = "";
+				if (SESSIONKEYS.FullName != null || SESSIONKEYS.FullName.ToString() != "")
 				{
-					fi.Delete();
+					username = SESSIONKEYS.FullName.ToString() + SESSIONKEYS.CompanyName.ToString();
 				}
-
-				using (StreamWriter sw = fi.CreateText())
+				else
 				{
-					sw.WriteLine("Exception file created: {0}", DateTime.Now.ToString());
-					sw.WriteLine(e.ToString());
+					username = "The PIT Archive Team";
+				}
+				Exception exc = e;
+				DataTable dt = new DataTable();
+				dt.Clear();
+				DataColumn Emaildc = new DataColumn("Email", typeof(string));
+				dt.Columns.AddRange(new DataColumn[] { Emaildc });
+				dt.Rows.Add("orionlegalsupplies@gmail.com");
+				//dt.Rows.Add("panduranglad.dev@gmail.com");
+				List<string> ToMail = new List<string>();
+				string mailid = "";
+				string newline = "<br/>";
+				foreach (DataRow row in dt.Rows)
+				{
+					mailid = row[0].ToString();
+					ToMail.Add(row[0].ToString().Trim());
+				}
+				ErrorMsg = exc.GetType().Name.ToString();
+				extype = exc.GetType().ToString();
+				ErrorLocation = exc.Message.ToString();
+				EmailHead = "<b>Dear Team,</b>" + "<br/>" + "An Exception Occured in Application With Following Details" + "<br/>" + "<br/>";
+				EmailSing = newline + "Thanks & Regards" + newline + "<b>" + username.ToUpper() + "</b>" + "<br/>";
+				Sub = "Exception Occured" + " " + "in Application" + " " + exurl;
+				string errortomail = EmailHead + "<b>Date : </b>" + DateTime.Now.ToString() + newline + "<b>Error Mesage:</b>" + " " + ErrorMsg + newline + "<b>Exception Type:</b>" + " " + extype + newline + "<b>Error Details:</b>" + " " + ErrorLocation + newline + newline + newline + EmailSing;
+				if (SESSIONKEYS.counteremail == 1)
+				{
+					SendEmailOfException(errortomail, ToMail, "Exception Occured In Application " + DateTime.Now.ToString());
 				}
 			}
 			catch (Exception ex)
@@ -89,7 +136,7 @@ namespace OS.Data_Access_Layer
 
 		public string GETCPID()
 		{
-			DataSet ds = new MasterClass().getDataSet("select CONNECTPERSONID from T_INS_PER WHERE ACTIVE = 'Y'");
+			DataSet ds = new MasterClass().getDataSet("select CONNECTPERSONID from T_INS_PER");
 			List<int> termsList = new List<int>();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
@@ -110,7 +157,7 @@ namespace OS.Data_Access_Layer
 
 		public string GETIPID()
 		{
-			DataSet ds = new MasterClass().getDataSet("select RECEPIENTID from T_INS_PRO WHERE ACTIVE = 'Y'");
+			DataSet ds = new MasterClass().getDataSet("select RECEPIENTID from T_INS_PRO");
 			List<int> termsList = new List<int>();
 			if (ds.Tables[0].Rows.Count > 0)
 			{
@@ -578,6 +625,116 @@ namespace OS.Data_Access_Layer
 			}
 		}
 
+		public string ToCsVAudit(DataGridView dGV, string filename)
+		{
+			try
+			{
+				string stOutput = "";
+
+				// Export titles:
+
+				string sHeaders = "";
+
+				for (int j = 0; j < dGV.Columns.Count - 1; j++)
+				{
+					sHeaders = sHeaders.ToString() + Convert.ToString(dGV.Columns[j].HeaderText) + "\t";
+				}
+
+				stOutput += sHeaders + "Detail Log" + "\r\n";
+
+				// Export data.
+
+				for (int i = 0; i < dGV.RowCount; i++)
+				{
+
+					string stLine = "";
+
+					for (int j = 0; j < dGV.Rows[i].Cells.Count - 1; j++)
+					{
+						stLine = stLine.ToString() + Convert.ToString(dGV.Rows[i].Cells[j].Value.ToString()) + "\t";
+					}
+
+					stOutput += stLine + "\r\n";
+
+				}
+
+				Encoding utf16 = Encoding.GetEncoding(1254);
+
+				byte[] output = utf16.GetBytes(stOutput);
+
+				FileStream fs = new FileStream(filename, FileMode.Create);
+
+				BinaryWriter bw = new BinaryWriter(fs);
+
+				bw.Write(output, 0, output.Length); //write the encoded file
+
+				bw.Flush();
+
+				bw.Close();
+
+				fs.Close();
+				return "";
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				return "";
+			}
+		}
+
+		public void ToPDFAudit(DataGridView dataGridView1, string filename, bool fileError = false)
+		{
+			if (!fileError)
+			{
+				try
+				{
+					//dataGridView1.Columns.RemoveAt(6);
+					PdfPTable pdfTable = new PdfPTable(dataGridView1.Columns.Count - 1);
+					pdfTable.DefaultCell.Padding = 3;
+					pdfTable.WidthPercentage = 100;
+					pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+					int i = 1;
+					foreach (DataGridViewColumn column in dataGridView1.Columns)
+					{
+						PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+						if (i <= 6)
+						{
+							pdfTable.AddCell(cell);
+						}
+						i++;
+					}
+
+					foreach (DataGridViewRow row in dataGridView1.Rows)
+					{
+						int j = 1;
+						foreach (DataGridViewCell cell in row.Cells)
+						{
+							if (j <= 6)
+							{
+								pdfTable.AddCell(cell.Value.ToString());
+							}
+							j++;
+						}
+					}
+
+					using (FileStream stream = new FileStream(filename, FileMode.Create))
+					{
+						Document pdfDoc = new Document(PageSize.A4.Rotate(), 10f, 20f, 20f, 10f);
+						PdfWriter.GetInstance(pdfDoc, stream);
+						pdfDoc.Open();
+						pdfDoc.Add(pdfTable);
+						pdfDoc.Close();
+						stream.Close();
+					}
+				}
+				catch (Exception ex)
+				{
+					new MasterClass().SAVETEXTLOG(ex);
+					throw;
+				}
+			}
+		}
+
 		public bool IsValidEmail(string email)
 		{
 			Regex rx = new Regex(
@@ -728,8 +885,6 @@ namespace OS.Data_Access_Layer
 		{
 			try
 			{
-
-
 				string hostName = Dns.GetHostName(); // Retrive the Name of HOST  
 				Console.WriteLine(hostName);
 				// Get the IP  
@@ -763,7 +918,7 @@ namespace OS.Data_Access_Layer
 		public static bool SendEmailOfException(string mailbody, List<string> email, string subject)
 		{
 			List<string> to = email; //To address   
-			string From = "premlad961@gmail.com";
+			string From = "orionlegalsupplies@gmail.com";
 			MailMessage message = new MailMessage();
 			foreach (string mutiemail in to)
 			{
@@ -775,7 +930,7 @@ namespace OS.Data_Access_Layer
 			message.BodyEncoding = Encoding.UTF8;
 			message.IsBodyHtml = true;
 			SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
-			System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("premlad961@gmail.com", "Premlad961@#");
+			System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("orionlegalsupplies@gmail.com", "Orion@123");
 			//System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("dreal.software.solutions@gmail.com", "DReal@@123");
 			client.EnableSsl = true;
 			client.UseDefaultCredentials = true;

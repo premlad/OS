@@ -62,7 +62,7 @@ namespace OS
 			try
 			{
 				cmdINSCONSAVEID.Items.Clear();
-				DataSet ds = new MasterClass().getDataSet("SELECT ID,RECEPIENTID FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N'");
+				DataSet ds = new MasterClass().getDataSet("SELECT ID,RECEPIENTID FROM T_INS_PRO");
 				AutoCompleteStringCollection MyCollection = new AutoCompleteStringCollection();
 				if (ds.Tables[0].Rows.Count > 0)
 				{
@@ -133,20 +133,27 @@ namespace OS
 			{
 				if (displayLoader)
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.WaitCursor != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = true;
 						Cursor = Cursors.WaitCursor;
 						//Thread.Sleep(4000);
-					});
+						//});
+					}
 				}
 				else
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.Default != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = false;
 						Cursor = Cursors.Default;
-					});
+						//});
+					}
+
 				}
 			}
 			catch (Exception ex)
@@ -165,178 +172,178 @@ namespace OS
 				SetLoading(true);
 				int error = 0;
 				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (new MasterClass().GETLOCKDB() == "Y")
 				{
-					if (new MasterClass().GETLOCKDB() == "Y")
+					DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				if (MasterClass.GETISTI() == "TEMP")
+				{
+					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Login l = new Login();
+					lg.CURRVALUE = "LOG OUT";
+					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+					SESSIONKEYS.UserID = "";
+					SESSIONKEYS.Role = "";
+					SESSIONKEYS.FullName = "";
+					l.Show();
+					Close();
+				}
+				//else if (txtINSPROreceipeitnID.Text == "")
+				//{
+				//	DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//}
+				else if (txtINSPROnameofinsider.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				//else if (txtMobileINSPRONumber.Text == "")
+				//{
+				//	DialogResult dialog = MessageBox.Show("Enter Mobile No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//}
+				else if (txtINSPROaddressmaster.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Enter Address", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (cmbINSPROcategoryofreceipt.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Enter Category", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (cmbINSPROcategoryofreceipt.Text == "OTHERS" && cmdINSPROcategoryothers.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Enter Other Category", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
+				{
+					DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				{
+					if (txtINSPROpannomaster.Text == "")
 					{
-						DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						if (txtidentifierno.Text == "")
+						{
+							DialogResult dialog = MessageBox.Show("Enter Other Identifier No or Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							error++;
+						}
 					}
 					else
-					if (MasterClass.GETISTI() == "TEMP")
 					{
-						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Login l = new Login();
-						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
-						SESSIONKEYS.UserID = "";
-						SESSIONKEYS.Role = "";
-						SESSIONKEYS.FullName = "";
-						l.Show();
-						Close();
+						if (!new MasterClass().IsValidPanno(txtINSPROpannomaster.Text))
+						{
+							DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							error++;
+						}
 					}
-					//else if (txtINSPROreceipeitnID.Text == "")
-					//{
-					//	DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					//}
-					else if (txtINSPROnameofinsider.Text == "")
+
+					DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
+					DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
+					List<string> termsList = new List<string>();
+					string[] b = { };
+					if (ds1.Tables[0].Rows.Count > 0)
 					{
-						DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+						{
+							string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
+							if (a.Trim() != "")
+							{
+								termsList.Add(a);
+							}
+
+						}
+						b = termsList.ToArray();
 					}
-					//else if (txtMobileINSPRONumber.Text == "")
-					//{
-					//	DialogResult dialog = MessageBox.Show("Enter Mobile No.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					//}
-					else if (txtINSPROaddressmaster.Text == "")
+					if (ds2.Tables[0].Rows.Count > 0)
 					{
-						DialogResult dialog = MessageBox.Show("Enter Address", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+						{
+							string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
+							if (a.Trim() != "")
+							{
+								termsList.Add(a);
+							}
+						}
+						b = termsList.ToArray();
 					}
-					else if (cmbINSPROcategoryofreceipt.Text == "")
+					if (b.Contains(txtINSPROpannomaster.Text))
 					{
-						DialogResult dialog = MessageBox.Show("Enter Category", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (cmbINSPROcategoryofreceipt.Text == "OTHERS" && cmdINSPROcategoryothers.Text == "")
-					{
-						DialogResult dialog = MessageBox.Show("Enter Other Category", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
-					{
-						DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else
 					{
-						if (txtINSPROpannomaster.Text == "")
+						T_INS_PRO PRO = new T_INS_PRO
 						{
-							if (txtidentifierno.Text == "")
-							{
-								DialogResult dialog = MessageBox.Show("Enter Other Identifier No or Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-								error++;
-							}
-						}
-						else
-						{
-							if (!new MasterClass().IsValidPanno(txtINSPROpannomaster.Text))
-							{
-								DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-								error++;
-							}
-						}
+							NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
+							RECEPIENT_ID = txtINSPROreceipeitnID.Text,
+							ADDRESS = txtINSPROaddressmaster.Text,
+							PAN_NO = txtINSPROpannomaster.Text,
+							AADHAR_NO = txtINSPROaadhar.Text,
+							PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
+							MOBILE_NO = txtMobileINSPRONumber.Text,
+							LANDLINE_NO = txtlandlineINSPRONumber.Text,
+							EMAIL_ID = txtEmailINSPRONumber.Text
+						};
 
-						DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
-						DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
-						List<string> termsList = new List<string>();
-						string[] b = { };
-						if (ds1.Tables[0].Rows.Count > 0)
+						string PhoneNo = "";
+						foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
 						{
-							for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+							if (row.Index == 0)
 							{
-								string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
-								if (a.Trim() != "")
-								{
-									termsList.Add(a);
-								}
-
-							}
-							b = termsList.ToArray();
-						}
-						if (ds2.Tables[0].Rows.Count > 0)
-						{
-							for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
-							{
-								string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
-								if (a.Trim() != "")
-								{
-									termsList.Add(a);
-								}
-							}
-							b = termsList.ToArray();
-						}
-						if (b.Contains(txtINSPROpannomaster.Text))
-						{
-							DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						}
-						else
-						{
-							T_INS_PRO PRO = new T_INS_PRO
-							{
-								NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
-								RECEPIENT_ID = txtINSPROreceipeitnID.Text,
-								ADDRESS = txtINSPROaddressmaster.Text,
-								PAN_NO = txtINSPROpannomaster.Text,
-								AADHAR_NO = txtINSPROaadhar.Text,
-								PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
-								MOBILE_NO = txtMobileINSPRONumber.Text,
-								LANDLINE_NO = txtlandlineINSPRONumber.Text,
-								EMAIL_ID = txtEmailINSPRONumber.Text
-							};
-
-							string PhoneNo = "";
-							foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
-							{
-								if (row.Index == 0)
-								{
-									PhoneNo += row.Cells["Pannodg"].Value.ToString();
-								}
-								else
-								{
-									PhoneNo += "|" + row.Cells["Pannodg"].Value.ToString();
-								}
-							}
-							PRO.OTHERIDENTIFIER = txtidentifierno.Text;
-							PRO.PAN_NO_OF_AFFILAIATES = PhoneNo;
-							if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
-							{
-								PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+								PhoneNo += row.Cells["Pannodg"].Value.ToString();
 							}
 							else
 							{
-								PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
-							}
-							PRO.ID = "";
-							PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-
-							if (error == 0)
-							{
-								string CPID = "IP" + new MasterClass().GETIPID();
-								string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PRO (RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','Y','N') ;").ToString();
-								string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
-
-								lg.CURRVALUE = "INSIDER PROFILE TAB";
-								lg.TYPE = "INSERTED";
-								lg.ID = perlogid;
-								lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
-								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-								//lg.ID = SESSIONKEYS.UserID.ToString();
-								new MasterClass().SAVE_LOG(lg);
-								if (Convert.ToInt32(ds) > 0)
-								{
-									DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-								}
-								else
-								{
-									DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-								}
-								Clear();
-								FillConnectPersonID();
-								button2.PerformClick();
+								PhoneNo += "|" + row.Cells["Pannodg"].Value.ToString();
 							}
 						}
-					}
+						PRO.OTHERIDENTIFIER = txtidentifierno.Text;
+						PRO.PAN_NO_OF_AFFILAIATES = PhoneNo;
+						if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+						{
+							PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+						}
+						else
+						{
+							PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
+						}
+						PRO.ID = "";
+						PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 
-				});
+						if (error == 0)
+						{
+							string CPID = "IP" + new MasterClass().GETIPID();
+							string ds = new MasterClass().executeQuery("INSERT INTO T_INS_PRO (RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,ACTIVE,LOCK) VALUES ('" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ds + "','" + CryptographyHelper.Encrypt(CPID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("INSERTED") + "','Y','N') ;").ToString();
+
+							lg.CURRVALUE = "INSIDER PROFILE TAB";
+							lg.TYPE = "INSERTED";
+							lg.ID = perlogid;
+							lg.DESCRIPTION = "INSERTED VALUE :- " + CPID;
+							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
+							new MasterClass().SAVE_LOG(lg);
+							if (Convert.ToInt32(ds) > 0)
+							{
+								DialogResult dialog = MessageBox.Show("Data Saved Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
+							else
+							{
+								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
+							Clear();
+							FillConnectPersonID();
+							button2.PerformClick();
+						}
+					}
+				}
+
+				//});
 
 				SetLoading(false);
 			}
@@ -396,7 +403,7 @@ namespace OS
 						{
 							cmdINSCONSAVEID.SelectedIndex = i;
 
-							DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO WHERE ACTIVE = 'Y' AND LOCK = 'N'  AND ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID + "'");
+							DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO WHERE LOCK = 'N'  AND ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID + "'");
 							if (ds.Tables[0].Rows.Count > 0)
 							{
 								txtINSPROnameofinsider.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["NAMEINSIDER"].ToString());
@@ -453,6 +460,16 @@ namespace OS
 								btnaddINSCONdeelete.Visible = true;
 								btncacncelINSCON.Visible = true;
 								btnaddINSCON.Visible = false;
+								if (ds.Tables[0].Rows[0]["ACTIVE"].ToString().Trim() == "N")
+								{
+									btnupdateINSCON.Enabled = false;
+									btnaddINSCONdeelete.Text = "RETREIVE IP";
+								}
+								else
+								{
+									btnupdateINSCON.Enabled = true;
+									btnaddINSCONdeelete.Text = "NOMORE IP";
+								}
 							}
 							else
 							{
@@ -504,6 +521,8 @@ namespace OS
 			btnaddINSCONdeelete.Visible = false;
 			btncacncelINSCON.Visible = false;
 			btnaddINSCON.Visible = true;
+			btnaddINSCON.Enabled = false;
+			button2.PerformClick();
 		}
 
 		private void btnupdateINSCON_Click(object sender, EventArgs e)
@@ -513,215 +532,95 @@ namespace OS
 				SetLoading(true);
 				int error = 0;
 				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (new MasterClass().GETLOCKDB() == "Y")
 				{
-					if (new MasterClass().GETLOCKDB() == "Y")
-					{
-						DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else
-					if (MasterClass.GETISTI() == "TEMP")
-					{
-						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Login l = new Login();
-						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
-						SESSIONKEYS.UserID = "";
-						SESSIONKEYS.Role = "";
-						SESSIONKEYS.FullName = "";
-						l.Show();
-						Close();
-					}
-					else if (txtINSPROreceipeitnID.Text == "")
-					{
-						DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (txtINSPROnameofinsider.Text == "")
-					{
-						DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
-					{
-						DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					else
-					{
-						if (txtINSPROpannomaster.Text == "")
-						{
-							if (txtidentifierno.Text == "")
-							{
-								DialogResult dialog = MessageBox.Show("Enter Other Identifier No or Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-								error++;
-							}
-						}
-						else
-						{
-							if (!new MasterClass().IsValidPanno(txtINSPROpannomaster.Text))
-							{
-								DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-								error++;
-							}
-						}
-
-						DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
-						DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
-						List<string> termsList = new List<string>();
-						string[] b = { };
-						if (PANO != txtINSPROpannomaster.Text)
-						{
-							if (ds1.Tables[0].Rows.Count > 0)
-							{
-								for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
-								{
-									string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
-									if (a.Trim() != "")
-									{
-										termsList.Add(a);
-									}
-								}
-								b = termsList.ToArray();
-							}
-							if (ds2.Tables[0].Rows.Count > 0)
-							{
-								for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
-								{
-									string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
-									if (a.Trim() != "")
-									{
-										termsList.Add(a);
-									}
-								}
-								b = termsList.ToArray();
-							}
-						}
-
-						if (b.Contains(txtINSPROpannomaster.Text))
-						{
-							DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						}
-						else
-						{
-							T_INS_PRO PRO = new T_INS_PRO
-							{
-								ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
-								NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
-								RECEPIENT_ID = txtINSPROreceipeitnID.Text,
-								ADDRESS = txtINSPROaddressmaster.Text,
-								PAN_NO = txtINSPROpannomaster.Text,
-								AADHAR_NO = txtINSPROaadhar.Text,
-								PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
-								MOBILE_NO = txtMobileINSPRONumber.Text,
-								LANDLINE_NO = txtlandlineINSPRONumber.Text,
-								EMAIL_ID = txtEmailINSPRONumber.Text
-							};
-							if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
-							{
-								PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
-							}
-							else
-							{
-								PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
-							}
-							string PhoneNo = "";
-							foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
-							{
-								if (row.Index == 0)
-								{
-									PhoneNo += row.Cells["Pannodg"].Value.ToString();
-								}
-								else
-								{
-									PhoneNo += "|" + row.Cells["Pannodg"].Value.ToString();
-								}
-							}
-							PRO.OTHERIDENTIFIER = txtidentifierno.Text;
-							PRO.PAN_NO_OF_AFFILAIATES = PhoneNo;
-
-							PRO.ID = "";
-							PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-
-							if (error == 0)
-							{
-								DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_PRO_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
-
-								string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
-
-								string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
-
-								lg.CURRVALUE = "INSIDER PROFILE TAB";
-								lg.TYPE = "UPDATED";
-								lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
-								lg.DESCRIPTION = "UPDATED VALUE :- " + PRO.RECEPIENT_ID;
-								lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-								//lg.ID = SESSIONKEYS.UserID.ToString();
-								new MasterClass().SAVE_LOG(lg);
-
-								if (Convert.ToInt32(ds) > 0)
-								{
-									DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-									Clear();
-									FillConnectPersonID();
-									txtINSPROreceipeitnID.ReadOnly = false;
-									btnupdateINSCON.Visible = false;
-									btnaddINSCONdeelete.Visible = false;
-									btncacncelINSCON.Visible = false;
-									btnaddINSCON.Visible = true;
-									txtINSPROreceipeitnID.Enabled = true;
-									button2.PerformClick();
-								}
-								else
-								{
-									DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
-								}
-							}
-						}
-					}
-
-				});
-
-				SetLoading(false);
-			}
-			catch (Exception ex)
-			{
-				new MasterClass().SAVETEXTLOG(ex);
-				SetLoading(false);
-				DialogResult dialog = MessageBox.Show("Data Not Updated. Please Check Your Internet Connection.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
-
-		private void btnaddINSCONdeelete_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				SetLoading(true);
-
-				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+					DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				if (MasterClass.GETISTI() == "TEMP")
 				{
-					if (new MasterClass().GETLOCKDB() == "Y")
+					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Login l = new Login();
+					lg.CURRVALUE = "LOG OUT";
+					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+					SESSIONKEYS.UserID = "";
+					SESSIONKEYS.Role = "";
+					SESSIONKEYS.FullName = "";
+					l.Show();
+					Close();
+				}
+				else if (txtINSPROreceipeitnID.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Enter Recepient ID.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (txtINSPROnameofinsider.Text == "")
+				{
+					DialogResult dialog = MessageBox.Show("Enter Name of Insider.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else if (!new MasterClass().IsValidEmail(txtEmailINSPRONumber.Text))
+				{
+					DialogResult dialog = MessageBox.Show("Please Enter Email in Proper Format.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				{
+					if (txtINSPROpannomaster.Text == "")
 					{
-						DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						if (txtidentifierno.Text == "")
+						{
+							DialogResult dialog = MessageBox.Show("Enter Other Identifier No or Pan No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							error++;
+						}
 					}
 					else
-					if (MasterClass.GETISTI() == "TEMP")
 					{
-						DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						Login l = new Login();
-						lg.CURRVALUE = "LOG OUT";
-						lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
-						SESSIONKEYS.UserID = "";
-						SESSIONKEYS.Role = "";
-						SESSIONKEYS.FullName = "";
-						l.Show();
-						Close();
+						if (!new MasterClass().IsValidPanno(txtINSPROpannomaster.Text))
+						{
+							DialogResult dialog = MessageBox.Show("Enter Proper PAN No.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							error++;
+						}
+					}
+
+					DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
+					DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
+					List<string> termsList = new List<string>();
+					string[] b = { };
+					if (PANO != txtINSPROpannomaster.Text)
+					{
+						if (ds1.Tables[0].Rows.Count > 0)
+						{
+							for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+							{
+								string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
+								if (a.Trim() != "")
+								{
+									termsList.Add(a);
+								}
+							}
+							b = termsList.ToArray();
+						}
+						if (ds2.Tables[0].Rows.Count > 0)
+						{
+							for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+							{
+								string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
+								if (a.Trim() != "")
+								{
+									termsList.Add(a);
+								}
+							}
+							b = termsList.ToArray();
+						}
+					}
+
+					if (b.Contains(txtINSPROpannomaster.Text))
+					{
+						DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else
 					{
@@ -746,27 +645,173 @@ namespace OS
 						{
 							PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
 						}
+						string PhoneNo = "";
+						foreach (DataGridViewRow row in dataGridViewPhonemobile.Rows)
+						{
+							if (row.Index == 0)
+							{
+								PhoneNo += row.Cells["Pannodg"].Value.ToString();
+							}
+							else
+							{
+								PhoneNo += "|" + row.Cells["Pannodg"].Value.ToString();
+							}
+						}
+						PRO.OTHERIDENTIFIER = txtidentifierno.Text;
+						PRO.PAN_NO_OF_AFFILAIATES = PhoneNo;
+
 						PRO.ID = "";
 						PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 
-						DialogResult dialogResult = MessageBox.Show("Are You Sure You Want to Delete?", "Insider Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+						if (error == 0)
+						{
+							DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_PRO_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
+							DataSet updateUPSI = new MasterClass().getDataSet("SELECT ID,RECIPIENTNAME,NDASIGNED FROM T_INS_UPSI");
+
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
+							if (updateUPSI.Tables[0].Rows.Count > 0)
+							{
+								for (int i = 0; i < updateUPSI.Tables[0].Rows.Count; i++)
+								{
+									string id = updateUPSI.Tables[0].Rows[i]["ID"].ToString();
+									string[] name = CryptographyHelper.Decrypt(updateUPSI.Tables[0].Rows[i]["RECIPIENTNAME"].ToString().Trim()).Split('-');
+									string[] nda = CryptographyHelper.Decrypt(updateUPSI.Tables[0].Rows[i]["NDASIGNED"].ToString().Trim()).Split('|');
+									if (PRO.RECEPIENT_ID == name[1].Trim())
+									{
+										string bb = nda[0] + "|" + PRO.PAN_NO_OF_AFFILAIATES;
+										string a = PRO.NAME_OF_INSIDER + " - " + PRO.RECEPIENT_ID;
+										if (PRO.PAN_NO != "")
+										{
+											new MasterClass().executeQuery("UPDATE T_INS_UPSI SET RECIPIENTNAME = '" + CryptographyHelper.Encrypt(a) + "',ADDRESS='" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',RECIPIENTCAT='" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',NDASIGNED='" + CryptographyHelper.Encrypt(bb) + "' WHERE ID = '" + id + "'");
+										}
+										else
+										{
+											new MasterClass().executeQuery("UPDATE T_INS_UPSI SET RECIPIENTNAME = '" + CryptographyHelper.Encrypt(a) + "',ADDRESS='" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',RECIPIENTCAT='" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',NDASIGNED='" + CryptographyHelper.Encrypt(bb) + "' WHERE ID = '" + id + "'");
+										}
+
+									}
+								}
+							}
+
+							lg.CURRVALUE = "INSIDER PROFILE TAB";
+							lg.TYPE = "UPDATED";
+							lg.ID = perlogid + "|" + getval.Tables[0].Rows[0]["ID"].ToString();
+							lg.DESCRIPTION = "UPDATED VALUE :- " + PRO.RECEPIENT_ID;
+							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
+							new MasterClass().SAVE_LOG(lg);
+
+							if (Convert.ToInt32(ds) > 0)
+							{
+								DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								Clear();
+								FillConnectPersonID();
+								txtINSPROreceipeitnID.ReadOnly = false;
+								btnupdateINSCON.Visible = false;
+								btnaddINSCONdeelete.Visible = false;
+								btncacncelINSCON.Visible = false;
+								btnaddINSCON.Visible = true;
+								txtINSPROreceipeitnID.Enabled = true;
+								button2.PerformClick();
+							}
+							else
+							{
+								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
+						}
+					}
+				}
+
+				//});
+
+				SetLoading(false);
+			}
+			catch (Exception ex)
+			{
+				new MasterClass().SAVETEXTLOG(ex);
+				SetLoading(false);
+				DialogResult dialog = MessageBox.Show("Data Not Updated. Please Check Your Internet Connection.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void btnaddINSCONdeelete_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				SetLoading(true);
+
+				Thread.Sleep(2000);
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (new MasterClass().GETLOCKDB() == "Y")
+				{
+					DialogResult dialog = MessageBox.Show("Database is Locked.", "Locked Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				else
+				if (MasterClass.GETISTI() == "TEMP")
+				{
+					DialogResult dialog = MessageBox.Show("Date & Time is Tempered.\nPlease Check your Date & Time Settings.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Login l = new Login();
+					lg.CURRVALUE = "LOG OUT";
+					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+					SESSIONKEYS.UserID = "";
+					SESSIONKEYS.Role = "";
+					SESSIONKEYS.FullName = "";
+					l.Show();
+					Close();
+				}
+				else
+				{
+					T_INS_PRO PRO = new T_INS_PRO
+					{
+						ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
+						NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
+						RECEPIENT_ID = txtINSPROreceipeitnID.Text,
+						ADDRESS = txtINSPROaddressmaster.Text,
+						PAN_NO = txtINSPROpannomaster.Text,
+						AADHAR_NO = txtINSPROaadhar.Text,
+						PAN_NO_OF_AFFILAIATES = txtPANNOINSPRONumber.Text,
+						MOBILE_NO = txtMobileINSPRONumber.Text,
+						LANDLINE_NO = txtlandlineINSPRONumber.Text,
+						EMAIL_ID = txtEmailINSPRONumber.Text
+					};
+					if (cmbINSPROcategoryofreceipt.Text == "OTHERS")
+					{
+						PRO.CATEGORY_OF_RECEIPT = "OTHERS|" + cmdINSPROcategoryothers.Text;
+					}
+					else
+					{
+						PRO.CATEGORY_OF_RECEIPT = cmbINSPROcategoryofreceipt.Text;
+					}
+					PRO.ID = "";
+					PRO.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					DialogResult dialogResult;
+					if (btnaddINSCONdeelete.Text == "RETREIVE IP")
+					{
+						dialogResult = MessageBox.Show("Are You Sure You Want to Retreive As IP?", "Insider Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 						if (dialogResult == DialogResult.Yes)
 						{
 
-							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'Y',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
 
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("NO MORE IP TAG") + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("RETREIVE IP") + "','Y','N') ;").ToString();
 
 							lg.CURRVALUE = "INSIDER PROFILE TAB";
-							lg.TYPE = "NOMORE IP";
+							lg.TYPE = "RETREIVE IP";
 							lg.ID = perlogid;
-							lg.DESCRIPTION = "NOMORE IP :- " + PRO.RECEPIENT_ID;
+							lg.DESCRIPTION = "RETREIVE IP :- " + PRO.RECEPIENT_ID;
 							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 							//lg.ID = SESSIONKEYS.UserID.ToString();
 							new MasterClass().SAVE_LOG(lg);
 							if (Convert.ToInt32(ds) > 0)
 							{
-								DialogResult dialog = MessageBox.Show("Deleted Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
 								Clear();
 								FillConnectPersonID();
 								txtINSPROreceipeitnID.Enabled = true;
@@ -782,7 +827,44 @@ namespace OS
 							}
 						}
 					}
-				});
+					else
+					{
+						dialogResult = MessageBox.Show("Are You Sure You Want to Tag As Nomore IP?", "Insider Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+						if (dialogResult == DialogResult.Yes)
+						{
+
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("NOMORE IP TAG") + "','Y','N') ;").ToString();
+
+							lg.CURRVALUE = "INSIDER PROFILE TAB";
+							lg.TYPE = "NOMORE IP";
+							lg.ID = perlogid;
+							lg.DESCRIPTION = "NOMORE IP :- " + PRO.RECEPIENT_ID;
+							lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+							//lg.ID = SESSIONKEYS.UserID.ToString();
+							new MasterClass().SAVE_LOG(lg);
+							if (Convert.ToInt32(ds) > 0)
+							{
+								DialogResult dialog = MessageBox.Show("Updated Successfully.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+								Clear();
+								FillConnectPersonID();
+								txtINSPROreceipeitnID.Enabled = true;
+								btnupdateINSCON.Visible = false;
+								btnaddINSCONdeelete.Visible = false;
+								btncacncelINSCON.Visible = false;
+								btnaddINSCON.Visible = true;
+								button2.PerformClick();
+							}
+							else
+							{
+								DialogResult dialog = MessageBox.Show("Something Went Wrong. Data Not Saved.", "Insider Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							}
+						}
+					}
+
+				}
+				//});
 
 				SetLoading(false);
 			}
@@ -867,46 +949,46 @@ namespace OS
 			}
 			else
 			{
-				DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
-				DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
-				List<string> termsList = new List<string>();
-				string[] b = { };
-				if (ds1.Tables[0].Rows.Count > 0)
-				{
-					for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
-					{
-						string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
-						if (a.Trim() != "")
-						{
-							termsList.Add(a);
-						}
-					}
-					b = termsList.ToArray();
-				}
-				if (ds2.Tables[0].Rows.Count > 0)
-				{
-					for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
-					{
-						string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
-						if (a.Trim() != "")
-						{
-							termsList.Add(a);
-						}
-					}
-					b = termsList.ToArray();
-				}
-				if (b.Contains(txtPANNOINSPRONumber.Text))
-				{
-					DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-				else
-				{
+				//DataSet ds1 = new MasterClass().getDataSet("select PANNO from T_INS_PER WHERE ACTIVE = 'Y'");
+				//DataSet ds2 = new MasterClass().getDataSet("select PANNO from T_INS_PRO WHERE ACTIVE = 'Y'");
+				//List<string> termsList = new List<string>();
+				//string[] b = { };
+				//if (ds1.Tables[0].Rows.Count > 0)
+				//{
+				//	for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+				//	{
+				//		string a = CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString());
+				//		if (a.Trim() != "")
+				//		{
+				//			termsList.Add(a);
+				//		}
+				//	}
+				//	b = termsList.ToArray();
+				//}
+				//if (ds2.Tables[0].Rows.Count > 0)
+				//{
+				//	for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+				//	{
+				//		string a = CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString());
+				//		if (a.Trim() != "")
+				//		{
+				//			termsList.Add(a);
+				//		}
+				//	}
+				//	b = termsList.ToArray();
+				//}
+				//if (b.Contains(txtPANNOINSPRONumber.Text))
+				//{
+				//	DialogResult dialog = MessageBox.Show("Pan No Already Exists in our Database.", "Connected Person", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				//}
+				//else
+				//{
 
-					string fisrt = txtPANNOINSPRONumber.Text;
-					string[] row = { fisrt };
-					dataGridViewPhonemobile.Rows.Add(row);
-					txtPANNOINSPRONumber.Text = "";
-				}
+				string fisrt = txtPANNOINSPRONumber.Text;
+				string[] row = { fisrt };
+				dataGridViewPhonemobile.Rows.Add(row);
+				txtPANNOINSPRONumber.Text = "";
+				//}
 			}
 		}
 

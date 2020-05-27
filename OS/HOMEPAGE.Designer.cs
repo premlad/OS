@@ -49,6 +49,7 @@
 			this.button13 = new OS.ButtonLastest();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.LBLGETSIZE = new System.Windows.Forms.Label();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -158,6 +159,7 @@
 			// groupBox2
 			// 
 			this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+			this.groupBox2.Controls.Add(this.checkBox1);
 			this.groupBox2.Controls.Add(this.button11);
 			this.groupBox2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.groupBox2.ForeColor = System.Drawing.Color.White;
@@ -174,7 +176,7 @@
 			this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.button11.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button11.ForeColor = System.Drawing.Color.Black;
-			this.button11.Location = new System.Drawing.Point(403, 38);
+			this.button11.Location = new System.Drawing.Point(243, 36);
 			this.button11.Name = "button11";
 			this.button11.Size = new System.Drawing.Size(532, 40);
 			this.button11.TabIndex = 19;
@@ -332,6 +334,17 @@
 			this.LBLGETSIZE.TabIndex = 62;
 			this.LBLGETSIZE.Text = "Mobile No";
 			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(882, 46);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(112, 23);
+			this.checkBox1.TabIndex = 20;
+			this.checkBox1.Text = "Send Email";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			// 
 			// HOMEPAGE
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,6 +375,7 @@
 			this.Controls.SetChildIndex(this.LBLGETSIZE, 0);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -392,5 +406,6 @@
 		private ButtonLastest button11;
 		private ButtonLastest button12;
 		private ButtonLastest button13;
+		private System.Windows.Forms.CheckBox checkBox1;
 	}
 }

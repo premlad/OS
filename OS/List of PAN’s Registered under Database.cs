@@ -46,20 +46,27 @@ namespace OS
 			{
 				if (displayLoader)
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.WaitCursor != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = true;
 						Cursor = Cursors.WaitCursor;
 						//Thread.Sleep(4000);
-					});
+						//});
+					}
 				}
 				else
 				{
-					Invoke((MethodInvoker)delegate
+					if (Cursors.Default != Cursor)
 					{
+						//Invoke((MethodInvoker)delegate
+						//{
 						//picLoader.Visible = false;
 						Cursor = Cursors.Default;
-					});
+						//});
+					}
+
 				}
 			}
 			catch (Exception ex)
@@ -78,52 +85,52 @@ namespace OS
 				SetLoading(true);
 
 				Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				//Invoke((MethodInvoker)delegate
+				//{
+				dataGridViewTable.Rows.Clear();
+				dataGridViewTable.Refresh();
+				DataSet ds = new MasterClass().getDataSet("SELECT NAMEINSIDER AS [NAME],PANNO,'' AS [DEMATAC],OTHERIDENTIFIER,PANNOAFFILIATES FROM T_INS_PRO");
+				DataSet ds1 = new MasterClass().getDataSet("SELECT EMPNAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC],OTHERIDENTIFIER FROM T_INS_PER");
+				DataSet ds2 = new MasterClass().getDataSet("SELECT NAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC] FROM T_INS_PER_DT");
+				if (ds.Tables[0].Rows.Count > 0)
 				{
-					dataGridViewTable.Rows.Clear();
-					dataGridViewTable.Refresh();
-					DataSet ds = new MasterClass().getDataSet("SELECT NAMEINSIDER AS [NAME],PANNO,'' AS [DEMATAC],OTHERIDENTIFIER,PANNOAFFILIATES FROM T_INS_PRO");
-					DataSet ds1 = new MasterClass().getDataSet("SELECT EMPNAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC],OTHERIDENTIFIER FROM T_INS_PER");
-					DataSet ds2 = new MasterClass().getDataSet("SELECT NAME AS [NAME],PANNO,DEMATACNO AS [DEMATAC] FROM T_INS_PER_DT");
-					if (ds.Tables[0].Rows.Count > 0)
+					for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
 					{
-						for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+						if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()) == "")
 						{
-							if (CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()) == "")
-							{
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
-								dataGridViewTable.Rows.Add(row);
-							}
-							else
-							{
-								string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()) + " | PAN No. of Affiliates : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
-								dataGridViewTable.Rows.Add(row);
-							}
-
+							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+							dataGridViewTable.Rows.Add(row);
 						}
-					}
-
-					if (ds1.Tables[0].Rows.Count > 0)
-					{
-						for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+						else
 						{
-							string[] row = { CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+							string[] row = { CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNO"].ToString()) + " | PAN No. of Affiliates : " + CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["PANNOAFFILIATES"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+							dataGridViewTable.Rows.Add(row);
+						}
+
+					}
+				}
+
+				if (ds1.Tables[0].Rows.Count > 0)
+				{
+					for (int i = 0; i < ds1.Tables[0].Rows.Count; i++)
+					{
+						string[] row = { CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["PANNO"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["OTHERIDENTIFIER"].ToString()), CryptographyHelper.Decrypt(ds1.Tables[0].Rows[i]["DEMATAC"].ToString()) };
+						dataGridViewTable.Rows.Add(row);
+					}
+				}
+
+				if (ds2.Tables[0].Rows.Count > 0)
+				{
+					for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
+					{
+						if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()).Trim() != "")
+						{
+							string[] row = { CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()), "", CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["DEMATAC"].ToString()) };
 							dataGridViewTable.Rows.Add(row);
 						}
 					}
-
-					if (ds2.Tables[0].Rows.Count > 0)
-					{
-						for (int i = 0; i < ds2.Tables[0].Rows.Count; i++)
-						{
-							if (CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()).Trim() != "")
-							{
-								string[] row = { CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["NAME"].ToString()), CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["PANNO"].ToString()), "", CryptographyHelper.Decrypt(ds2.Tables[0].Rows[i]["DEMATAC"].ToString()) };
-								dataGridViewTable.Rows.Add(row);
-							}
-						}
-					}
-				});
+				}
+				//});
 
 				SetLoading(false);
 			}
@@ -164,35 +171,35 @@ namespace OS
 			{
 				SetLoading(true);
 
-				//Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				////Thread.Sleep(2000);
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (dataGridViewTable.Rows.Count > 0)
 				{
-					if (dataGridViewTable.Rows.Count > 0)
-					{
-						lg.CURRVALUE = "LIST OF PAN'S REGISTERED IN DB TAB";
-						lg.DESCRIPTION = "DOWNLOADED PDF FILE";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
+					lg.CURRVALUE = "LIST OF PAN'S REGISTERED IN DB TAB";
+					lg.DESCRIPTION = "DOWNLOADED PDF FILE";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
 
 
-						SaveFileDialog sfd = new SaveFileDialog
-						{
-							Filter = "PDF (*.pdf)|*.pdf",
-							FileName = "LIST OF INSIDERS.pdf"
-						};
-						if (sfd.ShowDialog() == DialogResult.OK)
-						{
-							new MasterClass().ToPDF(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
-							MessageBox.Show("Exported Data Successfully in PDF Sheet.", "List of PAN’s Registered under Database", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-						}
-					}
-					else
+					SaveFileDialog sfd = new SaveFileDialog
 					{
-						MessageBox.Show("No Record To Export !!!", "Info");
+						Filter = "PDF (*.pdf)|*.pdf",
+						FileName = "LIST OF INSIDERS.pdf"
+					};
+					if (sfd.ShowDialog() == DialogResult.OK)
+					{
+						new MasterClass().ToPDF(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
+						MessageBox.Show("Exported Data Successfully in PDF Sheet.", "List of PAN’s Registered under Database", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					}
-				});
+				}
+				else
+				{
+					MessageBox.Show("No Record To Export !!!", "Info");
+				}
+				//});
 
 				SetLoading(false);
 			}
@@ -210,31 +217,31 @@ namespace OS
 			{
 				SetLoading(true);
 
-				//Thread.Sleep(2000);
-				Invoke((MethodInvoker)delegate
+				////Thread.Sleep(2000);
+				//Invoke((MethodInvoker)delegate
+				//{
+				if (dataGridViewTable.Rows.Count > 0)
 				{
-					if (dataGridViewTable.Rows.Count > 0)
+					lg.CURRVALUE = "LIST OF PAN'S REGISTERED IN DB TAB";
+					lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
+					lg.TYPE = "SELECTED";
+					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
+					lg.ID = SESSIONKEYS.UserID.ToString();
+					string json = new MasterClass().SAVE_LOG(lg);
+
+					SaveFileDialog sfd = new SaveFileDialog
 					{
-						lg.CURRVALUE = "LIST OF PAN'S REGISTERED IN DB TAB";
-						lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
-						lg.TYPE = "SELECTED";
-						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
-						string json = new MasterClass().SAVE_LOG(lg);
+						Filter = "Excel Documents (*.xls)|*.xls",
+						FileName = "LIST OF INSIDERS.xls"
+					};
 
-						SaveFileDialog sfd = new SaveFileDialog
-						{
-							Filter = "Excel Documents (*.xls)|*.xls",
-							FileName = "LIST OF INSIDERS.xls"
-						};
-
-						if (sfd.ShowDialog() == DialogResult.OK)
-						{
-							new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
-							MessageBox.Show("Exported Data Successfully in Excel Sheet.", "List of PAN’s Registered under Database", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-						}
+					if (sfd.ShowDialog() == DialogResult.OK)
+					{
+						new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
+						MessageBox.Show("Exported Data Successfully in Excel Sheet.", "List of PAN’s Registered under Database", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 					}
-				});
+				}
+				//});
 
 				SetLoading(false);
 			}
