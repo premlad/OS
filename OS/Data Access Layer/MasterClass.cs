@@ -24,7 +24,8 @@ namespace OS.Data_Access_Layer
 	internal class MasterClass
 	{
 		public string ErrorlienNo, ErrorMsg, ErrorLocation, extype, exurl, FromMail, ToMail, word, Sub, HostAdd, EmailHead, EmailSing;
-		public SqlCeConnection con = new SqlCeConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
+		//public SqlCeConnection con = new SqlCeConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
+		public SqlCeConnection con = new SqlCeConnection(SESSIONKEYS.CONNECT);
 		//Data Source=(localdb)\MSSqlCeLocalDB;AttachDbFilename=C:\Users\MAULI\source\repos\OS\OS\OS.mdf;Initial Catalog=OS;Integrated Security=True
 		//public SqlCeConnection con = new SqlCeConnection(@"Data Source=(localdb)\MSSqlCeLocalDB;AttachDbFilename=|DataDirectory|\OS.mdf;Integrated Security=True;Connect Timeout=10000;User Instance=True");
 		public SqlCeTransaction tran;
@@ -262,6 +263,26 @@ namespace OS.Data_Access_Layer
 
 			tdes.Clear();
 			return UTF8Encoding.UTF8.GetString(resultArray);
+		}
+
+		public static string GETISTFORUPSI(string d)
+		{
+			try
+			{
+				if (d == "" || d == null)
+				{
+					return "";
+				}
+				else
+				{
+					DateTime a = Convert.ToDateTime(d);
+					return a.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+				}
+			}
+			catch (Exception)
+			{
+				return d;
+			}
 		}
 
 		public static string GETIST(string d)

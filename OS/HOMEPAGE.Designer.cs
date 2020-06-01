@@ -36,6 +36,7 @@
 			this.button4 = new OS.ButtonLastest();
 			this.button5 = new OS.ButtonLastest();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.button11 = new OS.ButtonLastest();
 			this.button12 = new OS.ButtonLastest();
 			this.button6 = new OS.ButtonLastest();
@@ -49,7 +50,6 @@
 			this.button13 = new OS.ButtonLastest();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.LBLGETSIZE = new System.Windows.Forms.Label();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -169,6 +169,17 @@
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Setup";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(882, 46);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(264, 23);
+			this.checkBox1.TabIndex = 20;
+			this.checkBox1.Text = "Send an Email of Exception Log";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 			// 
 			// button11
 			// 
@@ -333,17 +344,6 @@
 			this.LBLGETSIZE.Size = new System.Drawing.Size(96, 24);
 			this.LBLGETSIZE.TabIndex = 62;
 			this.LBLGETSIZE.Text = "Mobile No";
-			// 
-			// checkBox1
-			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(882, 46);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(112, 23);
-			this.checkBox1.TabIndex = 20;
-			this.checkBox1.Text = "Send Email";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
 			// 
 			// HOMEPAGE
 			// 

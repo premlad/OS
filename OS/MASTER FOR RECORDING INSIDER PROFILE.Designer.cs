@@ -28,8 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.label23 = new System.Windows.Forms.Label();
 			this.txtPANNOINSPRONumber = new System.Windows.Forms.TextBox();
@@ -76,6 +76,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.button2 = new OS.ButtonLastest();
 			this.button3 = new OS.ButtonLastest();
+			this.lblMainID = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhonemobile)).BeginInit();
 			this.SuspendLayout();
@@ -95,11 +96,6 @@
 			this.groupBox1.Controls.Add(this.label18);
 			this.groupBox1.Controls.Add(this.label17);
 			this.groupBox1.Controls.Add(this.label16);
-			this.groupBox1.Controls.Add(this.button1);
-			this.groupBox1.Controls.Add(this.btnaddINSCON);
-			this.groupBox1.Controls.Add(this.btnaddINSCONdeelete);
-			this.groupBox1.Controls.Add(this.btnupdateINSCON);
-			this.groupBox1.Controls.Add(this.btncacncelINSCON);
 			this.groupBox1.Controls.Add(this.label15);
 			this.groupBox1.Controls.Add(this.txtEmailINSPRONumber);
 			this.groupBox1.Controls.Add(this.label14);
@@ -128,7 +124,7 @@
 			this.groupBox1.ForeColor = System.Drawing.Color.White;
 			this.groupBox1.Location = new System.Drawing.Point(12, 72);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(1346, 607);
+			this.groupBox1.Size = new System.Drawing.Size(1346, 491);
 			this.groupBox1.TabIndex = 30;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Insider Profile";
@@ -160,25 +156,25 @@
 			// 
 			this.dataGridViewPhonemobile.AllowUserToAddRows = false;
 			this.dataGridViewPhonemobile.AllowUserToDeleteRows = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewPhonemobile.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+			dataGridViewCellStyle7.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewPhonemobile.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
 			this.dataGridViewPhonemobile.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewPhonemobile.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Pannodg});
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridViewPhonemobile.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle8.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+			dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+			dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridViewPhonemobile.DefaultCellStyle = dataGridViewCellStyle8;
 			this.dataGridViewPhonemobile.Location = new System.Drawing.Point(500, 365);
 			this.dataGridViewPhonemobile.Name = "dataGridViewPhonemobile";
 			this.dataGridViewPhonemobile.Size = new System.Drawing.Size(329, 101);
@@ -304,7 +300,7 @@
 			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.button1.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button1.ForeColor = System.Drawing.Color.Black;
-			this.button1.Location = new System.Drawing.Point(1056, 524);
+			this.button1.Location = new System.Drawing.Point(1070, 580);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(252, 40);
 			this.button1.TabIndex = 59;
@@ -319,7 +315,7 @@
 			this.btnaddINSCON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnaddINSCON.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnaddINSCON.ForeColor = System.Drawing.Color.Black;
-			this.btnaddINSCON.Location = new System.Drawing.Point(24, 524);
+			this.btnaddINSCON.Location = new System.Drawing.Point(38, 580);
 			this.btnaddINSCON.Name = "btnaddINSCON";
 			this.btnaddINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCON.TabIndex = 14;
@@ -334,7 +330,7 @@
 			this.btnaddINSCONdeelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnaddINSCONdeelete.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnaddINSCONdeelete.ForeColor = System.Drawing.Color.Black;
-			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(798, 524);
+			this.btnaddINSCONdeelete.Location = new System.Drawing.Point(812, 580);
 			this.btnaddINSCONdeelete.Name = "btnaddINSCONdeelete";
 			this.btnaddINSCONdeelete.Size = new System.Drawing.Size(252, 40);
 			this.btnaddINSCONdeelete.TabIndex = 17;
@@ -350,7 +346,7 @@
 			this.btnupdateINSCON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnupdateINSCON.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnupdateINSCON.ForeColor = System.Drawing.Color.Black;
-			this.btnupdateINSCON.Location = new System.Drawing.Point(282, 524);
+			this.btnupdateINSCON.Location = new System.Drawing.Point(296, 580);
 			this.btnupdateINSCON.Name = "btnupdateINSCON";
 			this.btnupdateINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btnupdateINSCON.TabIndex = 15;
@@ -366,7 +362,7 @@
 			this.btncacncelINSCON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btncacncelINSCON.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btncacncelINSCON.ForeColor = System.Drawing.Color.Black;
-			this.btncacncelINSCON.Location = new System.Drawing.Point(540, 524);
+			this.btncacncelINSCON.Location = new System.Drawing.Point(554, 580);
 			this.btncacncelINSCON.Name = "btncacncelINSCON";
 			this.btncacncelINSCON.Size = new System.Drawing.Size(252, 40);
 			this.btncacncelINSCON.TabIndex = 16;
@@ -577,7 +573,7 @@
 			// cmdINSCONSAVEID
 			// 
 			this.cmdINSCONSAVEID.FormattingEnabled = true;
-			this.cmdINSCONSAVEID.Location = new System.Drawing.Point(690, 574);
+			this.cmdINSCONSAVEID.Location = new System.Drawing.Point(874, 365);
 			this.cmdINSCONSAVEID.Name = "cmdINSCONSAVEID";
 			this.cmdINSCONSAVEID.Size = new System.Drawing.Size(121, 27);
 			this.cmdINSCONSAVEID.TabIndex = 42;
@@ -705,22 +701,45 @@
 			this.button3.UseVisualStyleBackColor = false;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
+			// lblMainID
+			// 
+			this.lblMainID.AutoSize = true;
+			this.lblMainID.BackColor = System.Drawing.Color.Transparent;
+			this.lblMainID.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblMainID.Location = new System.Drawing.Point(101, 37);
+			this.lblMainID.Name = "lblMainID";
+			this.lblMainID.Size = new System.Drawing.Size(0, 19);
+			this.lblMainID.TabIndex = 33;
+			this.lblMainID.Visible = false;
+			// 
 			// MASTER_FOR_RECORDING_INSIDER_PROFILE
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 			this.ClientSize = new System.Drawing.Size(1370, 730);
+			this.Controls.Add(this.lblMainID);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.btnupdateINSCON);
+			this.Controls.Add(this.btncacncelINSCON);
+			this.Controls.Add(this.btnaddINSCONdeelete);
+			this.Controls.Add(this.btnaddINSCON);
+			this.Controls.Add(this.button1);
 			this.Font = new System.Drawing.Font("SF Pro Display", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Name = "MASTER_FOR_RECORDING_INSIDER_PROFILE";
 			this.Text = "MASTER FOR RECORDING INSIDER PROFILE";
 			this.Load += new System.EventHandler(this.MASTER_FOR_RECORDING_INSIDER_PROFILE_Load);
+			this.Controls.SetChildIndex(this.button1, 0);
+			this.Controls.SetChildIndex(this.btnaddINSCON, 0);
+			this.Controls.SetChildIndex(this.btnaddINSCONdeelete, 0);
+			this.Controls.SetChildIndex(this.btncacncelINSCON, 0);
+			this.Controls.SetChildIndex(this.btnupdateINSCON, 0);
 			this.Controls.SetChildIndex(this.groupBox1, 0);
 			this.Controls.SetChildIndex(this.button3, 0);
 			this.Controls.SetChildIndex(this.button2, 0);
+			this.Controls.SetChildIndex(this.lblMainID, 0);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhonemobile)).EndInit();
@@ -777,5 +796,6 @@
 		private ButtonLastest button2;
 		private ButtonLastest button3;
 		private ButtonLastest btnINSCONaddnumber;
+		private System.Windows.Forms.Label lblMainID;
 	}
 }

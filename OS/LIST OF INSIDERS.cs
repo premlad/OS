@@ -138,11 +138,11 @@ namespace OS
 				//{
 				if (dataGridViewTable.Rows.Count > 0)
 				{
-					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.CURRVALUE = "LIST OF INSIDER PROFILE";
 					lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 
 					SaveFileDialog sfd = new SaveFileDialog
@@ -180,11 +180,11 @@ namespace OS
 				//{
 				if (dataGridViewTable.Rows.Count > 0)
 				{
-					lg.CURRVALUE = "INSIDER PROFILE TAB";
+					lg.CURRVALUE = "LIST OF INSIDER PROFILE";
 					lg.DESCRIPTION = "DOWNLOADED PDF FILE";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 
 
@@ -221,7 +221,7 @@ namespace OS
 			lg.DESCRIPTION = "PRINT FILE";
 			lg.TYPE = "SELECTED";
 			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-			lg.ID = SESSIONKEYS.UserID.ToString();
+			//lg.ID = SESSIONKEYS.UserID.ToString();
 			string json = new MasterClass().SAVE_LOG(lg);
 
 			//Resize DataGridView to full height.

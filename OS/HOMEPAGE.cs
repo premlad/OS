@@ -190,7 +190,7 @@ namespace OS
 				lg.DESCRIPTION = "LOG OUT SUCCESSFULLY";
 				lg.TYPE = "SELECTED";
 				lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-				lg.ID = SESSIONKEYS.UserID.ToString();
+				//lg.ID = SESSIONKEYS.UserID.ToString();
 				string json = new MasterClass().SAVE_LOG(lg);
 
 				SESSIONKEYS.UserID = "";
@@ -233,7 +233,7 @@ namespace OS
 					{
 						lg.CURRVALUE = "BACK UP DATA";
 						lg.TYPE = "SELECTED";
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.DESCRIPTION = "BACK UP DATA";
 						new MasterClass().SAVE_LOG(lg);
@@ -277,7 +277,7 @@ namespace OS
 					{
 						lg.CURRVALUE = "RESTORE DATA";
 						lg.TYPE = "SELECTED";
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.DESCRIPTION = "RESTORE DATA";
 						new MasterClass().SAVE_LOG(lg);
@@ -299,7 +299,7 @@ namespace OS
 
 						lg.CURRVALUE = "RESTORE DATA";
 						lg.TYPE = "SELECTED";
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 						lg.DESCRIPTION = "RESTORE DATA";
 						new MasterClass().SAVE_LOG(lg);
@@ -342,7 +342,7 @@ namespace OS
 					lg.ID = ds;
 					lg.DESCRIPTION = "DATABASE LOCKED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					new MasterClass().SAVE_LOG(lg);
 
 					string backupPath = folderBrowserDialog1.SelectedPath;
@@ -355,7 +355,7 @@ namespace OS
 					System.IO.File.Copy(sourceFile, destFile, true);
 					lg.CURRVALUE = "BACK UP DATA";
 					lg.TYPE = "SELECTED";
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
 					lg.DESCRIPTION = "BACK UP DATA";
 					new MasterClass().SAVE_LOG(lg);

@@ -133,7 +133,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";
@@ -181,7 +181,7 @@ namespace OS
 						lg.ID = ds;
 						lg.DESCRIPTION = "LOGIN CREATION";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						new MasterClass().SAVE_LOG(lg);
 
 						if (Convert.ToInt32(ds) > 0)
@@ -202,7 +202,7 @@ namespace OS
 						lg.ID = ds;
 						lg.DESCRIPTION = "LOGIN CREATION";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						new MasterClass().SAVE_LOG(lg);
 
 						if (Convert.ToInt32(ds) > 0)

@@ -307,10 +307,10 @@
 			// 
 			// Datteime
 			// 
-			this.Datteime.HeaderText = "Date and Time of Sharing";
+			this.Datteime.HeaderText = "Date of Sharing";
 			this.Datteime.Name = "Datteime";
 			this.Datteime.ReadOnly = true;
-			this.Datteime.Width = 136;
+			this.Datteime.Width = 125;
 			// 
 			// effectiveupto
 			// 

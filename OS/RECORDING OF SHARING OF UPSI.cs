@@ -209,7 +209,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";
@@ -425,13 +425,14 @@ namespace OS
 		{
 			try
 			{
+				int val = 0;
 				if (txtUPSIID.Text == "")
 				{
-					Clear();
-					btnupdateINSCON.Visible = false;
-					btnaddINSCONdeelete.Visible = false;
-					btncacncelINSCON.Visible = false;
-					btnaddINSCON.Visible = true;
+					//Clear();
+					//btnupdateINSCON.Visible = false;
+					//btnaddINSCONdeelete.Visible = false;
+					//btncacncelINSCON.Visible = false;
+					//btnaddINSCON.Visible = true;
 				}
 				else
 				{
@@ -511,6 +512,8 @@ namespace OS
 								btnaddINSCONdeelete.Visible = true;
 								btncacncelINSCON.Visible = true;
 								btnaddINSCON.Visible = false;
+								txtUPSINAME.Enabled = false;
+								val++;
 								//if (ds.Tables[0].Rows[0]["ACTIVE"].ToString().Trim() == "N")
 								//{
 								//	btnupdateINSCON.Enabled = false;
@@ -524,14 +527,19 @@ namespace OS
 							}
 							else
 							{
-								Clear();
-								btnupdateINSCON.Visible = false;
-								btnaddINSCONdeelete.Visible = false;
-								btncacncelINSCON.Visible = false;
-								btnaddINSCON.Visible = true;
+								//Clear();
+								//btnupdateINSCON.Visible = false;
+								//btnaddINSCONdeelete.Visible = false;
+								//btncacncelINSCON.Visible = false;
+								//btnaddINSCON.Visible = true;
 							}
 						}
 					}
+				}
+
+				if (val == 0)
+				{
+					button2.PerformClick();
 				}
 			}
 			catch (Exception ex)
@@ -607,7 +615,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";
@@ -736,7 +744,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";

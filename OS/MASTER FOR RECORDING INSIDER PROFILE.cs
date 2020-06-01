@@ -187,7 +187,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";
@@ -385,15 +385,16 @@ namespace OS
 		{
 			try
 			{
+				int val = 0;
 				cmbINSPROcategoryofreceipt.Text = "";
 				if (txtINSPROreceipeitnID.Text == "")
 				{
-					Clear();
-					txtINSPROreceipeitnID.Enabled = true;
-					btnupdateINSCON.Visible = false;
-					btnaddINSCONdeelete.Visible = false;
-					btncacncelINSCON.Visible = false;
-					btnaddINSCON.Visible = true;
+					//Clear();
+					//txtINSPROreceipeitnID.Enabled = true;
+					//btnupdateINSCON.Visible = false;
+					//btnaddINSCONdeelete.Visible = false;
+					//btncacncelINSCON.Visible = false;
+					//btnaddINSCON.Visible = true;
 				}
 				else
 				{
@@ -406,6 +407,7 @@ namespace OS
 							DataSet ds = new MasterClass().getDataSet("SELECT * FROM T_INS_PRO WHERE LOCK = 'N'  AND ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID + "'");
 							if (ds.Tables[0].Rows.Count > 0)
 							{
+								lblMainID.Text = ds.Tables[0].Rows[0]["ID"].ToString();
 								txtINSPROnameofinsider.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["NAMEINSIDER"].ToString());
 								txtINSPROreceipeitnID.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["RECEPIENTID"].ToString());
 								txtINSPROaddressmaster.Text = CryptographyHelper.Decrypt(ds.Tables[0].Rows[0]["ADDRESS"].ToString());
@@ -464,24 +466,31 @@ namespace OS
 								{
 									btnupdateINSCON.Enabled = false;
 									btnaddINSCONdeelete.Text = "RETREIVE IP";
+									groupBox1.Enabled = false;
 								}
 								else
 								{
 									btnupdateINSCON.Enabled = true;
 									btnaddINSCONdeelete.Text = "NOMORE IP";
 								}
+								val++;
 							}
 							else
 							{
-								Clear();
-								txtINSPROreceipeitnID.Enabled = true;
-								btnupdateINSCON.Visible = false;
-								btnaddINSCONdeelete.Visible = false;
-								btncacncelINSCON.Visible = false;
-								btnaddINSCON.Visible = true;
+								//Clear();
+								//txtINSPROreceipeitnID.Enabled = true;
+								//btnupdateINSCON.Visible = false;
+								//btnaddINSCONdeelete.Visible = false;
+								//btncacncelINSCON.Visible = false;
+								//btnaddINSCON.Visible = true;
 							}
 						}
 					}
+				}
+
+				if (val == 0)
+				{
+					button2.PerformClick();
 				}
 
 
@@ -495,6 +504,7 @@ namespace OS
 
 		public void Clear()
 		{
+			lblMainID.Text = "";
 			txtINSPROnameofinsider.Text = "";
 			txtINSPROreceipeitnID.Text = "";
 			txtINSPROaddressmaster.Text = "";
@@ -510,6 +520,7 @@ namespace OS
 			dataGridViewPhonemobile.Refresh();
 			cmdINSPROcategoryothers.Visible = false;
 			label12.Visible = false;
+			groupBox1.Enabled = true;
 		}
 
 		private void btncacncelINSCON_Click(object sender, EventArgs e)
@@ -547,7 +558,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";
@@ -626,7 +637,7 @@ namespace OS
 					{
 						T_INS_PRO PRO = new T_INS_PRO
 						{
-							ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
+							ID = lblMainID.Text,
 							NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
 							RECEPIENT_ID = txtINSPROreceipeitnID.Text,
 							ADDRESS = txtINSPROaddressmaster.Text,
@@ -665,12 +676,12 @@ namespace OS
 
 						if (error == 0)
 						{
-							DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_PRO_LOG WHERE ACTIVE = 'Y' ORDER BY ENTEREDON DESC");
+							DataSet getval = new MasterClass().getDataSet("SELECT ID FROM T_INS_PRO_LOG WHERE ACTIVE = 'Y' AND TID = '" + lblMainID.Text + "' ORDER BY ENTEREDON DESC");
 							DataSet updateUPSI = new MasterClass().getDataSet("SELECT ID,RECIPIENTNAME,NDASIGNED FROM T_INS_UPSI");
 
-							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO SET RECEPIENTID = '" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "',NAMEINSIDER = '" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "',CATEGORYRECEIPT = '" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "',ADDRESS = '" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "',PANNO = '" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "',OTHERIDENTIFIER = '" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "',AADHARNO = '" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "',MOBILENO = '" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "',LANDLINENO = '" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "',EMAILID = '" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "',PANNOAFFILIATES = '" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON ='" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + lblMainID.Text + "' ; ").ToString();
 
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + lblMainID.Text + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("UPDATED") + "','Y','N') ;").ToString();
 							if (updateUPSI.Tables[0].Rows.Count > 0)
 							{
 								for (int i = 0; i < updateUPSI.Tables[0].Rows.Count; i++)
@@ -758,7 +769,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";
@@ -770,7 +781,7 @@ namespace OS
 				{
 					T_INS_PRO PRO = new T_INS_PRO
 					{
-						ID = ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString(),
+						ID = lblMainID.Text,
 						NAME_OF_INSIDER = txtINSPROnameofinsider.Text,
 						RECEPIENT_ID = txtINSPROreceipeitnID.Text,
 						ADDRESS = txtINSPROaddressmaster.Text,
@@ -798,9 +809,9 @@ namespace OS
 						if (dialogResult == DialogResult.Yes)
 						{
 
-							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'Y',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'Y',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + lblMainID.Text + "' ; ").ToString();
 
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("RETREIVE IP") + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + lblMainID.Text + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("RETREIVE IP") + "','Y','N') ;").ToString();
 
 							lg.CURRVALUE = "INSIDER PROFILE TAB";
 							lg.TYPE = "RETREIVE IP";
@@ -833,9 +844,9 @@ namespace OS
 						if (dialogResult == DialogResult.Yes)
 						{
 
-							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "' ; ").ToString();
+							string ds = new MasterClass().executeQueryForDB("UPDATE T_INS_PRO  SET ACTIVE = 'N',MODIFIEDBY = '" + SESSIONKEYS.UserID.ToString() + "',MODIFIEDON = '" + CryptographyHelper.Encrypt(MasterClass.GETIST()) + "' WHERE ID = '" + lblMainID.Text + "' ; ").ToString();
 
-							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + ((ComboboxItem)cmdINSCONSAVEID.SelectedItem).ID.ToString() + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("NOMORE IP TAG") + "','Y','N') ;").ToString();
+							string perlogid = new MasterClass().executeQuery("INSERT INTO T_INS_PRO_LOG(TID,RECEPIENTID,NAMEINSIDER,CATEGORYRECEIPT,ADDRESS,PANNO,OTHERIDENTIFIER,AADHARNO,MOBILENO,LANDLINENO,EMAILID,PANNOAFFILIATES,ENTEREDBY,ENTEREDON,OPERATION,ACTIVE,LOCK) VALUES ('" + lblMainID.Text + "','" + CryptographyHelper.Encrypt(PRO.RECEPIENT_ID) + "','" + CryptographyHelper.Encrypt(PRO.NAME_OF_INSIDER) + "','" + CryptographyHelper.Encrypt(PRO.CATEGORY_OF_RECEIPT) + "','" + CryptographyHelper.Encrypt(PRO.ADDRESS) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO) + "','" + CryptographyHelper.Encrypt(PRO.OTHERIDENTIFIER) + "','" + CryptographyHelper.Encrypt(PRO.AADHAR_NO) + "','" + CryptographyHelper.Encrypt(PRO.MOBILE_NO) + "','" + CryptographyHelper.Encrypt(PRO.LANDLINE_NO) + "','" + CryptographyHelper.Encrypt(PRO.EMAIL_ID) + "','" + CryptographyHelper.Encrypt(PRO.PAN_NO_OF_AFFILAIATES) + "','" + SESSIONKEYS.UserID.ToString() + "','" + MasterClass.GETIST() + "','" + CryptographyHelper.Encrypt("NOMORE IP TAG") + "','Y','N') ;").ToString();
 
 							lg.CURRVALUE = "INSIDER PROFILE TAB";
 							lg.TYPE = "NOMORE IP";
@@ -935,6 +946,7 @@ namespace OS
 			txtPANNOINSPRONumber.Enabled = true;
 			btnINSCONaddnumber.Enabled = true;
 			txtlandlineINSPRONumber.Enabled = true;
+			groupBox1.Enabled = true;
 		}
 
 		private void btnINSCONaddnumber_Click(object sender, EventArgs e)

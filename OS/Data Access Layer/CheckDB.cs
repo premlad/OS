@@ -1,6 +1,6 @@
-﻿using RSACryptography;
+﻿using OS.Data_Entity;
+using RSACryptography;
 using System;
-using System.Configuration;
 using System.Data.SqlServerCe;
 using System.IO;
 
@@ -10,7 +10,8 @@ namespace OS.Data_Access_Layer
 	{
 		//public SqlCeCommand cmd;
 		//public SqlCeConnection con = new SqlCeConnection(ConfigurationManager.ConnectionStrings["CONNECT"].ToString());
-		private readonly string _C = ConfigurationManager.ConnectionStrings["CONNECT"].ToString();
+		//private readonly string _C = ConfigurationManager.ConnectionStrings["CONNECT"].ToString();
+		private readonly string _C = SESSIONKEYS.CONNECT;
 		public string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
 		public string TXTPATH = Directory.GetCurrentDirectory() + "\\DBSCRIPTS";
 		public string qry = "";

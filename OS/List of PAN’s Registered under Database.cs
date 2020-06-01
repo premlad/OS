@@ -180,7 +180,7 @@ namespace OS
 					lg.DESCRIPTION = "DOWNLOADED PDF FILE";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 
 
@@ -226,7 +226,7 @@ namespace OS
 					lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 
 					SaveFileDialog sfd = new SaveFileDialog

@@ -1395,9 +1395,8 @@
 			this.lblidforcp.Font = new System.Drawing.Font("SF Pro Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblidforcp.Location = new System.Drawing.Point(19, 36);
 			this.lblidforcp.Name = "lblidforcp";
-			this.lblidforcp.Size = new System.Drawing.Size(148, 19);
+			this.lblidforcp.Size = new System.Drawing.Size(0, 19);
 			this.lblidforcp.TabIndex = 67;
-			this.lblidforcp.Text = "Connected Person ID";
 			this.lblidforcp.Visible = false;
 			// 
 			// MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON

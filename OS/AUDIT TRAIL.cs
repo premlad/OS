@@ -1325,7 +1325,7 @@ namespace OS
 						lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						string json = new MasterClass().SAVE_LOG(lg);
 
 						new MasterClass().ToCsV(dataGridViewTable, sfd.FileName); // Here dvwACH is your grid view name
@@ -1370,7 +1370,7 @@ namespace OS
 						lg.DESCRIPTION = "DOWNLOADED PDF FILE";
 						lg.TYPE = "SELECTED";
 						lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-						lg.ID = SESSIONKEYS.UserID.ToString();
+						//lg.ID = SESSIONKEYS.UserID.ToString();
 						string json = new MasterClass().SAVE_LOG(lg);
 						DataGridView dataGrid = new DataGridView();
 						dataGrid = dataGridViewTable;

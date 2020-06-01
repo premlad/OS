@@ -132,7 +132,7 @@ namespace OS
 					lg.DESCRIPTION = "FORCE LOGOUT DUE TO DATE MISMATCH";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SESSIONKEYS.UserID = "";
 					SESSIONKEYS.Role = "";

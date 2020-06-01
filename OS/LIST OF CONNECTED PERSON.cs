@@ -216,11 +216,11 @@ namespace OS
 				//{
 				if (dataGridViewTable.Rows.Count > 0)
 				{
-					lg.CURRVALUE = "CONNECTED PERSON TAB";
+					lg.CURRVALUE = "LIST OF CONNECTED PERSON";
 					lg.DESCRIPTION = "DOWNLOADED EXCEL FILE";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SaveFileDialog sfd = new SaveFileDialog
 					{
@@ -261,11 +261,11 @@ namespace OS
 				//{
 				if (dataGridViewTable.Rows.Count > 0)
 				{
-					lg.CURRVALUE = "CONNECTED PERSON TAB";
+					lg.CURRVALUE = "LIST OF CONNECTED PERSON";
 					lg.DESCRIPTION = "DOWNLOADED PDF FILE";
 					lg.TYPE = "SELECTED";
 					lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-					lg.ID = SESSIONKEYS.UserID.ToString();
+					//lg.ID = SESSIONKEYS.UserID.ToString();
 					string json = new MasterClass().SAVE_LOG(lg);
 					SaveFileDialog sfd = new SaveFileDialog
 					{
@@ -300,7 +300,7 @@ namespace OS
 			lg.DESCRIPTION = "PRINT FILE";
 			lg.TYPE = "SELECTED";
 			lg.ENTEREDBY = SESSIONKEYS.UserID.ToString();
-			lg.ID = SESSIONKEYS.UserID.ToString();
+			//lg.ID = SESSIONKEYS.UserID.ToString();
 			string json = new MasterClass().SAVE_LOG(lg);
 		}
 
