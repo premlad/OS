@@ -1,6 +1,0 @@
-Exception file created: 5/21/2020 2:33:48 PM
-System.FormatException: String was not recognized as a valid DateTime.
-   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
-   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
-   at System.Windows.Forms.Control.Invoke(Delegate method)
-   at OS.REPORTS_OF_SHARING_OF_UPSI.FillDataGrid() in C:\TB DATA\BACKUP MAU\UREKA PROJECTS\OS\OS SETUP\OS\REPORTS OF SHARING OF UPSI.cs:line 84

@@ -1,2 +1,0 @@
-Exception file created: 13-May-20 11:11:01 PM
-The column name is not valid. [ Node name (if any) = ,Column name = DATEFROM ]

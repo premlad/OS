@@ -1,2 +1,0 @@
-Exception file created: 20-May-20 1:15:24 PM
-The database file cannot be found. Check the path to the database. [ Data Source = OS.sdf ]

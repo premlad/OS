@@ -1,6 +1,0 @@
-Exception file created: 20-May-20 12:34:02 PM
-System.IndexOutOfRangeException: There is no row at position 0.
-   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
-   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
-   at System.Windows.Forms.Control.Invoke(Delegate method)
-   at OS.List_of_PAN_s_Registered_under_Database.FillDataGrid() in C:\TB DATA\BACKUP MAU\UREKA PROJECTS\OS\OS SETUP\OS\List of PAN’s Registered under Database.cs:line 78

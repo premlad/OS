@@ -1,7 +1,0 @@
-Exception file created: 19-May-20 8:28:50 PM
-System.Security.Cryptography.CryptographicException: Bad Length.
-
-   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
-   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
-   at System.Windows.Forms.Control.Invoke(Delegate method)
-   at OS.MASTER_FOR_RECORDING_INSIDER_CONNECTED_PERSON.btnaddINSCON_Click(Object sender, EventArgs e) in C:\TB DATA\BACKUP MAU\UREKA PROJECTS\OS\OS SETUP\OS\MASTER FOR RECORDING INSIDER CONNECTED PERSON.cs:line 484

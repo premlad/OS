@@ -1,2 +1,0 @@
-Exception file created: 20-May-20 7:44:53 PM
-The conversion is not supported. [ Type to convert from (if known) = ntext, Type to convert to (if known) = datetime ]
